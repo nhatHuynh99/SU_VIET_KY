@@ -1,0 +1,647 @@
+<!DOCTYPE html><html lang="vi" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-background": "#1b1c1a",
+          "on-secondary": "#ffffff",
+          "on-tertiary-fixed-variant": "#214f41",
+          "primary": "#6b0210",
+          "surface-variant": "#e4e2de",
+          "surface-tint": "#a93537",
+          "surface-container-highest": "#e4e2de",
+          "on-primary": "#ffffff",
+          "background": "#fbf9f5",
+          "on-surface": "#1b1c1a",
+          "tertiary-container": "#235043",
+          "surface": "#fbf9f5",
+          "primary-container": "#8b1e24",
+          "on-secondary-fixed": "#251a00",
+          "on-primary-container": "#ff9d99",
+          "surface-dim": "#dbdad6",
+          "outline-variant": "#dfbfbd",
+          "error": "#ba1a1a",
+          "on-primary-fixed": "#410006",
+          "on-primary-fixed-variant": "#891c22",
+          "surface-container-high": "#eae8e4",
+          "secondary": "#775a00",
+          "primary-fixed-dim": "#ffb3b0",
+          "primary-fixed": "#ffdad8",
+          "on-secondary-fixed-variant": "#5a4300",
+          "surface-container-low": "#f5f3ef",
+          "surface-container": "#efeeea",
+          "tertiary-fixed": "#bcedda",
+          "inverse-primary": "#ffb3b0",
+          "error-container": "#ffdad6",
+          "outline": "#8b716f",
+          "secondary-container": "#fece57",
+          "secondary-fixed": "#ffdf98",
+          "on-surface-variant": "#584140",
+          "tertiary-fixed-dim": "#a1d1bf",
+          "on-tertiary-fixed": "#002118",
+          "secondary-fixed-dim": "#eec14b",
+          "on-tertiary-container": "#92c1b0",
+          "inverse-surface": "#30312e",
+          "on-error-container": "#93000a",
+          "surface-bright": "#fbf9f5",
+          "on-secondary-container": "#735700",
+          "inverse-on-surface": "#f2f0ed",
+          "on-tertiary": "#ffffff",
+          "on-error": "#ffffff",
+          "surface-container-lowest": "#ffffff",
+          "tertiary": "#06392d"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-2xs": "0.25rem",
+          "space-xs": "0.5rem",
+          "space-4xl": "6rem",
+          "space-md": "1rem",
+          "gutter": "1.5rem",
+          "space-2xl": "3rem",
+          "space-3xl": "4.5rem",
+          "margin-tablet": "2rem",
+          "space-xl": "2rem",
+          "space-sm": "0.75rem",
+          "margin-desktop": "3.5rem",
+          "margin-mobile": "1rem",
+          "space-lg": "1.5rem"
+        },
+        "fontFamily": {
+          "headline-sm": ["Noto Serif"],
+          "headline-lg-mobile": ["Noto Serif"],
+          "body-md": ["Be Vietnam Pro"],
+          "label-sm": ["Be Vietnam Pro"],
+          "label-md": ["Be Vietnam Pro"],
+          "label-lg": ["Be Vietnam Pro"],
+          "body-sm": ["Be Vietnam Pro"],
+          "headline-md": ["Noto Serif"],
+          "caption-era": ["Noto Serif"],
+          "body-lg": ["Be Vietnam Pro"],
+          "display-lg-mobile": ["Noto Serif"],
+          "display-lg": ["Noto Serif"],
+          "headline-lg": ["Noto Serif"]
+        },
+        "fontSize": {
+          "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+          "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "600"}],
+          "body-md": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+          "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.06em", "fontWeight": "500"}],
+          "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+          "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "600"}],
+          "body-sm": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+          "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+          "caption-era": ["13px", {"lineHeight": "18px", "letterSpacing": "0.12em", "fontWeight": "600"}],
+          "body-lg": ["18px", {"lineHeight": "30px", "fontWeight": "400"}],
+          "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "display-lg": ["56px", {"lineHeight": "68px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+          "headline-lg": ["36px", {"lineHeight": "46px", "fontWeight": "600"}]
+        }
+      }
+    }
+  };</script></head><body class="bg-surface-container-lowest font-body-md text-body-md text-on-surface antialiased min-h-screen"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_1px_8px_rgba(71,56,32,0.06)]"><div class="h-20 max-w-7xl mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm shrink-0"><img alt="Brand logo. - Primary color: #8b1e24
+- Font: notoSerif
+- Mode: light
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WmSL9eQqfK7_h2eg3abgk8wbSTT83-Er312UV6mdBXstw1PElFdTJFdOcb2BPsKpu90rPbXc2kpCCCIvxM-FrQlF5YkrIOMJnOr8KsfVCTMp6iy4YkcSjrvp6YeJrgUoCXlrmzrIwRFqVZ-K-ZyRS1NYGRoh8jLQDxiiHAlwbmBzmf3_w-GF960pf0grpBSvJwfvNRdTOloboBi22kQnKVlyKPEf4Wy3HTJ0cbm812YIp2tXiHZ0zv7lg"><a class="flex flex-col" data-path="trang-chu" href="#"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">Sử Việt Ký</span><span class="font-caption-era text-caption-era text-secondary uppercase text-[10px] tracking-widest hidden sm:inline-block">Kho Tàng Lịch Sử Đại Việt</span></a></div><div class="flex-1 max-w-lg mx-space-sm hidden md:block"><div class="relative flex items-center w-full"><span class="material-symbols-outlined absolute left-space-sm text-on-surface-variant text-[20px]">search</span><input class="w-full pl-10 pr-20 py-space-xs bg-surface-container-low text-on-surface font-body-sm text-body-sm rounded-lg focus:outline-none focus:bg-surface-container-lowest transition-all" placeholder="Tra cứu niên đại, nhân vật, sự kiện hoặc tư liệu..." type="text"><div class="absolute right-space-xs flex items-center gap-space-2xs"><span class="font-label-sm text-label-sm bg-surface-variant text-on-surface-variant px-space-2xs py-[2px] rounded">VN</span><span class="font-label-sm text-label-sm bg-surface-variant text-on-surface-variant px-space-2xs py-[2px] rounded">⌘K</span></div></div></div><nav class="hidden lg:flex items-center gap-space-lg shrink-0" data-active-classes="text-primary font-bold"><a aria-current="page" class="transition-colors text-primary font-bold" data-path="trang-chu" href="#">Trang Chủ</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="dong-thoi-gian" href="#">Dòng Thời Gian</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="trieu-dai" href="#">Triều Đại</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="nhan-vat-lich-su" href="#">Nhân Vật</a><a class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface transition-colors" data-path="ban-do-co" href="#">Bản Đồ Cổ</a></nav><div class="flex items-center gap-space-sm shrink-0"><a class="inline-flex items-center gap-space-2xs px-space-md py-space-xs bg-primary text-on-primary font-label-lg text-label-lg rounded hover:bg-primary-container hover:text-on-primary transition-colors shadow-[0_2px_8px_rgba(107,2,16,0.18)]" data-path="kho-luu-tru" href="#"><span class="material-symbols-outlined text-[18px]">local_library</span><span class="">Kho Lưu Trữ</span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 bg-surface-container-lowest min-h-[calc(100vh-20rem)]"><div class="flex flex-col w-full">
+<!-- Sub-Header & Breadcrumb Bar -->
+<section class="w-full bg-surface-container-low/80 backdrop-blur-sm border-b border-outline-variant/30">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop py-space-sm flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<nav aria-label="Breadcrumb" class="flex items-center gap-space-2xs text-on-surface-variant font-label-md text-label-md">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[16px]">temple_buddhist</span>
+          Trang Chủ
+        </a>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Tủ Sách Lịch Sử</a>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<span class="text-primary font-bold">Các Tác Phẩm &amp; Tuyên Ngôn Bất Hủ</span>
+</nav>
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-1.5 px-space-xs py-1 rounded-full bg-secondary-container/40 text-on-secondary-container font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          Di Sản Quốc Gia Số Hóa
+        </span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">| 18 Bộ Thư Tịch &amp; Văn Bản Cổ</span>
+</div>
+</div>
+</section>
+<!-- Dual Mode Switcher & Filter Bar -->
+<section class="w-full bg-surface-container-lowest shadow-sm"><div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop py-space-sm flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-2xs overflow-x-auto w-full pb-1 scrollbar-none" id="category-pills"><button class="pill-btn shrink-0 px-space-sm py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md transition-all shadow-sm" data-category="all">Tất Cả Tác Phẩm (12)</button><button class="pill-btn shrink-0 px-space-sm py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all" data-category="declarations">3 Bản Tuyên Ngôn Độc Lập</button><button class="pill-btn shrink-0 px-space-sm py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all" data-category="chronicles">Bộ Quốc Sử Chính Thống</button><button class="pill-btn shrink-0 px-space-sm py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md transition-all" data-category="military">Binh Thư &amp; Văn Kiện Quân Sự</button></div></div></section>
+<!-- Main Content Layout with Responsive Sidebar -->
+<div class="w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop py-space-xl">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- Left Column / Filter & Utility Rail -->
+<aside class="lg:col-span-3 flex flex-col gap-space-lg w-full"><div class="flex flex-col gap-2 w-full"><a href="#" id="btn-search-mode" class="w-full bg-surface-container-lowest hover:bg-surface-container-low border border-outline-variant/30 text-on-surface-variant font-label-lg text-label-lg py-3 px-4 rounded-xl flex items-center gap-3 transition-colors shadow-sm cursor-pointer"><span class="material-symbols-outlined text-[20px] text-outline">search</span><span class="font-medium">Tra cứu / Tìm kiếm</span></a><a href="#" id="btn-library-mode" class="w-full bg-primary text-on-primary font-label-lg text-label-lg py-3 px-4 rounded-xl flex items-center gap-3 transition-all shadow-md"><span class="material-symbols-outlined text-[20px] text-on-primary">menu_book</span><span class="font-semibold">Sách Lịch Sử Việt Nam</span></a></div>
+<!-- Search & Filter Card -->
+<div class="bg-surface-container-low rounded-lg p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary flex items-center gap-1.5 text-base">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+              Bộ Lọc Thư Viện
+            </span>
+<button class="font-label-sm text-label-sm text-secondary hover:underline" type="button">Đặt lại</button>
+</div>
+<!-- Quick Keyword Input -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-lowest text-on-surface font-body-sm text-body-sm rounded focus:outline-none focus:ring-1 focus:ring-primary shadow-inner" placeholder="Tìm tên sách, tác giả..." type="text">
+</div>
+<!-- Era Classification -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">Thời Đại Lịch Sử</span>
+<label class="flex items-center gap-2 cursor-pointer font-body-sm text-body-sm text-on-surface-variant hover:text-primary">
+<input checked="" class="accent-primary rounded" type="checkbox">
+<span class="">Thời Lý - Trần (1009 - 1400)</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer font-body-sm text-body-sm text-on-surface-variant hover:text-primary">
+<input checked="" class="accent-primary rounded" type="checkbox">
+<span class="">Thời Hậu Lê - Mạc (1428 - 1788)</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer font-body-sm text-body-sm text-on-surface-variant hover:text-primary">
+<input checked="" class="accent-primary rounded" type="checkbox">
+<span class="">Thời Tây Sơn &amp; Triều Nguyễn</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer font-body-sm text-body-sm text-on-surface-variant hover:text-primary">
+<input checked="" class="accent-primary rounded" type="checkbox">
+<span class="">Cận - Hiện Đại (1945 - nay)</span>
+</label>
+</div>
+<!-- Document Type -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">Loại Hình Văn Bản</span>
+<div class="flex flex-wrap gap-1.5">
+<span class="px-2.5 py-1 bg-surface-container-highest text-on-surface font-label-sm text-label-sm rounded cursor-pointer hover:bg-primary hover:text-on-primary transition-all">Quốc Sử Chiếu Chỉ</span>
+<span class="px-2.5 py-1 bg-surface-container-highest text-on-surface font-label-sm text-label-sm rounded cursor-pointer hover:bg-primary hover:text-on-primary transition-all">Hịch Cáo Lệnh</span>
+<span class="px-2.5 py-1 bg-surface-container-highest text-on-surface font-label-sm text-label-sm rounded cursor-pointer hover:bg-primary hover:text-on-primary transition-all">Binh Thư Yếu Lược</span>
+<span class="px-2.5 py-1 bg-surface-container-highest text-on-surface font-label-sm text-label-sm rounded cursor-pointer hover:bg-primary hover:text-on-primary transition-all">Bản Dịch Quốc Ngữ</span>
+</div>
+</div>
+<!-- Script / Medium -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-bold uppercase tracking-wider">Khảo Dị Chữ Viết</span>
+<div class="space-y-1 font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex justify-between items-center">
+<span class="">Chữ Hán Cổ</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container">9 bản</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="">Chữ Nôm Đại Việt</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container">5 bản</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="">Bản Khắc Mộc Bản</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-container">4 bộ</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Archival Quote Card -->
+<div class="bg-tertiary text-on-tertiary rounded-lg p-space-md shadow-md relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 opacity-10">
+<span class="material-symbols-outlined text-[120px]">auto_stories</span>
+</div>
+<div class="relative z-10 flex flex-col gap-space-sm">
+<div class="flex items-center gap-2 text-secondary-fixed">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+<span class="font-label-md text-label-md tracking-wider uppercase font-semibold">Tôn Chỉ Quốc Sử</span>
+</div>
+<p class="font-headline-sm text-headline-sm italic text-base leading-relaxed text-surface-container-lowest">
+              « Sử để ghi việc, mà việc hay hoặc dở đều là gương soi cho đời sau soi ngắm. »
+            </p>
+<span class="font-label-sm text-label-sm text-tertiary-fixed tracking-wide">
+              — Ngô Sĩ Liên, Đại Việt Sử Ký Toàn Thư (1697)
+            </span>
+</div>
+</div>
+<!-- Mini Stats Grid -->
+<div class="grid grid-cols-2 gap-space-xs">
+<div class="bg-surface-container-low p-space-sm rounded text-center">
+<span class="font-display-lg-mobile text-display-lg-mobile text-primary font-bold block leading-none">3</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1 block">Tuyên Ngôn Bất Hủ</span>
+</div>
+<div class="bg-surface-container-low p-space-sm rounded text-center">
+<span class="font-display-lg-mobile text-display-lg-mobile text-secondary font-bold block leading-none">24</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-1 block">Quyển Toàn Thư</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm border border-outline-variant/30"><div class="flex items-center justify-between border-b border-outline-variant/30 pb-2"><div class="flex items-center gap-1.5 text-primary"><span class="material-symbols-outlined text-[18px]">military_tech</span><span class="font-headline-sm text-headline-sm text-primary text-xs font-bold uppercase tracking-wider">Danh Nhân &amp; Hào Kiệt</span></div><span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-[10px] font-semibold uppercase tracking-wider">4 Tác Phẩm</span></div><div class="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-none text-[11px]"><button type="button" class="px-2 py-1 rounded bg-primary text-on-primary font-label-sm font-semibold shrink-0 shadow-sm">Tất cả</button><button type="button" class="px-2 py-1 rounded bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-sm shrink-0 transition-colors">Cứu nước</button><button type="button" class="px-2 py-1 rounded bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-sm shrink-0 transition-colors">Khai quốc</button></div><div class="flex flex-col gap-space-md max-h-[680px] overflow-y-auto pr-1 scrollbar-none"><div class="bg-surface-container-lowest p-space-sm rounded-lg border border-outline-variant/30 shadow-sm flex flex-col gap-2 group hover:shadow-md transition-all"><div class="relative overflow-hidden rounded shadow"><img src="https://lh3.googleusercontent.com/aida/AEtjO1WCpD9-GolscQiq0wNXv_VT_X_wFZ9agyyKJ296DVFOC3m3mENzbW9meuWNAa-kkjyE5MZPM8P4J8W6F9SzOrcaeiS7rCad6PIi_QxatmH-7zb2IGQuh6_0WyHBXR9g_0n2auBmBeCiUjo7U93RqlDyNAy07blAyvwgU2qS9I5Ok6Nbhz7a9P1527xnRDUylYJlrmoRLAj6Lb8_tBewQhwPHYFw2DBcELFwhb17yn5btznBfhKWzRHfO4k" alt="Đại Việt Anh Hùng Truyện - Hưng Đạo Đại Vương Trần Quốc Tuấn" class="w-full h-48 object-cover rounded transition-transform duration-300 group-hover:scale-[1.02]"><div class="absolute top-2 left-2 px-2 py-0.5 rounded bg-primary/90 backdrop-blur-sm text-on-primary font-label-sm text-[10px] flex items-center gap-1 shadow"><span class="material-symbols-outlined text-[12px]">workspace_premium</span>Bảo Vật Danh Nhân</div></div><div class="flex flex-col gap-1"><div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-[10px] font-semibold">Thế kỷ XIII • Thời Trần</span></div><h4 class="font-headline-sm text-primary font-bold text-sm leading-snug pt-0.5">Đại Việt Anh Hùng Truyện</h4><span class="font-caption-era text-on-surface-variant font-semibold text-[11px] tracking-wide">Trần Quốc Tuấn</span><p class="font-body-sm text-on-surface-variant text-[11px] leading-relaxed line-clamp-2">Khắc họa khí phách đại tài ba lần đại phá quân Nguyên Mông giữ yên bờ cõi non sông.</p><div class="pt-1.5 border-t border-outline-variant/30 flex items-center justify-between"><span class="font-label-sm text-outline text-[10px]">Mộc Bản &amp; Tranh Khắc</span><button type="button" class="text-primary font-label-md text-xs font-semibold hover:underline flex items-center gap-0.5">Khám phá <span class="material-symbols-outlined text-[14px]">chevron_right</span></button></div></div></div><div class="bg-surface-container-lowest p-space-sm rounded-lg border border-outline-variant/30 shadow-sm flex flex-col gap-2 group hover:shadow-md transition-all"><div class="relative overflow-hidden rounded shadow"><img src="https://lh3.googleusercontent.com/aida/AEtjO1Xgv5Y9tq98mVwae2rKXykIJhnSVCYxA0_KdVT9uf9DvYBLi0EqeFNuTbiXROnnsTI5bxKiCng5YpZg27HrThRZF5ZR-d3DgsYYeidJj27mbEt__75Uy_iQKjJTurrl9lT_mjvrhuQ5va_H4OLvU77HOeu6loiHUb67NPuqxw1QAI63Z2vxIacL8QtRVnnM7mxEPDznTZdvkmSStAYkLq9-Lsp806QRIvlkglsUOgykDv4zpbQjEBvazsA" alt="Đại Nam Liệu Nguyên - Quang Trung Hoàng Đế Nguyễn Huệ" class="w-full h-48 object-cover rounded transition-transform duration-300 group-hover:scale-[1.02]"><div class="absolute top-2 left-2 px-2 py-0.5 rounded bg-secondary/90 backdrop-blur-sm text-on-secondary font-label-sm text-[10px] flex items-center gap-1 shadow"><span class="material-symbols-outlined text-[12px]">military_tech</span>Bách Chiến Bách Thắng</div></div><div class="flex flex-col gap-1"><div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-[10px] font-semibold">Thế kỷ XVIII • Tây Sơn</span></div><h4 class="font-headline-sm text-primary font-bold text-sm leading-snug pt-0.5">Đại Nam Liệu Nguyên</h4><span class="font-caption-era text-on-surface-variant font-semibold text-[11px] tracking-wide">Quang Trung Nguyễn Huệ</span><p class="font-body-sm text-on-surface-variant text-[11px] leading-relaxed line-clamp-2">Hành quân thần tốc quét sạch 29 vạn quân Thanh mùa xuân Kỷ Dậu 1789 vang dội non sông.</p><div class="pt-1.5 border-t border-outline-variant/30 flex items-center justify-between"><span class="font-label-sm text-outline text-[10px]">Thư Tịch &amp; Chiếu Lệnh</span><button type="button" class="text-primary font-label-md text-xs font-semibold hover:underline flex items-center gap-0.5">Khám phá <span class="material-symbols-outlined text-[14px]">chevron_right</span></button></div></div></div><div class="bg-surface-container-lowest p-space-sm rounded-lg border border-outline-variant/30 shadow-sm flex flex-col gap-2 group hover:shadow-md transition-all"><div class="relative overflow-hidden rounded shadow"><img src="https://lh3.googleusercontent.com/aida/AEtjO1WwoED1hzQW1fiJC_kmCVNKxTztjcP9epH9M1fqRY-QJSvLg4phDyEgtEVyz4rw09QcdK4x4TGSOAZ9oXML6wRDPQi7AJwl7mgvsmCqjzyvjyJtGG0M4qqhY7GP0WJGk_nc2BOhB-XlKRApKbKk0Dx1cH2kOUQDkm5a-6gb3FVhIqqLJMhlt3vFfhJXmkfVb6hd8V1xtPzKc49IJGIdC1SdGNWRijGHTKxyd7PCPKcY2bX1-BVPj469EWg" alt="Huyền Thoại Gươm Thuận Thiên - Đại Việt Thái Tổ Lê Lợi" class="w-full h-48 object-cover rounded transition-transform duration-300 group-hover:scale-[1.02]"><div class="absolute top-2 left-2 px-2 py-0.5 rounded bg-tertiary/90 backdrop-blur-sm text-on-tertiary font-label-sm text-[10px] flex items-center gap-1 shadow"><span class="material-symbols-outlined text-[12px]">auto_stories</span>Hoàn Kiếm Huyền Thoại</div></div><div class="flex flex-col gap-1"><div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-[10px] font-semibold">Thế kỷ XV • Hậu Lê</span></div><h4 class="font-headline-sm text-primary font-bold text-sm leading-snug pt-0.5">Gươm Thuận Thiên</h4><span class="font-caption-era text-on-surface-variant font-semibold text-[11px] tracking-wide">Thái Tổ Lê Lợi</span><p class="font-body-sm text-on-surface-variant text-[11px] leading-relaxed line-clamp-2">Khởi nghĩa Lam Sơn 10 năm gian khổ, nhận kiếm thần dẹp tan giặc Minh, trả gươm hồ Tả Vọng.</p><div class="pt-1.5 border-t border-outline-variant/30 flex items-center justify-between"><span class="font-label-sm text-outline text-[10px]">Điển Tích &amp; Mộc Bản</span><button type="button" class="text-primary font-label-md text-xs font-semibold hover:underline flex items-center gap-0.5">Khám phá <span class="material-symbols-outlined text-[14px]">chevron_right</span></button></div></div></div><div class="bg-surface-container-lowest p-space-sm rounded-lg border border-outline-variant/30 shadow-sm flex flex-col gap-2 group hover:shadow-md transition-all"><div class="relative overflow-hidden rounded shadow"><img src="https://lh3.googleusercontent.com/aida/AEtjO1VCxRPXWzirgAfRhA6ZT7aC0IDlN1-1cJp132k_2r5wyhnTVJez72o440SOsFzKuT63wK0lNSfbPNO-U0-A_qVgjHaHYOR1BxoRSPoEMrKEulX_5pWYJIEs9ixcwZEx4z2u2e1TaiCCnZ9zQbKp9TEgWY0Ejw89MAqgu5bdtiU_JWYUIwJUeY8mpawmn_iMvUO6w0z28clJ9EEQ4lhQ5uiKryCh-RIKRQC02CfMb0FaSH8z2nnuvqgK4A" alt="Khởi Nghĩa Mê Linh - Trưng Nữ Vương Hai Bà Trưng" class="w-full h-48 object-cover rounded transition-transform duration-300 group-hover:scale-[1.02]"><div class="absolute top-2 left-2 px-2 py-0.5 rounded bg-primary/90 backdrop-blur-sm text-on-primary font-label-sm text-[10px] flex items-center gap-1 shadow"><span class="material-symbols-outlined text-[12px]">star</span>Nữ Vương Lĩnh Nam</div></div><div class="flex flex-col gap-1"><div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-[10px] font-semibold">Năm 40 SCN • Cổ Đại</span></div><h4 class="font-headline-sm text-primary font-bold text-sm leading-snug pt-0.5">Khởi Nghĩa Mê Linh</h4><span class="font-caption-era text-on-surface-variant font-semibold text-[11px] tracking-wide">Hai Bà Trưng</span><p class="font-body-sm text-on-surface-variant text-[11px] leading-relaxed line-clamp-2">Tiếng trống đồng Mê Linh phất cờ khởi nghĩa, thu phục 65 thành trì dựng nền độc lập đầu tiên.</p><div class="pt-1.5 border-t border-outline-variant/30 flex items-center justify-between"><span class="font-label-sm text-outline text-[10px]">Tranh Lụa &amp; Sử Ký</span><button type="button" class="text-primary font-label-md text-xs font-semibold hover:underline flex items-center gap-0.5">Khám phá <span class="material-symbols-outlined text-[14px]">chevron_right</span></button></div></div></div></div><div class="pt-2 border-t border-outline-variant/30 text-center"><a href="#" class="inline-flex items-center gap-1 text-primary font-label-md text-xs font-semibold hover:underline">Xem thêm 28 danh nhân khác <span class="material-symbols-outlined text-[14px]">arrow_forward</span></a></div></div></aside>
+<!-- Center & Right Area: Masterpieces Showcase -->
+<div class="lg:col-span-9 flex flex-col gap-space-2xl w-full">
+<!-- SECTION 1: MASTERPIECE SPOTLIGHT (ĐẠI VIỆT SỬ KÝ TOÀN THƯ) -->
+<section class="bg-surface-container-low rounded-xl p-space-md md:p-space-xl shadow-md overflow-hidden relative">
+<div class="flex flex-col lg:flex-row gap-space-xl items-center">
+<!-- Historical Book Image Container -->
+<div class="w-full lg:w-5/12 flex-shrink-0 flex justify-center">
+<div class="relative group max-w-[280px] sm:max-w-[320px] rounded-lg overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-[1.02]">
+<img class="w-full h-auto object-cover rounded-lg shadow-lg" data-alt="A regal museum exhibition showcase of the ancient book Dai Viet Su Ky Toan Thu resting on an antique lacquered wood stand. The weathered leather and mulberry paper cover is adorned with intricate imperial gold dragons, lotuses, Vietnamese royal seals, and classical Han-Nom calligraphy. The atmosphere is solemn and sacred with warm cinematic spotlighting in a historic museum archive." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDoiArwkpC7aFRl4IJy1igeQI6iGpgAAj4bDQ0voOlaSDnm3lvBjn-UyqvtEy73uSA4cAG0sTgeqKGttIG9_zJM4syJPueTqaq1wj0hmMTjVcOXcFgkWEV8lAdQ7hbdFEnRBNFoSQKU1d8waMRws2aaWIi1HfTGqlX8YNt5uz7SsKXHpXrGePVD5kKmUd5gCU9g-eMmaal18w58quuI05EQfM2wRKoIlPcqznQtziwmNEqTgL4UGsu">
+<div class="absolute top-3 left-3 px-2.5 py-1 rounded bg-primary/90 backdrop-blur-sm text-on-primary font-label-sm text-label-sm flex items-center gap-1 shadow">
+<span class="material-symbols-outlined text-[14px]">stars</span>
+                  Bảo Vật Quốc Gia
+                </div>
+</div>
+</div>
+<!-- Detailed Meta Information -->
+<div class="w-full lg:w-7/12 flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2.5 py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold uppercase tracking-wider">
+                  Bộ Quốc Sử Tối Cao
+                </span>
+<span class="px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm">
+                  Niên hiệu Chính Hòa 18 (1697)
+                </span>
+<span class="text-tertiary font-label-sm text-label-sm flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[16px]">public</span> Di Sản UNESCO
+                </span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary tracking-tight font-bold">
+                Đại Việt Sử Ký Toàn Thư
+              </h2>
+<span class="font-headline-sm text-headline-sm text-secondary tracking-widest italic -mt-2">
+                大越史記全書
+              </span>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                Bộ chính sử vĩ đại và đồ sộ bậc nhất trong biên niên sử nước nhà, xâu chuỗi toàn vẹn dòng chảy dân tộc từ thời Kinh Dương Vương - Hồng Bàng lập nước cho đến triều đại nhà Hậu Lê. Bộ sách là nền tảng tri thức cốt lõi định hình bản sắc và lòng tự tôn Đại Việt qua mọi thế kỷ.
+              </p>
+<!-- Quick Spec Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-space-xs py-space-xs text-on-surface">
+<div class="p-space-xs bg-surface-container rounded">
+<span class="block font-label-sm text-label-sm text-outline">Tác Giả Biên Soạn</span>
+<span class="font-label-lg text-label-lg text-primary font-bold">Lê Văn Hưu, Ngô Sĩ Liên</span>
+</div>
+<div class="p-space-xs bg-surface-container rounded">
+<span class="block font-label-sm text-label-sm text-outline">Quy Mô Khắc In</span>
+<span class="font-label-lg text-label-lg font-bold">24 Quyển (Nội Ngoại kỷ)</span>
+</div>
+<div class="p-space-xs bg-surface-container rounded col-span-2 sm:col-span-1">
+<span class="block font-label-sm text-label-sm text-outline">Hiện Trạng Bảo Tồn</span>
+<span class="font-label-lg text-label-lg text-tertiary font-bold">Mộc Bản Triều Nguyễn</span>
+</div>
+</div>
+<!-- Action CTAs -->
+<div class="flex flex-wrap items-center gap-space-xs pt-space-xs">
+<button class="inline-flex items-center gap-2 px-space-md py-2.5 bg-primary text-on-primary font-label-lg text-label-lg rounded hover:bg-primary-container transition-all shadow-md" type="button">
+<span class="material-symbols-outlined text-[18px]">chrome_reader_mode</span>
+<span class="">Đọc Bản Dịch Quốc Ngữ</span>
+</button>
+<button class="inline-flex items-center gap-2 px-space-md py-2.5 bg-surface-container text-primary font-label-lg text-label-lg rounded hover:bg-surface-container-high transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">translate</span>
+<span class="">Xem Chữ Hán Nôm</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-space-sm py-2.5 text-on-surface-variant hover:text-primary font-label-md text-label-md rounded" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span class="">PDF Trọn Bộ</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: 3 SUPREME DECLARATIONS OF INDEPENDENCE -->
+<section class="flex flex-col gap-space-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-xs">
+<div>
+<div class="flex items-center gap-2 text-primary font-caption-era text-caption-era uppercase tracking-widest font-bold">
+<span class="w-8 h-[2px] bg-primary inline-block"></span>
+                Hồn Thiêng Sông Núi
+              </div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight mt-1">
+                Ba Bản Tuyên Ngôn Độc Lập Bất Hủ
+              </h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">
+              Những mốc son chói lọi khẳng định chủ quyền lãnh thổ, ý chí tự cường và phẩm giá bất khả xâm phạm của nòi giống Tiên Rồng.
+            </p>
+</div>
+<!-- 3 Declarations Cards Stack -->
+<div class="grid grid-cols-1 gap-space-lg">
+<!-- Declaration 1: Nam Quốc Sơn Hà -->
+<article class="bg-surface-container-low rounded-xl p-space-md md:p-space-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="flex flex-col lg:flex-row gap-space-md justify-between items-start">
+<div class="flex-1 flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">
+                      Bản Số 1 — Năm 1077
+                    </span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Phòng tuyến Sông Như Nguyệt</span>
+<span class="text-outline text-xs">•</span>
+<span class="text-primary font-label-sm text-label-sm font-semibold">Tương truyền: Lý Thường Kiệt</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary font-bold">
+                    Nam Quốc Sơn Hà (南國山河)
+                  </h4>
+<!-- Ancient Verse Callout -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-inner my-space-2xs">
+<p class="font-headline-sm text-headline-sm italic text-primary leading-relaxed">
+                      « Nam quốc sơn hà Nam đế cư,<br>
+                      Tuyệt nhiên định phận tại thiên thư.<br>
+                      Như hà nghịch lỗ lai xâm phạm,<br>
+                      Nhữ đẳng hành khan thủ bại hư. »
+                    </p>
+<div class="mt-2 pt-2 border-t border-outline-variant/30 text-on-surface-variant font-body-sm text-body-sm">
+<strong>Dịch nghĩa:</strong> Sông núi nước Nam vua Nam ở, Rành rành định phận tại sách trời. Cớ sao lũ giặc sang xâm phạm, Chúng bay rồi xem sẽ chuốc lấy bại vong.
+                    </div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    Bài thơ thần vang lên trong đền Trương Hống, Trương Hát giữa đêm tối cuộc kháng chiến chống Tống, đập tan nhuệ khí 30 vạn quân xâm lăng và trở thành bản tuyên ngôn chủ quyền đầu tiên của Đại Việt.
+                  </p>
+</div>
+<div class="w-full lg:w-auto shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2 pt-2 lg:pt-0">
+<button class="inline-flex items-center justify-center gap-2 px-space-md py-2 bg-primary text-on-primary font-label-md text-label-md rounded hover:bg-primary-container transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">volume_up</span>
+<span class="">Nghe Ngâm Thơ</span>
+</button>
+<button class="inline-flex items-center justify-center gap-2 px-space-md py-2 bg-surface-container text-on-surface font-label-md text-label-md rounded hover:bg-surface-container-high transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">description</span>
+<span class="">Tư Liệu Khảo Cứu</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Declaration 2: Bình Ngô Đại Cáo -->
+<article class="bg-surface-container-low rounded-xl p-space-md md:p-space-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="flex flex-col lg:flex-row gap-space-md justify-between items-start">
+<div class="flex-1 flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold">
+                      Bản Số 2 — Năm 1428
+                    </span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Đông Đô (Thăng Long)</span>
+<span class="text-outline text-xs">•</span>
+<span class="text-primary font-label-sm text-label-sm font-semibold">Tác giả: Nguyễn Trãi (Thừa lệnh Lê Lợi)</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary font-bold">
+                    Bình Ngô Đại Cáo (平吳大誥)
+                  </h4>
+<!-- Ancient Verse Callout -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-inner my-space-2xs">
+<p class="font-headline-sm text-headline-sm italic text-primary leading-relaxed">
+                      « Như nước Đại Việt ta từ trước,<br>
+                      Vốn xưng nền văn hiến đã lâu.<br>
+                      Núi sông bờ cõi đã chia,<br>
+                      Phong tục Bắc Nam cũng khác... »
+                    </p>
+<div class="mt-2 pt-2 border-t border-outline-variant/30 text-on-surface-variant font-body-sm text-body-sm">
+<strong>Tư tưởng chủ đạo:</strong> Lấy đại nghĩa để thắng hung tàn, lấy chí nhân để thay cường bạo; khẳng định nền độc lập độc tôn bình đẳng nghìn đời với các triều đại phương Bắc.
+                    </div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    Áng thiên cổ hùng văn tổng kết cuộc khởi nghĩa Lam Sơn 10 năm gian khổ, tuyên cáo nền thái bình muôn thuở mở ra kỷ nguyên phục hưng rực rỡ của dân tộc.
+                  </p>
+</div>
+<div class="w-full lg:w-auto shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2 pt-2 lg:pt-0">
+<button class="inline-flex items-center justify-center gap-2 px-space-md py-2 bg-primary text-on-primary font-label-md text-label-md rounded hover:bg-primary-container transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+<span class="">Đọc Toàn Văn Hùng Văn</span>
+</button>
+<button class="inline-flex items-center justify-center gap-2 px-space-md py-2 bg-surface-container text-on-surface font-label-md text-label-md rounded hover:bg-surface-container-high transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span class="">Tải Bản Chép Cổ</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Declaration 3: Tuyên Ngôn Độc Lập 1945 -->
+<article class="bg-surface-container-low rounded-xl p-space-md md:p-space-lg shadow-sm hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="flex flex-col lg:flex-row gap-space-md justify-between items-start">
+<div class="flex-1 flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center gap-2">
+<span class="px-2.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">
+                      Bản Số 3 — Ngày 02/09/1945
+                    </span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Quảng Trường Ba Đình, Hà Nội</span>
+<span class="text-outline text-xs">•</span>
+<span class="text-primary font-label-sm text-label-sm font-semibold">Chủ tịch Hồ Chí Minh</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary font-bold">
+                    Tuyên Ngôn Độc Lập Nước VNDCCH
+                  </h4>
+<!-- Excerpt Callout -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-inner my-space-2xs">
+<p class="font-headline-sm text-headline-sm italic text-primary leading-relaxed">
+                      « Tất cả mọi người đều sinh ra có quyền bình đẳng. Tạo hóa cho họ những quyền không ai có thể xâm phạm được; trong những quyền ấy, có quyền được sống, quyền tự do và quyền mưu cầu hạnh phúc... »
+                    </p>
+<div class="mt-2 pt-2 border-t border-outline-variant/30 text-on-surface-variant font-body-sm text-body-sm">
+<strong>Tuyên bố với thế giới:</strong> Nước Việt Nam có quyền hưởng tự do và độc lập, và sự thật đã thành một nước tự do độc lập. Toàn thể dân tộc Việt Nam quyết đem tất cả tinh thần và lực lượng, tính mạng và của cải để giữ vững quyền tự do, độc lập ấy.
+                    </div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    Văn kiện lịch sử trọng đại chấm dứt hơn 80 năm ách thực dân và nghìn năm chế độ phong kiến, mở ra kỷ nguyên mới: Kỷ nguyên Độc lập, Tự do của dân tộc Việt Nam.
+                  </p>
+</div>
+<div class="w-full lg:w-auto shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2 pt-2 lg:pt-0">
+<button class="inline-flex items-center justify-center gap-2 px-space-md py-2 bg-primary text-on-primary font-label-md text-label-md rounded hover:bg-primary-container transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">graphic_eq</span>
+<span class="">Nghe Giọng Đọc Bác Hồ</span>
+</button>
+<button class="inline-flex items-center justify-center gap-2 px-space-md py-2 bg-surface-container text-on-surface font-label-md text-label-md rounded hover:bg-surface-container-high transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">collections</span>
+<span class="">Hình Ảnh Quảng Trường</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- SECTION 3: GRID OF CLASSIC HISTORICAL TREATISES & BOOKS -->
+<section class="flex flex-col gap-space-lg pt-space-md">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-caption-era text-caption-era text-secondary uppercase tracking-widest font-semibold block">Tủ Sách Biên Niên Đại Việt</span>
+<h3 class="font-headline-md text-headline-md text-primary font-bold">Các Trước Tác &amp; Binh Thư Danh Tiếng</h3>
+</div>
+<a class="inline-flex items-center gap-1 text-primary font-label-md text-label-md hover:underline" href="#">
+              Xem Toàn Bộ 48 Tác Phẩm
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-md">
+<!-- Book Card 1: Hịch Tướng Sĩ -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">1285 • Nhà Trần</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">shield</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">Hịch Tướng Sĩ</h4>
+<span class="font-label-md text-label-md text-on-surface-variant">Hưng Đạo Đại Vương Trần Quốc Tuấn</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                  Khúc tráng ca thức tỉnh lòng yêu nước, sục sôi căm thù giặc phương Bắc, hiệu triệu ba quân tướng sĩ kết đoàn quyết chiến quyết thắng giặc Nguyên Mông hung tàn.
+                </p>
+</div>
+<div class="pt-space-md flex items-center justify-between border-t border-outline-variant/30 mt-space-sm">
+<span class="font-label-sm text-label-sm text-outline">1 Quyển • Văn Khắc Đồng</span>
+<button class="text-primary font-label-md text-label-md font-semibold hover:underline flex items-center gap-1" type="button">
+                  Đọc ngay <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Book Card 2: Lam Sơn Thực Lục -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">1431 • Thời Lê Sơ</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">history_edu</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">Lam Sơn Thực Lục</h4>
+<span class="font-label-md text-label-md text-on-surface-variant">Lê Thái Tổ • Soạn: Nguyễn Trãi</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                  Tập hồi ký lịch sử quý giá ghi chép chân thực toàn bộ tiến trình cuộc khởi nghĩa hào hùng từ lúc dựng cờ ở đất Lam Sơn đến ngày quét sạch giặc Minh ngổ ngáo.
+                </p>
+</div>
+<div class="pt-space-md flex items-center justify-between border-t border-outline-variant/30 mt-space-sm">
+<span class="font-label-sm text-label-sm text-outline">3 Quyển • Mộc Bản</span>
+<button class="text-primary font-label-md text-label-md font-semibold hover:underline flex items-center gap-1" type="button">
+                  Đọc ngay <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Book Card 3: Khâm Định Việt Sử Cương Mục -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold">1884 • Triều Nguyễn</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">auto_stories</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">Khâm Định Việt Sử</h4>
+<span class="font-label-md text-label-md text-on-surface-variant">Quốc Sử Quán Triều Nguyễn</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                  Công trình bách khoa biên niên lịch sử đồ sộ gồm 53 quyển do vua Tự Đức trực tiếp phê bút, khảo đính kỹ lưỡng từng chi tiết sự kiện từ cổ đại đến hết thời Lê - Trịnh.
+                </p>
+</div>
+<div class="pt-space-md flex items-center justify-between border-t border-outline-variant/30 mt-space-sm">
+<span class="font-label-sm text-label-sm text-outline">53 Quyển • Châu Bản</span>
+<button class="text-primary font-label-md text-label-md font-semibold hover:underline flex items-center gap-1" type="button">
+                  Đọc ngay <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Book Card 4: Lịch Triều Hiến Chương Loại Chí -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold">1821 • Thời Minh Mạng</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">library_books</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">Hiến Chương Loại Chí</h4>
+<span class="font-label-md text-label-md text-on-surface-variant">Bác học Phan Huy Chú</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                  Bộ bách khoa toàn thư điển chế đầu tiên của Việt Nam, khảo cứu tỉ mỉ về địa dư, quan chức, lễ nghi, binh chế, hình luật và văn tịch qua các triều đại.
+                </p>
+</div>
+<div class="pt-space-md flex items-center justify-between border-t border-outline-variant/30 mt-space-sm">
+<span class="font-label-sm text-label-sm text-outline">49 Quyển • Điển Chế</span>
+<button class="text-primary font-label-md text-label-md font-semibold hover:underline flex items-center gap-1" type="button">
+                  Đọc ngay <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Book Card 5: Việt Nam Sử Lược -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-semibold">1920 • Cận Đại</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">menu_book</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">Việt Nam Sử Lược</h4>
+<span class="font-label-md text-label-md text-on-surface-variant">Học giả Trần Trọng Kim</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                  Quyển thông sử đầu tiên viết bằng chữ Quốc ngữ theo phương pháp khảo cứu hiện đại phương Tây, súc tích, mạch lạc và dễ tiếp cận cho mọi tầng lớp nhân dân.
+                </p>
+</div>
+<div class="pt-space-md flex items-center justify-between border-t border-outline-variant/30 mt-space-sm">
+<span class="font-label-sm text-label-sm text-outline">2 Tập • Quốc Ngữ</span>
+<button class="text-primary font-label-md text-label-md font-semibold hover:underline flex items-center gap-1" type="button">
+                  Đọc ngay <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Book Card 6: Binh Thư Yếu Lược -->
+<div class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-semibold">Thế kỷ XIII • Binh Pháp</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">swords</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-primary font-bold">Binh Thư Yếu Lược</h4>
+<span class="font-label-md text-label-md text-on-surface-variant">Tiết Chế Trần Hưng Đạo</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">
+                  Tác phẩm quân sự kinh điển đúc kết nghệ thuật thủy bộ chiến tranh nhân dân, thế trận phục kích và triết lý binh pháp Đại Việt giúp đánh bại quân Thát Đát.
+                </p>
+</div>
+<div class="pt-space-md flex items-center justify-between border-t border-outline-variant/30 mt-space-sm">
+<span class="font-label-sm text-label-sm text-outline">4 Quyển • Quân Lệnh</span>
+<button class="text-primary font-label-md text-label-md font-semibold hover:underline flex items-center gap-1" type="button">
+                  Đọc ngay <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Archival Interactive Citation Banner -->
+<section class="bg-surface-container p-space-lg rounded-xl flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
+<span class="material-symbols-outlined text-[24px]">workspace_premium</span>
+</div>
+<div>
+<h5 class="font-headline-sm text-headline-sm text-on-surface font-bold">Trung Tâm Số Hóa Châu Bản &amp; Mộc Bản Quốc Gia</h5>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Bạn đang nghiên cứu hoặc sưu tầm tư liệu cổ? Khai thác miễn phí kho lưu trữ hơn 30.000 trang sách scan độ phân giải siêu cao.
+              </p>
+</div>
+</div>
+<button class="shrink-0 px-space-md py-2.5 bg-primary text-on-primary font-label-lg text-label-lg rounded hover:bg-primary-container transition-all shadow" type="button">
+            Yêu Cầu Truy Xuất Bản Gốc
+          </button>
+</section>
+</div>
+</div>
+</div>
+<!-- Inline Micro-Interactions Script -->
+<script>
+    // Category pill toggle interaction
+    const categoryButtons = document.querySelectorAll('.pill-btn');
+    categoryButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        categoryButtons.forEach(b => {
+          b.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+          b.classList.add('bg-surface-container', 'text-on-surface-variant');
+        });
+        btn.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+        btn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+      });
+    });
+
+    // Dual mode header buttons interaction
+    const btnSearch = document.getElementById('btn-search-mode');
+    const btnLibrary = document.getElementById('btn-library-mode');
+
+    if (btnSearch && btnLibrary) {
+      btnSearch.addEventListener('click', () => {
+        btnSearch.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+        btnSearch.classList.remove('text-on-surface-variant');
+        btnLibrary.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+        btnLibrary.classList.add('text-on-surface-variant');
+      });
+
+      btnLibrary.addEventListener('click', () => {
+        btnLibrary.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+        btnLibrary.classList.remove('text-on-surface-variant');
+        btnSearch.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+        btnSearch.classList.add('text-on-surface-variant');
+      });
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-low"><div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop pt-space-3xl pb-space-2xl"><div class="text-center max-w-3xl mx-auto pb-space-2xl mb-space-2xl"><span class="font-headline-md text-headline-md text-primary block mb-space-xs italic font-semibold leading-relaxed">« Dân ta phải biết sử ta, Cho tường gốc tích nước nhà Việt Nam »</span><span class="font-caption-era text-caption-era text-secondary uppercase tracking-widest block">Hồ Chí Minh — Lịch Sử Nước Ta (1942)</span></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-xl pb-space-2xl"><div class="flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary">Sử Việt Ký</span></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Nền tảng số hóa di sản và biên niên sử Việt Nam đa chiều, phục dựng không gian tri thức lịch sử từ thời Hồng Bàng dựng nước đến kỷ nguyên hiện đại.</p><div class="flex items-center gap-space-xs mt-space-2xs"><span class="font-label-sm text-label-sm px-space-xs py-[2px] bg-surface-container text-tertiary font-medium rounded">Giấy Dó Số</span><span class="font-label-sm text-label-sm px-space-xs py-[2px] bg-surface-container text-secondary font-medium rounded">Bản Khắc Đồng Sơn</span></div></div><div class="flex flex-col gap-space-sm"><span class="font-label-lg text-label-lg text-on-surface uppercase font-bold tracking-wider">Thời Kỳ Lịch Sử</span><ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><li class=""><a class="hover:text-primary transition-colors" data-path="dong-thoi-gian" href="#">Thời Kỳ Dựng Nước &amp; Bắc Thuộc</a></li><li class=""><a class="hover:text-primary transition-colors" data-path="dong-thoi-gian" href="#">Kỷ Nguyên Độc Lập (Ngô - Đinh - Tiền Lê)</a></li><li class=""><a class="hover:text-primary transition-colors" data-path="dong-thoi-gian" href="#">Thịnh Thế Lý - Trần - Hồ</a></li><li class=""><a class="hover:text-primary transition-colors" data-path="dong-thoi-gian" href="#">Hậu Lê - Mạc - Tây Sơn</a></li><li class=""><a class="hover:text-primary transition-colors" data-path="dong-thoi-gian" href="#">Nhà Nguyễn &amp; Đương Đại</a></li></ul></div><div class="flex flex-col gap-space-sm"><span class="font-label-lg text-label-lg text-on-surface uppercase font-bold tracking-wider">Nguồn Dữ Liệu Lưu Trữ</span><ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><li class=""><a class="hover:text-primary transition-colors" data-path="kho-luu-tru" href="#">Đại Việt Sử Ký Toàn Thư</a></li><li class=""><a class="hover:text-primary transition-colors" data-path="kho-luu-tru" href="#">Khâm Định Việt Sử Thông Giám Cương Mục</a></li><li class=""><a class="hover:text-primary transition-colors" data-path="kho-luu-tru" href="#">Châu Bản &amp; Mộc Bản Triều Nguyễn</a></li><li class=""><a class="hover:text-primary transition-colors" data-path="kho-luu-tru" href="#">Văn Khắc Hán Nôm &amp; Bia Tiến Sĩ</a></li><li class=""><a class="hover:text-primary transition-colors" data-path="kho-luu-tru" href="#">Bảo Vật Quốc Gia 3D</a></li></ul></div><div class="flex flex-col gap-space-sm"><span class="font-label-lg text-label-lg text-on-surface uppercase font-bold tracking-wider">Đóng Góp &amp; Di Sản</span><ul class="flex flex-col gap-space-xs font-body-sm text-body-sm text-on-surface-variant"><li class=""><a class="hover:text-primary transition-colors" data-path="dong-gop-tu-lieu" href="#">Hiến Tặng Tư Liệu Lịch Sử</a></li><li class=""><a class="hover:text-primary transition-colors" data-path="dong-gop-tu-lieu" href="#">Hội Đồng Cố Vấn &amp; Chuyên Gia</a></li><li class=""><a class="hover:text-primary transition-colors" data-path="dong-gop-tu-lieu" href="#">Cộng Tác Biên Soạn Tri Thức</a></li><li class=""><a class="hover:text-primary transition-colors" data-path="dong-gop-tu-lieu" href="#">Dự Án Số Hóa Học Đường</a></li><li class=""><a class="hover:text-primary transition-colors" data-path="dong-gop-tu-lieu" href="#">Hỗ Trợ Nghiên Cứu Lịch Sử</a></li></ul></div></div><div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-sm font-label-sm text-label-sm text-on-surface-variant"><div class="flex items-center gap-space-xs"><span class="">© 2025 Sử Việt Ký. Bảo tồn và phát huy giá trị di sản dân tộc Việt Nam.</span></div><div class="flex items-center gap-space-lg"><a class="hover:text-primary transition-colors" data-path="dieu-khoan-su-dung" href="#">Điều Khoản Sử Dụng</a><a class="hover:text-primary transition-colors" data-path="chinh-sach-luu-tru" href="#">Chính Sách Khai Thác Lưu Trữ</a><a class="hover:text-primary transition-colors" data-path="ban-quyen-di-san" href="#">Quyền Tác Giả &amp; Bản Quyền</a></div></div></div></footer>
+
+
+
+
+
+</body></html>
