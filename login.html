@@ -469,7 +469,7 @@
                   </div>
                   <form
                     class="space-y-space-sm"
-                    onsubmit="event.preventDefault()"
+                    onsubmit="event.preventDefault(); loginUser(document.getElementById('login-email').value, document.getElementById('login-pwd').value)"
                   >
                     <div>
                       <label
@@ -483,8 +483,9 @@
                         ><input
                           class="w-full bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm pl-10 pr-space-sm py-space-sm rounded-lg focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all"
                           placeholder="Ví dụ: nguyenvanan@gmail.com"
+                          id="login-email"
                           required=""
-                          type="email"
+                          type="text"
                         />
                       </div>
                     </div>
@@ -619,7 +620,8 @@
                   </div>
                   <form
                     class="space-y-space-xs"
-                    onsubmit="event.preventDefault()"
+                    onsubmit="event.preventDefault(); handleRegisterSubmit('login-register-form')"
+                    id="login-register-form"
                   >
                     <div>
                       <label
@@ -633,6 +635,7 @@
                         ><input
                           class="w-full bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm pl-10 pr-space-sm py-space-xs rounded-lg focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all"
                           placeholder="Nguyễn Hoàng Hải"
+                          id="reg-name"
                           required=""
                           type="text"
                         />
@@ -650,6 +653,7 @@
                         ><input
                           class="w-full bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm pl-10 pr-space-sm py-space-xs rounded-lg focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all"
                           placeholder="nguyenhoanghai@univ.edu.vn"
+                          id="reg-email"
                           required=""
                           type="email"
                         />
@@ -802,6 +806,7 @@
           }
         }
       </script>
+      <script src="auth.js"></script>
     </main>
   </body>
 </html> 

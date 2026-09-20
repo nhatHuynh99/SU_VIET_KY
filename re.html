@@ -524,7 +524,8 @@
                   </div>
                   <form
                     class="space-y-space-xs"
-                    onsubmit="event.preventDefault()"
+                    onsubmit="event.preventDefault(); handleRegisterSubmit('register-form')"
+                    id="register-form"
                   >
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-space-xs">
                       <div>
@@ -539,6 +540,7 @@
                           ><input
                             class="w-full bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm pl-10 pr-space-sm py-space-xs rounded-lg focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all"
                             placeholder="Nguyễn Hoàng Hải"
+                            id="reg-name"
                             required=""
                             type="text"
                           />
@@ -574,6 +576,7 @@
                         ><input
                           class="w-full bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm pl-10 pr-space-sm py-space-xs rounded-lg focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all"
                           placeholder="nguyenhoanghai@univ.edu.vn hoặc 0912..."
+                          id="reg-email"
                           required=""
                           type="text"
                         />
@@ -744,7 +747,7 @@
                   </div>
                   <form
                     class="space-y-space-sm"
-                    onsubmit="event.preventDefault()"
+                    onsubmit="event.preventDefault(); loginUser(document.getElementById('login-email').value, document.getElementById('login-pwd').value)"
                   >
                     <div>
                       <label
@@ -758,6 +761,7 @@
                         ><input
                           class="w-full bg-surface-container-low text-on-surface placeholder:text-outline font-body-sm text-body-sm pl-10 pr-space-sm py-space-sm rounded-lg focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 transition-all"
                           placeholder="Ví dụ: nguyenvanan@gmail.com"
+                          id="login-email"
                           required=""
                           type="email"
                         />
@@ -888,6 +892,7 @@
           }
         }
       </script>
+      <script src="auth.js"></script>
     </main>
   </body>
 </html>

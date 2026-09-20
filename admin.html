@@ -7,7 +7,7 @@
 <div class="flex flex-col">
 <!-- Brand header -->
 <div class="h-20 px-space-md flex items-center gap-space-xs border-b border-surface-container">
-<img alt="Sử Việt Ký" class="h-9 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1XrxCLsaVsUSyzClJHjCMMI4egv1Zd5WSJpeJGNjc-AHhOirg0MYrMbzJfGmqmMd97BtT_BuuRDP6K8sn9apMuzeZK8xrZIs4uwDioVDZhK1_Cr5xVGukJ4eUhWDq7vJEWFYD9N6JdGaVlhseng3UmVSguA4kSzI4zJNnGQU6BKI7FU9MsR5mHEDbIX5gxVUB1488SUPD8XAAIBl9IYpfLd4-9m1rnWlu84yxD3BA7j2G7b5ubjSbbonvU"/>
+<div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[24px]">account_balance</span></div>
 <div class="flex flex-col min-w-0">
 <span class="font-headline-sm text-[19px] text-primary font-bold tracking-tight truncate">Sử Việt Ký</span>
 <span class="font-label-sm text-[11px] text-secondary uppercase tracking-wider truncate font-semibold">Quản Trị Di Sản Lịch Sử</span>
@@ -80,7 +80,7 @@
 <button class="px-space-xs py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium transition-colors" type="button">EN</button>
 </div>
 <!-- Thông báo -->
-<button class="relative p-space-xs text-on-surface-variant hover:text-on-surface rounded hover:bg-surface-container transition-colors" type="button">
+<button class="relative p-space-xs text-on-surface-variant hover:text-on-surface rounded hover:bg-surface-container transition-colors" id="notificationButton" type="button">
 <span class="material-symbols-outlined text-[22px]">notifications</span>
 <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary ring-2 ring-surface"></span>
 </button>
@@ -131,7 +131,7 @@
           Tổng quan dữ liệu di sản số hóa, quản lý tác phẩm cổ thư mộc bản, phân quyền nhà nghiên cứu và thống kê bạn đọc toàn quốc. Phụng sự công tác bảo tồn di sản chính sử Đại Việt.
         </p>
 <div class="flex flex-wrap items-center gap-space-sm pt-space-sm">
-<button class="inline-flex items-center gap-space-xs px-space-lg py-space-sm rounded bg-surface-container-lowest text-primary font-label-lg text-label-lg font-bold shadow-md hover:bg-surface-container-low transition-all cursor-pointer" onclick="document.getElementById('modalAddBook').classList.remove('hidden')" type="button">
+<button class="inline-flex items-center gap-space-xs px-space-lg py-space-sm rounded bg-surface-container-lowest text-primary font-label-lg text-label-lg font-bold shadow-md hover:bg-surface-container-low transition-all cursor-pointer" onclick="openAddBook()" type="button">
 <span class="material-symbols-outlined text-[20px]">library_add</span>
 <span>+ Thêm Sách Mới</span>
 </button>
@@ -266,7 +266,7 @@
 </div>
 <!-- Nút nổi bật: + Thêm Sách Mới -->
 <div class="flex items-center gap-space-sm flex-wrap">
-<button class="inline-flex items-center gap-space-xs px-space-lg py-2.5 rounded bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-bold shadow-sm transition-all" onclick="document.getElementById('modalAddBook').classList.remove('hidden')" type="button">
+<button class="inline-flex items-center gap-space-xs px-space-lg py-2.5 rounded bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-bold shadow-sm transition-all" onclick="openAddBook()" type="button">
 <span class="material-symbols-outlined text-[20px]">add_box</span>
 <span>+ Thêm Sách Mới</span>
 </button>
@@ -279,7 +279,7 @@
 <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-sm my-space-md p-space-sm rounded-lg bg-surface-container-low border border-outline-variant/20">
 <div class="relative flex-1 max-w-md">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
-<input class="w-full pl-9 pr-3 py-1.5 bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm rounded border border-outline-variant/30 outline-none focus:border-primary" placeholder="Tìm tên sách, tác gia, triều đại..." type="text"/>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm rounded border border-outline-variant/30 outline-none focus:border-primary" id="bookSearchInput" placeholder="Tìm tên sách, tác giả, triều đại..." type="text"/>
 </div>
 <div class="flex flex-wrap items-center gap-space-xs">
 <span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">Triều đại:</span>
@@ -879,6 +879,20 @@
 <label class="block font-label-md text-label-md font-bold text-on-surface mb-1">Ý Nghĩa Lịch Sử &amp; Giá Trị Tư Liệu *</label>
 <textarea class="w-full px-3 py-2 rounded bg-surface-container-low border border-outline-variant/40 font-body-sm text-body-sm text-on-surface focus:border-primary outline-none" id="inputBookDesc" placeholder="Tóm lược giá trị văn hóa, sự kiện then chốt và tính xác thực của cổ thư..." required="" rows="3"></textarea>
 </div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div>
+<label class="block font-label-md text-label-md font-bold text-on-surface mb-1">Ảnh bìa / Hình tư liệu</label>
+<input class="w-full px-3 py-2 rounded bg-surface-container-low border border-outline-variant/40 font-body-sm text-body-sm text-on-surface focus:border-primary outline-none" id="inputBookImageUrl" placeholder="Dán URL ảnh https://..." type="url"/>
+<label class="inline-flex items-center gap-2 mt-2 px-3 py-2 rounded bg-surface-container text-primary font-label-sm font-semibold cursor-pointer hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[18px]">upload</span> Chọn ảnh từ máy
+<input accept="image/*" class="hidden" id="inputBookImageFile" type="file"/>
+</label>
+</div>
+<div class="h-32 rounded-lg overflow-hidden bg-surface-container border border-outline-variant/30 flex items-center justify-center">
+<img alt="Xem trước ảnh bìa" class="hidden w-full h-full object-cover" id="bookImagePreview"/>
+<span class="font-label-sm text-on-surface-variant text-center px-3" id="bookImagePlaceholder">Chưa có ảnh xem trước</span>
+</div>
+</div>
 <div class="flex items-center justify-end gap-space-sm pt-space-sm border-t border-surface-container">
 <button class="px-space-md py-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold transition-colors" onclick="document.getElementById('modalAddBook').classList.add('hidden')" type="button">
           Hủy Bỏ
@@ -944,7 +958,7 @@
   }
 
   // Chuyển đổi ngôn ngữ mẫu
-  function setLang(lang) {
+  function setLang(lang, notify = true) {
     const btnVI = document.getElementById('btnLangVI');
     const btnEN = document.getElementById('btnLangEN');
     if (lang === 'vi') {
@@ -996,4 +1010,266 @@
     });
   });
 </script>
+<script>
+  let editingBookTitle = null;
+  let pendingBookImage = '';
+
+  const adminEscape = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+
+  function managedBooks() {
+    const seed = [
+      { title: 'Binh Thư Yếu Lược', author: 'Trần Hưng Đạo', era: 'Năm 1285', type: 'Quân thư', description: 'Khí phách và nghệ thuật quân sự Đại Việt.' },
+      { title: 'Bình Ngô Đại Cáo', author: 'Nguyễn Trãi', era: 'Năm 1428', type: 'Cáo văn', description: 'Bản tuyên ngôn độc lập của dân tộc Việt Nam.' },
+      { title: 'Đại Việt Sử Ký Toàn Thư', author: 'Ngô Sĩ Liên', era: 'Bản in Chính Hòa, 1697', type: 'Bộ quốc sử', description: 'Bộ chính sử nền tảng của sử học Việt Nam.' },
+      { title: 'Nam Quốc Sơn Hà', author: 'Lý Thường Kiệt', era: 'Nhà Lý, thế kỷ XI', type: 'Thơ yêu nước', description: 'Tuyên ngôn chủ quyền sông núi nước Nam.' },
+      { title: 'Đại Việt Anh Hùng Truyện', author: 'Tuyển khảo về Trần Quốc Tuấn', era: 'Thời Trần, thế kỷ XIII', type: 'Truyện danh nhân', description: 'Cuộc đời và sự nghiệp quân sự của Hưng Đạo Đại Vương.' },
+      { title: 'Đại Nam Liệu Nguyên', author: 'Tuyển khảo về Hoàng đế Quang Trung', era: 'Tây Sơn, thế kỷ XVIII', type: 'Khảo cứu lịch sử', description: 'Khảo cứu phong trào Tây Sơn và Nguyễn Huệ.' },
+      { title: 'Gươm Thuận Thiên', author: 'Tuyển khảo về Lê Lợi', era: 'Hậu Lê, thế kỷ XV', type: 'Điển tích lịch sử', description: 'Biểu tượng của khởi nghĩa Lam Sơn và độc lập Đại Việt.' },
+      { title: 'Khởi Nghĩa Mê Linh', author: 'Tuyển khảo về Hai Bà Trưng', era: 'Năm 40, thời Bắc thuộc', type: 'Danh nhân nữ', description: 'Ý chí chống ngoại xâm của Hai Bà Trưng.' },
+      { title: 'Hịch Tướng Sĩ', author: 'Trần Quốc Tuấn', era: 'Năm 1285, thời Trần', type: 'Hịch', description: 'Lời hiệu triệu tướng sĩ giữ nước.' },
+      { title: 'Lam Sơn Thực Lục', author: 'Nguyễn Trãi', era: 'Thế kỷ XV', type: 'Thực lục', description: 'Ghi chép về cuộc khởi nghĩa Lam Sơn.' },
+      { title: 'Việt Nam Sử Lược', author: 'Trần Trọng Kim', era: 'Xuất bản lần đầu 1920', type: 'Lịch sử phổ thông', description: 'Công trình lịch sử Việt Nam bằng chữ Quốc ngữ.' }
+    ];
+    const base = JSON.parse(localStorage.getItem('siteBooksBase') || 'null') || seed;
+    const overrides = getAdminBooks();
+    const byTitle = new Map(overrides.map((book) => [book.sourceTitle || book.title, book]));
+    const deleted = new Set(JSON.parse(localStorage.getItem('adminDeletedBooks') || '[]'));
+    const books = base.map((book) => byTitle.get(book.title) || book).filter((book) => !deleted.has(book.title));
+    overrides.filter((book) => !base.some((item) => item.title === (book.sourceTitle || book.title))).forEach((book) => books.push(book));
+    return books;
+  }
+
+  function persistManagedBook(book, sourceTitle = book.title) {
+    const overrides = getAdminBooks().filter((item) => (item.sourceTitle || item.title) !== sourceTitle);
+    overrides.push({ ...book, sourceTitle });
+    saveAdminBooks(overrides);
+  }
+
+  function renderAdminBooks() {
+    const table = document.getElementById('booksTableBody');
+    if (!table) return;
+    const query = (document.getElementById('bookSearchInput')?.value || '').trim().toLowerCase();
+    const books = managedBooks().filter((book) => [book.title, book.author, book.era, book.description].some((value) => String(value || '').toLowerCase().includes(query)));
+    table.innerHTML = books.map((book) => `
+      <tr class="hover:bg-surface-container-low/60 transition-colors">
+        <td class="py-space-md px-space-md"><div class="flex items-center gap-space-sm"><div class="w-12 h-16 rounded overflow-hidden shadow-sm flex-shrink-0 bg-surface-container-high"><img alt="${adminEscape(book.title)}" class="w-full h-full object-cover" src="${adminEscape(book.image || 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=300&q=80')}" onerror="this.style.display='none'"></div><div><div class="font-headline-sm text-[16px] font-bold text-primary">${adminEscape(book.title)}</div><span class="inline-block mt-1 font-label-sm text-[11px] px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-semibold">${adminEscape(book.type || 'Tư liệu lịch sử')}</span></div></div></td>
+        <td class="py-space-md px-space-md"><div class="font-label-lg text-label-lg font-semibold text-on-surface">${adminEscape(book.author)}</div></td>
+        <td class="py-space-md px-space-md"><span class="inline-block px-2 py-1 rounded bg-surface-container font-caption-era text-caption-era font-bold text-secondary">${adminEscape(book.era)}</span></td>
+        <td class="py-space-md px-space-md max-w-xs"><p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">${adminEscape(book.description)}</p></td>
+        <td class="py-space-md px-space-md"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-[12px] font-bold"><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Đang hoạt động</span></td>
+        <td class="py-space-md px-space-md text-right whitespace-nowrap"><div class="inline-flex items-center gap-1"><button class="px-2.5 py-1.5 rounded bg-surface-container text-primary font-label-sm font-semibold" onclick="editBook('${adminEscape(book.title)}', '${adminEscape(book.author)}', '${adminEscape(book.era)}', '${adminEscape(book.description)}', '${adminEscape(book.image || '')}')"><span class="material-symbols-outlined text-[16px]">edit</span> Sửa</button><button class="px-2 py-1.5 rounded hover:bg-error/10 text-error font-label-sm font-semibold" onclick="confirmDeleteBook('${adminEscape(book.title)}')"><span class="material-symbols-outlined text-[17px]">delete</span></button></div></td>
+      </tr>`).join('');
+    const count = document.querySelector('#section-books h2')?.parentElement?.querySelector('span');
+    if (count) count.textContent = `${books.length} Tác phẩm`;
+  }
+
+  function updateBookImagePreview(source) {
+    const preview = document.getElementById('bookImagePreview');
+    const placeholder = document.getElementById('bookImagePlaceholder');
+    if (!preview || !placeholder) return;
+    if (!source) {
+      preview.removeAttribute('src');
+      preview.classList.add('hidden');
+      placeholder.classList.remove('hidden');
+      return;
+    }
+    preview.src = source;
+    preview.classList.remove('hidden');
+    placeholder.classList.add('hidden');
+    preview.onerror = () => {
+      preview.classList.add('hidden');
+      placeholder.textContent = 'Không thể tải ảnh này';
+      placeholder.classList.remove('hidden');
+    };
+  }
+
+  function openAddBook() {
+    editingBookTitle = null;
+    pendingBookImage = '';
+    document.getElementById('formNewBook').reset();
+    document.getElementById('inputBookImageUrl').value = '';
+    document.getElementById('modalAddBook').querySelector('h3').textContent = 'Thêm Sách & Cổ Thư Mới';
+    updateBookImagePreview('');
+    document.getElementById('modalAddBook').classList.remove('hidden');
+  }
+
+  function editBook(title, author, era, description = '', image = '') {
+    const existing = managedBooks().find((book) => book.title === title);
+    editingBookTitle = title;
+    pendingBookImage = image || existing?.image || '';
+    document.getElementById('inputBookTitle').value = title;
+    document.getElementById('inputBookAuthor').value = author;
+    document.getElementById('inputBookEra').value = era;
+    document.getElementById('inputBookDesc').value = description || `Hiệu đính cập nhật dữ liệu lịch sử cho tác phẩm: ${title}.`;
+    document.getElementById('inputBookImageUrl').value = pendingBookImage.startsWith('data:') ? '' : pendingBookImage;
+    document.getElementById('inputBookImageFile').value = '';
+    updateBookImagePreview(pendingBookImage);
+    document.querySelector('#modalAddBook h3').textContent = 'Chỉnh sửa sách và cổ thư';
+    document.getElementById('modalAddBook').classList.remove('hidden');
+  }
+
+  function confirmDeleteBook(title) {
+    if (!confirm(`Bạn có chắc muốn xóa sách “${title}” không?`)) return;
+    const deleted = JSON.parse(localStorage.getItem('adminDeletedBooks') || '[]');
+    if (!deleted.includes(title)) deleted.push(title);
+    localStorage.setItem('adminDeletedBooks', JSON.stringify(deleted));
+    addAdminNotification(`Đã xóa sách “${title}”.`);
+    renderAdminBooks();
+  }
+
+  function handleSaveBook(event) {
+    event.preventDefault();
+    const title = document.getElementById('inputBookTitle').value.trim();
+    const author = document.getElementById('inputBookAuthor').value.trim();
+    const era = document.getElementById('inputBookEra').value.trim();
+    const description = document.getElementById('inputBookDesc').value.trim();
+    const imageUrl = document.getElementById('inputBookImageUrl').value.trim();
+    const existing = managedBooks().find((book) => book.title === editingBookTitle);
+    persistManagedBook({
+      ...(existing || {}), title, author, era, description,
+      type: existing?.type || 'Tư liệu lịch sử',
+      image: pendingBookImage || imageUrl || existing?.image || 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80',
+      source: existing?.source || '#', sourceName: existing?.sourceName || 'Kho lưu trữ Sử Việt Ký',
+      fullText: existing?.fullText || description, translation: existing?.translation || description, audioText: existing?.audioText || description
+    }, editingBookTitle || title);
+    const deleted = JSON.parse(localStorage.getItem('adminDeletedBooks') || '[]').filter((item) => item !== title);
+    localStorage.setItem('adminDeletedBooks', JSON.stringify(deleted));
+    addAdminNotification(`${editingBookTitle ? 'Đã cập nhật' : 'Đã thêm'} sách “${title}”.`);
+    document.getElementById('formNewBook').reset();
+    pendingBookImage = '';
+    updateBookImagePreview('');
+    document.getElementById('modalAddBook').classList.add('hidden');
+    editingBookTitle = null;
+    document.querySelector('#modalAddBook h3').textContent = 'Thêm Sách & Cổ Thư Mới';
+    renderAdminBooks();
+  }
+
+  function renderAdminUsers() {
+    const section = document.getElementById('section-members');
+    const table = section?.querySelector('tbody');
+    if (!table) return;
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const admin = { name: 'Quản trị viên', email: 'admin@123', role: 'admin', locked: true };
+    table.innerHTML = [admin, ...users].map((user) => `<tr class="hover:bg-surface-container-low/60 transition-colors"><td class="py-space-md px-space-md"><div class="font-label-lg font-bold">${adminEscape(user.name || user.email)}</div></td><td class="py-space-md px-space-md"><span class="font-label-md">Tài khoản hệ thống</span></td><td class="py-space-md px-space-md text-on-surface-variant font-label-sm">${adminEscape(user.email)}</td><td class="py-space-md px-space-md"><select class="user-role-select bg-surface-container-lowest border border-outline-variant/30 px-3 py-1.5 rounded font-label-sm" data-email="${adminEscape(user.email)}" ${user.locked ? 'disabled' : ''}><option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Quản trị viên (Admin)</option><option value="user" ${user.role !== 'admin' ? 'selected' : ''}>Người dùng (User)</option></select></td><td class="py-space-md px-space-md text-right">${user.locked ? '<span class="font-label-sm text-on-surface-variant">Tài khoản gốc</span>' : `<button class="px-2.5 py-1.5 rounded bg-error/10 text-error font-label-sm font-semibold" onclick="confirmDeleteUser('${adminEscape(user.email)}')">Xóa tài khoản</button>`}</td></tr>`).join('');
+    table.querySelectorAll('.user-role-select').forEach((select) => select.addEventListener('change', () => updateUserRole(select.dataset.email, select.value)));
+    table.querySelectorAll('tr').forEach((row) => row.addEventListener('click', (event) => {
+      if (event.target.closest('select, button')) return;
+      const email = row.querySelector('[data-email]')?.dataset.email;
+      if (email) showUserDetails(email);
+    }));
+  }
+
+  function showUserDetails(email) {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = email === 'admin@123' ? { name: 'Quản trị viên', email, role: 'admin', loginAt: JSON.parse(localStorage.getItem('currentUser') || '{}').loginAt } : users.find((item) => item.email === email);
+    if (!user) return;
+    let card = document.getElementById('userDetailsCard');
+    if (!card) { card = document.createElement('div'); card.id = 'userDetailsCard'; card.className = 'fixed right-6 top-24 z-[60] w-80 max-w-[calc(100vw-2rem)] bg-surface-container-lowest rounded-xl shadow-2xl border border-outline-variant/30 p-5'; document.body.appendChild(card); }
+    const followed = JSON.parse(localStorage.getItem(`followedBooks:${email}`) || '[]');
+    const events = JSON.parse(localStorage.getItem(`eventViews:${email}`) || '[]');
+    card.innerHTML = `<div class="flex items-center justify-between border-b border-surface-container pb-3 mb-3"><div><p class="font-headline-sm text-primary font-bold">${adminEscape(user.name || email)}</p><p class="font-label-sm text-on-surface-variant">${adminEscape(email)}</p></div><button class="text-xl" onclick="document.getElementById('userDetailsCard').remove()">×</button></div><div class="space-y-3 text-sm"><p><strong>Tên đăng nhập:</strong> ${adminEscape(email)}</p><p><strong>Ngày đăng nhập:</strong> ${user.loginAt ? new Date(user.loginAt).toLocaleString('vi-VN') : 'Chưa ghi nhận'}</p><p><strong>Số lượng sự kiện:</strong> ${events.length || JSON.parse(localStorage.getItem('siteViews') || '[]').length}</p><p><strong>Sách đang theo dõi:</strong> ${followed.length}</p><p><strong>Quyền:</strong> ${user.role === 'admin' ? 'Quản trị viên' : 'Người dùng'}</p></div>`;
+  }
+
+  function updateUserRole(email, role) {
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = users.find((item) => item.email === email);
+    if (user) { user.role = role; localStorage.setItem('users', JSON.stringify(users)); addAdminNotification(`Đã phân quyền ${email} thành ${role === 'admin' ? 'Admin' : 'User'}.`); }
+  }
+
+  function confirmDeleteUser(email) {
+    if (!confirm(`Xóa tài khoản ${email}?`)) return;
+    const users = JSON.parse(localStorage.getItem('users') || '[]').filter((user) => user.email !== email);
+    localStorage.setItem('users', JSON.stringify(users));
+    addAdminNotification(`Đã xóa tài khoản ${email}.`);
+    renderAdminUsers();
+  }
+
+  function updateAdminStats() {
+    const now = Date.now();
+    const views = JSON.parse(localStorage.getItem('siteViews') || '[]');
+    const periods = { week: 7, month: 30, year: 365 };
+    const period = document.querySelector('#timeStatsFilter .bg-surface-container-lowest')?.id?.replace('tab', '').toLowerCase() || 'month';
+    const count = views.filter((time) => now - time < periods[period] * 86400000).length;
+    const statsCount = document.getElementById('statsCount');
+    if (statsCount) statsCount.textContent = count.toLocaleString('vi-VN');
+  }
+
+  function switchStats(period) {
+    ['week', 'month', 'year'].forEach((item) => document.getElementById(`tab${item[0].toUpperCase()}${item.slice(1)}`)?.classList.remove('bg-surface-container-lowest', 'text-primary', 'font-bold'));
+    document.getElementById(`tab${period[0].toUpperCase()}${period.slice(1)}`)?.classList.add('bg-surface-container-lowest', 'text-primary', 'font-bold');
+    const labels = { week: 'Lượt truy cập 7 ngày qua', month: 'Lượt truy cập 30 ngày qua', year: 'Lượt truy cập 365 ngày qua' };
+    document.getElementById('statsPeriodLabel').textContent = labels[period];
+    updateAdminStats();
+  }
+
+  function showNotifications() {
+    const items = JSON.parse(localStorage.getItem('adminNotifications') || '[]');
+    let panel = document.getElementById('adminNotificationsPanel');
+    if (!panel) { panel = document.createElement('div'); panel.id = 'adminNotificationsPanel'; panel.className = 'fixed top-16 right-6 z-[60] w-80 max-w-[calc(100vw-2rem)] bg-white rounded-xl shadow-xl border border-outline-variant/30 p-4'; document.body.appendChild(panel); }
+    panel.innerHTML = `<div class="flex items-center justify-between border-b pb-2 mb-2"><strong>Thông báo quản trị</strong><button onclick="document.getElementById('adminNotificationsPanel').remove()">×</button></div>${items.length ? items.map((item) => `<p class="text-sm py-2 border-b">${adminEscape(item.message)}<small class="block text-gray-500">${adminEscape(item.createdAt)}</small></p>`).join('') : '<p class="text-sm text-gray-500">Chưa có thông báo.</p>'}`;
+    localStorage.setItem('adminNotifications', JSON.stringify(items.map((item) => ({ ...item, read: true }))));
+  }
+
+  function setLang(lang, notify = true) {
+    localStorage.setItem('adminLanguage', lang);
+    document.documentElement.lang = lang === 'en' ? 'en' : 'vi';
+    document.getElementById('btnLangVI')?.classList.toggle('border-2', lang === 'vi');
+    document.getElementById('btnLangEN')?.classList.toggle('border-2', lang === 'en');
+    const labels = lang === 'en'
+      ? { overview: 'Overview', books: 'Book management', members: 'Member management', settings: 'Settings' }
+      : { overview: 'Tổng quan', books: 'Quản lý sách', members: 'Quản lý thành viên', settings: 'Cài đặt' };
+    [['nav-overview', labels.overview], ['nav-books', labels.books], ['nav-members', labels.members], ['nav-settings', labels.settings]].forEach(([id, text]) => {
+      const label = document.querySelector(`#${id} span:last-child`);
+      if (label) label.textContent = text;
+    });
+    if (notify) alert(lang === 'en' ? 'Language preference saved.' : 'Đã lưu ngôn ngữ Tiếng Việt.');
+  }
+
+  function applyAdminTheme(theme) {
+    localStorage.setItem('adminTheme', theme);
+    let style = document.getElementById('adminThemeStyle');
+    if (!style) { style = document.createElement('style'); style.id = 'adminThemeStyle'; document.head.appendChild(style); }
+    style.textContent = theme === 'dark' ? `body { background:#171412 !important; color:#f5f3ef !important; } body > div, main, header, footer, section, table, td, th, .bg-surface-container-lowest { background-color:#241f1c !important; color:#f5f3ef !important; } .bg-surface-container-low, .bg-surface-container { background-color:#302925 !important; color:#f5f3ef !important; } input, select, textarea { background-color:#302925 !important; color:#f5f3ef !important; }` : '';
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderAdminBooks();
+    renderAdminUsers();
+    updateAdminStats();
+    document.getElementById('bookSearchInput')?.addEventListener('input', renderAdminBooks);
+    document.getElementById('notificationButton')?.addEventListener('click', showNotifications);
+    document.getElementById('inputBookImageUrl')?.addEventListener('input', (event) => {
+      pendingBookImage = event.target.value.trim();
+      updateBookImagePreview(pendingBookImage);
+    });
+    document.getElementById('inputBookImageFile')?.addEventListener('change', (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        pendingBookImage = String(reader.result);
+        document.getElementById('inputBookImageUrl').value = '';
+        updateBookImagePreview(pendingBookImage);
+      };
+      reader.readAsDataURL(file);
+    });
+    document.querySelector('header input[type="search"]')?.addEventListener('input', (event) => {
+      const input = document.getElementById('bookSearchInput');
+      if (!input) return;
+      input.value = event.target.value;
+      renderAdminBooks();
+      document.getElementById('section-books')?.scrollIntoView({ behavior: 'smooth' });
+    });
+    const languageButtons = document.querySelectorAll('#langSwitcher button');
+    languageButtons[0]?.addEventListener('click', () => setLang('vi'));
+    languageButtons[1]?.addEventListener('click', () => setLang('en'));
+    setLang(localStorage.getItem('adminLanguage') || 'vi', false);
+    applyAdminTheme(localStorage.getItem('adminTheme') || 'light');
+    [...document.querySelectorAll('#section-settings .cursor-pointer')].forEach((card) => {
+      if (card.textContent.includes('Chế độ Sáng')) card.onclick = () => applyAdminTheme('light');
+      if (card.textContent.includes('Chế độ Tối')) card.onclick = () => applyAdminTheme('dark');
+    });
+  });
+</script>
+<script src="auth.js"></script>
 </body></html>

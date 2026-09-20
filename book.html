@@ -644,4 +644,410 @@
 
 
 
+<script>
+  const historyBooks = [
+    {
+      title: "Nam Quốc Sơn Hà",
+      author: "Tương truyền Lý Thường Kiệt",
+      era: "Nhà Lý, thế kỷ XI",
+      type: "Thơ yêu nước",
+      description: "Bài thơ khẳng định quyền sống, quyền tự do và chủ quyền sông núi của nước Nam, nổi tiếng như một bản tuyên ngôn độc lập sớm trong lịch sử Việt Nam.",
+      image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80",
+      source: "https://vi.wikisource.org/wiki/Nam_qu%E1%BB%91c_s%C6%A1n_h%C3%A0",
+      sourceName: "Wikisource",
+      fullText: "Nam quốc sơn hà Nam đế cư\nTiệt nhiên định phận tại thiên thư\nNhư hà nghịch lỗ lai xâm phạm\nNhữ đẳng hành khan thủ bại hư.",
+      translation: "Nước Nam có non sông, vua Nam ở đó.\nRõ ràng định phận đã ghi trong trời đất.\nAi dám ngược lẽ đến xâm phạm?\nThì đều sẽ bị đánh tan như cát bụi.",
+      audioText: "Nam quốc sơn hà Nam đế cư. Tiệt nhiên định phận tại thiên thư. Như hà nghịch lỗ lai xâm phạm. Nhữ đẳng hành khan thủ bại hư."
+    },
+    {
+      title: "Bình Ngô Đại Cáo",
+      author: "Nguyễn Trãi",
+      era: "Năm 1428, thời Lê sơ",
+      type: "Cáo văn",
+      description: "Áng văn chính luận tuyên bố cuộc chiến thắng của nghĩa quân Lam Sơn, khẳng định quyền độc lập, chủ quyền và ý chí dựng nước của dân tộc.",
+      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+      source: "https://vi.wikisource.org/wiki/B%C3%ACnh_Ng%C3%B4_%C4%91%E1%BA%A1i_c%C3%A1o",
+      sourceName: "Wikisource",
+      fullText: "Ta đã nghe: Trời dựng nước, có sẵn mệnh trời; người chịu mệnh trời, phải giữ yên bền vững.\n\nVậy chúng ta nắm chí lớn, đánh dẹp giặc Minh, giành lại giang sơn...",
+      translation: "Ta đã nghe: Trời dựng nước, có định mệnh riêng; người được trời chọn, phải giữ yên bền vững.\n\nVới chí lớn của dân tộc, ta đánh tan quân xâm lược và dựng lại nước non...",
+      audioText: "Bình Ngô Đại Cáo, lời hùng hồn khẳng định quyền độc lập của nước Việt Nam."
+    },
+    {
+      title: "Tuyên Ngôn Độc Lập Nước VNDCCH",
+      author: "Chủ tịch Hồ Chí Minh",
+      era: "02/09/1945",
+      type: "Văn kiện quốc gia",
+      description: "Cốt lõi của bản tuyên ngôn độc lập, văn kiện khai sinh nước Việt Nam Dân chủ Cộng hòa, đã truyền cảm hứng cho một dân tộc mới bước vào thời kỳ tự do, độc lập.",
+      image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?auto=format&fit=crop&w=1200&q=80",
+      source: "https://hochiminh.vn/tu-lieu-ve-nguoi/toan-van-tuyen-ngon-doc-lap-113",
+      sourceName: "Cổng thông tin Hồ Chí Minh",
+      fullText: "Tất cả mọi người đều sinh ra có quyền bình đẳng...\nTự do, dân chủ, công bằng...",
+      translation: "Tất cả mọi người đều sinh ra có quyền bình đẳng. Tự do, dân chủ và quyền mưu cầu hạnh phúc là những quyền thiêng liêng của con người...",
+      audioText: "Tất cả mọi người đều sinh ra có quyền bình đẳng. Tự do, dân chủ và hạnh phúc là những quyền thiêng liêng của con người."
+    },
+    {
+      title: "Đại Việt Sử Ký Toàn Thư",
+      author: "Ngô Sĩ Liên và các sử thần triều Lê",
+      era: "Bản in Chính Hòa, 1697",
+      type: "Bộ quốc sử",
+      description: "Tổng quan lịch sử Việt Nam từ thời hồng hoang dựng nước đến thời Lê sơ, là cột mốc nền tảng của sử học Việt Nam.",
+      image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=1200&q=80",
+      source: "https://vi.wikisource.org/wiki/%C4%90%E1%BA%A1i_Vi%E1%BB%87t_s%E1%BB%AD_k%C3%BD_to%C3%A0n_th%C6%B0",
+      sourceName: "Wikisource - Toàn văn số hóa",
+      fullText: "Sử ghi chép sự thật của nước Việt, từ dựng nước đến các triều đại, để người đời sau biết rõ gốc tích.",
+      translation: "Bộ sử chép lại lịch sử dân tộc, từ khi dựng nước đến các triều đại, để người sau có cơ sở nhìn nhận và học hỏi.",
+      audioText: "Đại Việt Sử Ký Toàn Thư là bộ quốc sử mang gốc tích và sự thật lịch sử của dân tộc Việt Nam."
+    },
+    {
+      title: "Đại Việt Anh Hùng Truyện",
+      author: "Khuyết danh, tuyển khảo về Trần Quốc Tuấn",
+      era: "Thời Trần, thế kỷ XIII",
+      type: "Truyện danh nhân",
+      description: "Khắc họa cuộc đời, khí phách và sự nghiệp quân sự của Hưng Đạo Đại Vương Trần Quốc Tuấn trong ba cuộc kháng chiến chống Nguyên - Mông.",
+      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80",
+      source: "https://baotanglichsu.vn/vi/Articles/3096/14874/",
+      sourceName: "Bảo tàng Lịch sử Quốc gia",
+      fullText: "Trần Quốc Tuấn là người sáng lập đường lối chiến tranh phòng ngự, giữ nước bằng trí khôn, khí phách và chính nghĩa.",
+      translation: "Hưng Đạo Đại Vương là biểu tượng của trí tuệ quân sự và lòng yêu nước, góp phần bảo vệ đất nước trước các cuộc xâm lược.",
+      audioText: "Hưng Đạo Đại Vương Trần Quốc Tuấn là người có tài năng quân sự, trí tuệ và tinh thần yêu nước." 
+    },
+    {
+      title: "Đại Nam Liệu Nguyên",
+      author: "Tuyển khảo về Hoàng đế Quang Trung",
+      era: "Tây Sơn, thế kỷ XVIII",
+      type: "Khảo cứu lịch sử",
+      description: "Tái hiện các chiến thắng của Nguyễn Huệ, phong trào Tây Sơn và tinh thần dựng nước từ một cuộc khởi nghĩa lớn của dân tộc.",
+      image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+      source: "https://www.nomfoundation.org/nom-projects/Chu-Nom-Database",
+      sourceName: "Nom Foundation",
+      fullText: "Quang Trung đã đem tinh thần nghĩa quân, khởi nghĩa và chiến thắng lịch sử chống ngoại xâm, mở ra bước ngoặt mới cho đất nước.",
+      translation: "Nguyễn Huệ là vị anh hùng chiến thắng, kết hợp tinh thần yêu nước với sự sáng suốt trong quân sự và trị quốc.",
+      audioText: "Nguyễn Huệ là vị tướng tài, mang tinh thần nghĩa quân và quyết tâm giải phóng dân tộc."
+    },
+    {
+      title: "Gươm Thuận Thiên",
+      author: "Tuyển khảo về Lê Lợi và khởi nghĩa Lam Sơn",
+      era: "Hậu Lê, thế kỷ XV",
+      type: "Điển tích lịch sử",
+      description: "Từ truyền thuyết hồ Hoàn Kiếm đến cuộc khởi nghĩa Lam Sơn, tác phẩm tái hiện hành trình kháng cự và phục hưng nước Việt.",
+      image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80",
+      source: "https://vi.wikisource.org/wiki/Lam_S%C6%A1n_th%E1%BB%B1c_l%E1%BB%A5c",
+      sourceName: "Wikisource",
+      fullText: "Gươm Thuận Thiên là biểu tượng của nghĩa quân Lam Sơn, đánh tan quân Minh và mở đường cho độc lập, tự chủ.",
+      translation: "Thần gươm là biểu tượng của ý chí giành lại độc lập, một dấu mốc của khởi nghĩa Lam Sơn.",
+      audioText: "Gươm Thuận Thiên là biểu tượng của khí phách và ý chí giành lại độc lập của dân tộc Việt Nam."
+    },
+    {
+      title: "Khởi Nghĩa Mê Linh",
+      author: "Tuyển khảo về Hai Bà Trưng",
+      era: "Năm 40, thời Bắc thuộc",
+      type: "Danh nhân nữ",
+      description: "Khởi nghĩa Mê Linh của Hai Bà Trưng là một trong những cuộc nổi dậy lớn nhất của dân tộc, thể hiện ý chí chống ngoại xâm của người Việt cổ.",
+      image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80",
+      source: "https://baotanglichsu.vn/vi/Articles/3096/",
+      sourceName: "Bảo tàng Lịch sử Quốc gia",
+      fullText: "Hai Bà Trưng nổi dậy ở Mê Linh, dựng tiếng cờ nghĩa, khởi đầu cho một trang sử dựng nước của người Việt.",
+      translation: "Hai Bà Trưng là biểu tượng của lòng yêu nước, sự dũng cảm và ý chí khởi nghĩa vì độc lập của dân tộc.",
+      audioText: "Hai Bà Trưng là nữ anh hùng của dân tộc, mang tinh thần chống ngoại xâm và giữ nước."
+    },
+    {
+      title: "Hịch Tướng Sĩ",
+      author: "Trần Quốc Tuấn",
+      era: "Năm 1285, thời Trần",
+      type: "Hịch",
+      description: "Lời hiệu triệu tướng sĩ của Hưng Đạo Vương, kết tinh tinh thần đoàn kết, dựng nước, giữ nước và chiến đấu vì độc lập.",
+      image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80",
+      source: "https://vi.wikisource.org/wiki/H%E1%BB%8Bch_t%C6%B0%E1%BB%9Bng_s%C4%A9",
+      sourceName: "Wikisource",
+      fullText: "Yêu nước là điều phải giữ, giữ nước là nghĩa lớn, không gì quý hơn lòng trung thành với đất nước.",
+      translation: "Một người làm tướng, phải biết đặt nghĩa lớn và trách nhiệm giữ nước lên trên hết.",
+      audioText: "Hịch Tướng Sĩ nhấn mạnh tinh thần đoàn kết, trung nghĩa và ý chí giữ nước trước quân thù."
+    },
+    {
+      title: "Lam Sơn Thực Lục",
+      author: "Nguyễn Trãi",
+      era: "Thế kỷ XV",
+      type: "Thực lục",
+      description: "Câu chuyện về cuộc khởi nghĩa Lam Sơn, sự chín chắn trong tổ chức, chiến thuật và tinh thần yêu nước của Lê Lợi.",
+      image: "https://images.unsplash.com/photo-1522008693277-1d1f4e1d6763?auto=format&fit=crop&w=1200&q=80",
+      source: "https://vi.wikisource.org/wiki/Lam_S%C6%A1n_th%E1%BB%B1c_l%E1%BB%A5c",
+      sourceName: "Wikisource",
+      fullText: "Lam Sơn là nơi dựng lên khởi nghĩa của người Việt, nơi lời hùng khí và ý chí dân tộc được nối tiếp.",
+      translation: "Khởi nghĩa Lam Sơn là cuộc đấu tranh dựng lại nước nhà, thể hiện ý thức giữ nước và chủ quyền của người Việt.",
+      audioText: "Lam Sơn Thực Lục kể lại cuộc khởi nghĩa của nghĩa quân Lam Sơn và ý chí giành độc lập."
+    },
+    {
+      title: "Việt Nam Sử Lược",
+      author: "Trần Trọng Kim",
+      era: "Xuất bản lần đầu 1920",
+      type: "Lịch sử phổ thông",
+      description: "Một trong những công trình viết lịch sử Việt Nam bằng tiếng Quốc ngữ quan trọng, dễ tiếp cận và có ảnh hưởng sâu rộng.",
+      image: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1200&q=80",
+      source: "https://vi.wikisource.org/wiki/Vi%E1%BB%87t_Nam_s%E1%BB%AD_l%C6%B0%E1%BB%A3c",
+      sourceName: "Wikisource",
+      fullText: "Sử lược là cuốn sách tổng hợp lịch sử Việt Nam, nhằm kể lại dòng chính của dân tộc cho người đọc biết rõ gốc tích.",
+      translation: "Việt Nam Sử Lược giúp người đọc hiểu rõ tiền thân, lịch trình và ý chí giữ nước của dân tộc Việt Nam.",
+      audioText: "Việt Nam Sử Lược là một công trình dùng ngôn ngữ phổ thông để kể lại lịch sử nước Việt Nam."
+    },
+    {
+      title: "Binh Thư Yếu Lược",
+      author: "Trần Quốc Tuấn, theo truyền thống tư liệu",
+      era: "Thời Trần",
+      type: "Quân thư",
+      description: "Kinh nghiệm quân sự, triết lý dùng binh và chiến lược giữ nước trong bối cảnh ngoại xâm và sự sống còn của quốc gia.",
+      image: "https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1200&q=80",
+      source: "https://mod.gov.vn/web/guest/van-hoa-quan-su",
+      sourceName: "Cổng thông tin Bộ Quốc phòng",
+      fullText: "Dùng binh phải biết giữ nước, biết thời thế, biết người như chính đại và quyết đoán.",
+      translation: "Cách dùng binh không chỉ là sức mạnh mà còn là sự thấu hiểu thời thế, lực lượng và ý chí của dân tộc.",
+      audioText: "Binh Thư Yếu Lược là cuốn sách sắc bén về quân sự, phòng ngự và giữ nước."
+    }
+  ];
+
+  localStorage.setItem("siteBooksBase", JSON.stringify(historyBooks));
+  const deletedAdminBooks = new Set(JSON.parse(localStorage.getItem("adminDeletedBooks") || "[]"));
+  const storedAdminBooks = JSON.parse(localStorage.getItem("adminBooks") || "[]").filter((book) => !deletedAdminBooks.has(book.title));
+  for (let index = historyBooks.length - 1; index >= 0; index -= 1) {
+    if (deletedAdminBooks.has(historyBooks[index].title)) historyBooks.splice(index, 1);
+  }
+  if (storedAdminBooks.length) {
+    const overriddenTitles = new Set(storedAdminBooks.map((book) => book.sourceTitle || book.title));
+    for (let index = historyBooks.length - 1; index >= 0; index -= 1) {
+      if (overriddenTitles.has(historyBooks[index].title)) historyBooks.splice(index, 1);
+    }
+    historyBooks.push(...storedAdminBooks);
+  }
+
+  const escapeHtml = (value = "") => String(value).replace(/[&<>\"']/g, (char) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[char]));
+
+  function openBook(index) {
+    window.location.href = `book.html?book=${index}`;
+  }
+
+  function speakText(text) {
+    const speech = window.speechSynthesis;
+    if (!speech) {
+      alert("Trình duyệt của bạn chưa hỗ trợ chức năng đọc to.");
+      return;
+    }
+    speech.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "vi-VN";
+    utterance.rate = 0.9;
+    speech.speak(utterance);
+  }
+
+  function renderBookList() {
+    const main = document.querySelector("main");
+    const query = (new URLSearchParams(window.location.search).get("q") || "").trim().toLowerCase();
+    const matchesQuery = (book) => !query || [book.title, book.author, book.era, book.type, book.description]
+      .some((value) => String(value).toLowerCase().includes(query));
+    const filteredBooks = historyBooks.filter(matchesQuery);
+    const declarations = historyBooks.filter((book) => ["Thơ yêu nước", "Cáo văn", "Văn kiện quốc gia"].includes(book.type));
+    const militaryBooks = historyBooks.filter((book) => ["Quân thư", "Hịch", "Điển tích lịch sử"].includes(book.type));
+
+    const renderBookCard = (book) => {
+      const index = historyBooks.indexOf(book);
+      const accent = ["Thơ yêu nước", "Cáo văn", "Văn kiện quốc gia"].includes(book.type) ? "#8b1e24" : ["Quân thư", "Hịch"].includes(book.type) ? "#06392d" : "#775a00";
+      return `
+        <article class="library-reveal group bg-surface-container-lowest rounded-lg border border-outline-variant/30 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between" style="--book-accent:${accent}; animation-delay:${Math.max(index, 0) * 70}ms">
+          <div class="relative h-36 overflow-hidden bg-surface-container" style="background:linear-gradient(135deg, ${accent} 0%, #1b1c1a 100%)">
+            <img src="${escapeHtml(book.image)}" alt="Bìa tư liệu ${escapeHtml(book.title)}" class="h-full w-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-110" onerror="this.style.display='none'">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#1b1c1a]/80 via-transparent to-transparent"></div>
+            <span class="absolute bottom-3 left-3 right-3 font-headline-sm text-[17px] text-white font-bold leading-snug drop-shadow-md">${escapeHtml(book.title)}</span>
+          </div>
+          <div class="p-space-md flex flex-col flex-1">
+          <div class="flex flex-col gap-space-xs">
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-2 py-0.5 rounded-full font-label-sm text-label-sm font-semibold" style="background:${accent}18;color:${accent}">${escapeHtml(book.era)}</span>
+              <span class="material-symbols-outlined text-secondary text-[20px]">menu_book</span>
+            </div>
+            <span class="font-label-md text-label-md text-on-surface-variant">${escapeHtml(book.author)}</span>
+            <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-3">${escapeHtml(book.description)}</p>
+          </div>
+          <div class="pt-space-md flex items-center justify-between border-t border-outline-variant/30 mt-space-sm">
+            <span class="font-label-sm text-label-sm text-outline">${escapeHtml(book.type)}</span>
+            <button type="button" onclick="openBook(${index})" class="text-primary font-label-md text-label-md font-semibold hover:underline flex items-center gap-1">
+              Đọc ngay <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+            </button>
+          </div>
+          </div>
+        </article>`;
+    };
+
+    const renderRail = (title, icon, books) => `
+      <section class="library-reveal bg-surface-container-low rounded-lg p-space-md shadow-sm border-l-4 border-primary">
+        <div class="flex items-center gap-2 pb-space-sm border-b border-outline-variant/30">
+          <span class="material-symbols-outlined text-primary text-[20px]">${icon}</span>
+          <h2 class="font-headline-sm text-headline-sm text-primary font-bold">${title}</h2>
+        </div>
+        <div class="flex flex-col gap-space-sm pt-space-sm">
+          ${books.map((book) => `<a href="book.html?book=${historyBooks.indexOf(book)}" class="group p-space-sm rounded bg-surface-container-lowest hover:bg-surface-container-high transition-colors">
+            <span class="font-label-sm text-secondary font-bold uppercase tracking-wide">${escapeHtml(book.era)}</span>
+            <h3 class="font-headline-sm text-[16px] text-primary font-bold group-hover:underline">${escapeHtml(book.title)}</h3>
+            <p class="font-body-sm text-on-surface-variant line-clamp-2">${escapeHtml(book.description)}</p>
+          </a>`).join("")}
+        </div>
+      </section>`;
+
+    main.innerHTML = `
+      <section class="w-full bg-gradient-to-b from-[#fffaf1] to-[#fbf9f5]">
+        <div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop py-space-xl">
+          <div class="mb-space-xl flex flex-col md:flex-row md:items-end md:justify-between gap-space-md">
+            <div>
+              <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary font-label-sm font-bold uppercase tracking-wider">
+                <span class="material-symbols-outlined text-[16px]">menu_book</span>
+                Tủ sách lịch sử Việt Nam
+              </span>
+              <h1 class="font-headline-lg text-[30px] md:text-[42px] text-primary font-bold mt-3 leading-tight">Các tác phẩm và tuyên ngôn bất hủ</h1>
+              <p class="font-body-sm text-on-surface-variant mt-2">${query ? `Kết quả cho “${escapeHtml(query)}”` : "Tư liệu lịch sử được tuyển chọn và số hóa"} · ${filteredBooks.length} tác phẩm</p>
+            </div>
+            <a href="index.html" class="inline-flex items-center gap-2 text-primary font-label-md font-bold hover:underline">
+              <span class="material-symbols-outlined text-[18px]">home</span>
+              Về trang chủ
+            </a>
+          </div>
+          <style>
+            @keyframes libraryReveal { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+            .library-reveal { animation: libraryReveal .65s cubic-bezier(.2,.7,.2,1) both; }
+            @media (prefers-reduced-motion: reduce) { .library-reveal { animation: none; } }
+          </style>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+            <aside class="lg:col-span-3 flex flex-col gap-space-lg">
+              <div class="bg-surface-container-low rounded-lg p-space-md shadow-sm">
+                <label for="book-filter" class="font-headline-sm text-headline-sm text-primary font-bold flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[20px]">search</span> Lọc trong tủ sách
+                </label>
+                <input id="book-filter" value="${escapeHtml(query)}" placeholder="Tên sách, tác giả..." class="mt-space-sm w-full px-3 py-2 bg-surface-container-lowest rounded border border-outline-variant/30 focus:outline-none focus:ring-1 focus:ring-primary font-body-sm" type="search">
+              </div>
+              ${renderRail("Bản tuyên ngôn nổi tiếng", "history_edu", declarations)}
+              ${renderRail("Binh thư và hịch văn", "military_tech", militaryBooks)}
+            </aside>
+            <section class="lg:col-span-9 flex flex-col gap-space-lg">
+              <div class="flex items-center justify-between gap-3">
+                <div><span class="font-caption-era text-caption-era text-secondary uppercase tracking-widest font-semibold">Kho tư liệu số</span><h2 class="font-headline-md text-headline-md text-primary font-bold">Toàn bộ sách lịch sử</h2></div>
+                <span class="font-label-md text-label-md text-on-surface-variant">${filteredBooks.length}/${historyBooks.length} sách</span>
+              </div>
+              ${filteredBooks.length ? `<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-space-md">${filteredBooks.map(renderBookCard).join("")}</div>` : `<div class="bg-surface-container-low rounded-lg p-space-xl text-center"><span class="material-symbols-outlined text-secondary text-[40px]">menu_book</span><p class="font-headline-sm text-primary mt-2">Chưa tìm thấy sách phù hợp</p><p class="font-body-sm text-on-surface-variant mt-1">Hãy thử tên tác phẩm, tác giả hoặc thời kỳ khác.</p></div>`}
+            </section>
+          </div>
+        </div>
+      </section>`;
+
+    const filterInput = document.getElementById("book-filter");
+    filterInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") window.location.href = `book.html?q=${encodeURIComponent(filterInput.value.trim())}`;
+    });
+    const headerInput = document.querySelector("header input");
+    if (headerInput) {
+      headerInput.value = query;
+      headerInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && headerInput.value.trim()) window.location.href = `book.html?q=${encodeURIComponent(headerInput.value.trim())}`;
+      });
+    }
+  }
+
+  function renderBookDetail(index) {
+    const book = historyBooks[index];
+    if (!book) {
+      renderBookList();
+      return;
+    }
+
+    const main = document.querySelector("main");
+    main.innerHTML = `
+      <section class="w-full bg-[#fbf9f5] py-8 md:py-12">
+        <div class="max-w-6xl mx-auto px-4 md:px-8 lg:px-12">
+          <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+            <button type="button" onclick="window.location.href='book.html'" class="inline-flex items-center gap-2 text-primary font-label-md font-bold hover:underline">
+              <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+              Quay lại thư viện
+            </button>
+            <a href="index.html" class="inline-flex items-center gap-2 text-secondary font-label-md font-bold hover:underline">
+              <span class="material-symbols-outlined text-[18px]">home</span>
+              Trang chủ
+            </a>
+          </div>
+
+          <div class="bg-white rounded-[28px] border border-[#e2e8f0] shadow-sm overflow-hidden">
+            <div class="bg-gradient-to-r from-primary to-primary-container p-6 md:p-10 text-on-primary">
+              <span class="font-label-sm uppercase tracking-[0.18em] text-secondary-fixed">Sách lịch sử Việt Nam</span>
+              <h1 class="font-headline-lg text-[28px] md:text-[42px] leading-tight mt-3 font-bold">${escapeHtml(book.title)}</h1>
+              <div class="mt-4 flex flex-wrap gap-2 text-sm font-semibold">
+                <span class="px-2.5 py-1 rounded-full bg-white/10">${escapeHtml(book.era)}</span>
+                <span class="px-2.5 py-1 rounded-full bg-white/10">${escapeHtml(book.type)}</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-[1.1fr_1.9fr] gap-8 p-6 md:p-8">
+              <div class="space-y-5">
+                <img src="${book.image}" alt="${escapeHtml(book.title)}" class="w-full h-[420px] object-cover rounded-2xl shadow-md" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80'" />
+                <div class="rounded-2xl bg-surface-container-low p-4 space-y-2">
+                  <h2 class="font-headline-sm text-primary font-bold">Thông tin sách</h2>
+                  <p><span class="font-semibold text-on-surface">Tác giả:</span> ${escapeHtml(book.author)}</p>
+                  <p><span class="font-semibold text-on-surface">Thời kỳ:</span> ${escapeHtml(book.era)}</p>
+                  <p><span class="font-semibold text-on-surface">Loại:</span> ${escapeHtml(book.type)}</p>
+                </div>
+                <a href="${book.source}" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 w-full rounded-xl bg-primary text-on-primary px-4 py-3 font-label-md font-bold hover:bg-primary-container transition-all">
+                  <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                  Nguồn tài liệu: ${escapeHtml(book.sourceName)}
+                </a>
+              </div>
+
+              <div class="space-y-6">
+                <div>
+                  <h2 class="font-headline-md text-primary font-bold mb-2">Giới thiệu</h2>
+                  <p class="font-body-lg text-on-surface-variant leading-relaxed">${escapeHtml(book.description)}</p>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                  <button type="button" data-view="overview" class="book-view-btn rounded-full bg-primary text-on-primary px-4 py-2.5 font-label-md font-bold">Tổng quan</button>
+                  <button type="button" data-view="translation" class="book-view-btn rounded-full bg-surface-container text-on-surface-variant px-4 py-2.5 font-label-md font-bold">Bản dịch quốc ngữ</button>
+                  <button type="button" data-view="full" class="book-view-btn rounded-full bg-surface-container text-on-surface-variant px-4 py-2.5 font-label-md font-bold">Toàn văn</button>
+                  <button type="button" id="read-aloud-btn" class="rounded-full bg-secondary text-on-secondary px-4 py-2.5 font-label-md font-bold flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">volume_up</span>
+                    Nghe đọc ngâm thơ
+                  </button>
+                </div>
+
+                <div id="book-content-panel" class="rounded-2xl bg-surface-container-low p-5 md:p-6 border border-[#e2e8f0]">
+                  <p class="font-body-lg leading-relaxed whitespace-pre-line text-on-surface">${escapeHtml(book.translation || book.fullText || book.audioText)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    `;
+
+    const contentPanel = document.getElementById("book-content-panel");
+    const buttons = document.querySelectorAll(".book-view-btn");
+    const renderPanel = (view) => {
+      const viewText = {
+        overview: `${escapeHtml(book.description)}\n\n${escapeHtml(book.translation || book.fullText || book.audioText)}`,
+        translation: `${escapeHtml(book.translation || book.fullText || "Chưa có bản dịch quốc ngữ cho tài liệu này.")}`,
+        full: `${escapeHtml(book.fullText || book.translation || "Chưa có toàn văn cho tài liệu này.")}`
+      };
+      contentPanel.innerHTML = `<p class="font-body-lg leading-relaxed whitespace-pre-line text-on-surface">${viewText[view]}</p>`;
+      buttons.forEach((btn) => {
+        const active = btn.dataset.view === view;
+        btn.className = `book-view-btn rounded-full px-4 py-2.5 font-label-md font-bold ${active ? 'bg-primary text-on-primary' : 'bg-surface-container text-on-surface-variant'}`;
+      });
+    };
+
+    buttons.forEach((btn) => btn.addEventListener("click", () => renderPanel(btn.dataset.view)));
+    document.getElementById("read-aloud-btn").addEventListener("click", () => speakText(book.audioText || book.translation || book.fullText || book.description));
+    renderPanel("overview");
+  }
+
+  const rawBookParam = new URLSearchParams(window.location.search).get("book");
+  const bookParam = rawBookParam === null ? null : Number(rawBookParam);
+  if (bookParam !== null && Number.isInteger(bookParam) && bookParam >= 0 && bookParam < historyBooks.length) {
+    renderBookDetail(bookParam);
+  } else {
+    renderBookList();
+  }
+</script>
+<script src="auth.js"></script>
+<script>recordSiteView();</script>
 </body></html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="vi" style="">
+  <html class="scroll-smooth" lang="vi">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -253,7 +253,7 @@
             </div>
           </div>
         </div>
-        <div class="flex items-center gap-2 shrink-0">
+        <div class="flex items-center gap-2 shrink-0" id="user-header-area">
           <button
             class="sm:hidden p-2 rounded-full hover:bg-surface-container text-primary transition-colors"
           >
@@ -266,7 +266,15 @@
             <span class="material-symbols-outlined text-[16px] text-secondary"
               >bookmarks</span
             ><span class="hidden md:inline">Kho Lưu Trữ</span>
-          </button>
+          </button><a
+            href="login.html?admin=1"
+            class="px-3 py-1.5 rounded-full bg-primary text-on-primary hover:bg-primary-container font-label-sm text-[12px] flex items-center gap-1 transition-colors shadow-sm"
+            title="Đăng nhập tài khoản quản trị"
+          >
+            <span class="material-symbols-outlined text-[16px]"
+              >admin_panel_settings</span
+            ><span class="hidden md:inline">Đăng nhập Admin</span>
+          </a>
         </div>
       </div>
     </header>
@@ -349,6 +357,7 @@
                 ><button
                   class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#f8fafc] text-on-surface-variant font-label-md text-label-md font-medium transition-all duration-200"
                   id="tab-archive"
+                  onclick="window.location.href='book.html'"
                 >
                   <span
                     class="material-symbols-outlined text-[22px] text-outline"
@@ -377,6 +386,7 @@
                         class="w-full bg-[#f8fafc] border border-[#e2e8f0] px-space-sm py-space-xs rounded-lg text-on-surface font-body-sm text-body-sm focus:outline-none focus:bg-white transition-all"
                         id="input-year"
                         placeholder="VD: 1945, 1975, 1288..."
+                        onkeydown="if (event.key === 'Enter') searchYear()"
                         type="number"
                       /><span
                         class="absolute right-2 top-2 text-outline-variant font-caption-era text-caption-era font-bold"
@@ -384,6 +394,7 @@
                       >
                     </div>
                     <button
+                      onclick="searchYear()"
                       class="bg-secondary text-on-secondary px-space-sm py-space-xs rounded-lg font-label-md text-label-md hover:bg-secondary/90 transition-all flex items-center gap-1 shadow-sm"
                     >
                       <span class="">Tìm</span
@@ -396,19 +407,23 @@
                     <button
                       class="font-label-sm text-label-sm px-space-xs py-1 rounded-md bg-secondary-fixed text-on-secondary-fixed font-medium hover:bg-secondary-fixed-dim transition-all"
                     >
-                      1945 (Tuyên ngôn)</button
+                      onclick="searchYear(1945)"
+                      >1945 (Tuyên ngôn)</button
                     ><button
                       class="font-label-sm text-label-sm px-space-xs py-1 rounded-md bg-[#f8fafc] border border-[#e2e8f0] hover:bg-surface-container text-on-surface-variant transition-all"
                     >
-                      1975 (Thống nhất)</button
+                      onclick="searchYear(1975)"
+                      >1975 (Thống nhất)</button
                     ><button
                       class="font-label-sm text-label-sm px-space-xs py-1 rounded-md bg-[#f8fafc] border border-[#e2e8f0] hover:bg-surface-container text-on-surface-variant transition-all"
                     >
-                      1288 (Bạch Đằng)</button
+                      onclick="searchYear(1288)"
+                      >1288 (Bạch Đằng)</button
                     ><button
                       class="font-label-sm text-label-sm px-space-xs py-1 rounded-md bg-[#f8fafc] border border-[#e2e8f0] hover:bg-surface-container text-on-surface-variant transition-all"
                     >
-                      1010 (Thăng Long)
+                      onclick="searchYear(1010)"
+                      >1010 (Thăng Long)
                     </button>
                   </div>
                 </div>
@@ -1409,5 +1424,21 @@
         </div>
       </div>
     </footer>
+    <script>
+      function searchYear(year) {
+        const input = document.getElementById("input-year");
+        const selectedYear = year || input.value.trim();
+
+        if (!selectedYear || Number(selectedYear) < 1) {
+          input.focus();
+          alert("Vui lòng nhập một năm hợp lệ.");
+          return;
+        }
+
+        window.location.href = `search.html?year=${encodeURIComponent(selectedYear)}`;
+      }
+    </script>
+    <script src="auth.js"></script>
+    <script>recordSiteView();</script>
   </body>
 </html>
