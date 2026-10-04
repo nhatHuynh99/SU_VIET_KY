@@ -32,6 +32,14 @@
 <span class="material-symbols-outlined text-[22px]">menu_book</span>
 <span class="font-label-lg text-label-lg">Quản lý sách</span>
 </a>
+<a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="#section-posts" id="nav-posts">
+<span class="material-symbols-outlined text-[22px]">dynamic_feed</span>
+<span class="font-label-lg text-label-lg">Bài viết</span>
+</a>
+<a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="#section-guide-management" id="nav-guides">
+<span class="material-symbols-outlined text-[22px]">menu_book</span>
+<span class="font-label-lg text-label-lg">Sách hướng dẫn</span>
+</a>
 <!-- 3. Quản lý thành viên -->
 <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="#section-members" id="nav-members">
 <span class="material-symbols-outlined text-[22px]">groups</span>
@@ -662,7 +670,18 @@
 </table>
 </div>
 </section>
-<!-- SECTION 4: CÀI ĐẶT HỆ THỐNG & PHÂN HỆ THỐNG KÊ (SETTINGS & STATS) -->
+<section class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 p-space-lg scroll-mt-24" id="section-posts">
+<div class="mb-space-md flex flex-wrap items-center justify-between gap-space-sm border-b border-surface-container pb-space-md">
+<div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary text-[26px]">dynamic_feed</span><h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Quản Lý Bài Viết Cộng Đồng</h2><span class="rounded-full bg-primary/10 px-2.5 py-0.5 text-[12px] font-bold text-primary" id="adminPostCount">0</span></div><p class="mt-1 font-body-sm text-on-surface-variant">Bài được đăng ẩn danh sẽ xuất hiện tại đây. Admin có thể gỡ bài khỏi trang công khai.</p></div>
+<a class="inline-flex items-center gap-1.5 rounded bg-surface-container-low px-3 py-2 text-sm font-semibold text-on-surface hover:bg-surface-container" href="post.html"><span class="material-symbols-outlined text-lg">open_in_new</span>Mở trang bài viết</a>
+</div>
+<div class="grid gap-space-sm md:grid-cols-2" id="adminPostList"></div>
+</section>
+<section class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 p-space-lg scroll-mt-24" id="section-guide-management">
+<div class="mb-space-md border-b border-surface-container pb-space-md"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary text-[26px]">menu_book</span><h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Biên Soạn Sách Hướng Dẫn</h2></div><p class="mt-1 font-body-sm text-on-surface-variant">Chọn trang để cập nhật phần giới thiệu, chức năng và từng bước sử dụng. Nội dung được lưu trên trình duyệt này.</p></div>
+<div id="guideAdminEditor"></div>
+</section>
+<!-- SECTION 5: CÀI ĐẶT HỆ THỐNG & PHÂN HỆ THỐNG KÊ (SETTINGS & STATS) -->
 <section class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl scroll-mt-24" id="section-settings">
 <!-- CỘT 1: CÀI ĐẶT GIAO DIỆN & HỆ THỐNG (6 COLS) -->
 <div class="lg:col-span-6 bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 p-space-lg flex flex-col justify-between">
@@ -853,11 +872,11 @@
 </div>
 <div>
 <label class="block font-label-md text-label-md font-bold text-on-surface mb-1">Thể Loại Văn Bản *</label>
-<select class="w-full px-3 py-2 rounded bg-surface-container-low border border-outline-variant/40 font-body-sm text-body-sm text-on-surface focus:border-primary outline-none cursor-pointer">
-<option>Chính sử biên niên quốc gia</option>
-<option>Binh thư &amp; Chiến thuật</option>
-<option>Tuyên ngôn &amp; Chiếu văn</option>
-<option>Địa chí &amp; Bản đồ cổ</option>
+<select class="w-full px-3 py-2 rounded bg-surface-container-low border border-outline-variant/40 font-body-sm text-body-sm text-on-surface focus:border-primary outline-none cursor-pointer" id="inputBookType" name="bookType">
+<option value="Chính sử biên niên quốc gia">Chính sử biên niên quốc gia</option>
+<option value="Binh thư &amp; Chiến thuật">Binh thư &amp; Chiến thuật</option>
+<option value="Tuyên ngôn &amp; Chiếu văn">Tuyên ngôn &amp; Chiếu văn</option>
+<option value="Địa chí &amp; Bản đồ cổ">Địa chí &amp; Bản đồ cổ</option>
 </select>
 </div>
 </div>
@@ -977,22 +996,6 @@
     }
   }
 
-  function editBook(title, author, era) {
-    document.getElementById('inputBookTitle').value = title;
-    document.getElementById('inputBookAuthor').value = author;
-    document.getElementById('inputBookEra').value = era;
-    document.getElementById('inputBookDesc').value = `Hiệu đính cập nhật dữ liệu lịch sử cho tác phẩm: ${title}.`;
-    document.getElementById('modalAddBook').classList.remove('hidden');
-  }
-
-  function handleSaveBook(e) {
-    e.preventDefault();
-    const title = document.getElementById('inputBookTitle').value;
-    alert(`Lưu thành công tác phẩm "${title}" vào hệ thống Quốc Sử!`);
-    document.getElementById('modalAddBook').classList.add('hidden');
-    document.getElementById('formNewBook').reset();
-  }
-
   // Thao tác Xóa tài khoản
   function confirmDeleteUser(name) {
     if (confirm(`CẢNH BÁO BẢO MẬT:\nBạn có chắc muốn xóa quyền và tài khoản "${name}" không? Hành động này sẽ thu hồi toàn bộ quyền kiểm duyệt sử liệu.`)) {
@@ -1088,6 +1091,7 @@
     pendingBookImage = '';
     document.getElementById('formNewBook').reset();
     document.getElementById('inputBookImageUrl').value = '';
+    document.getElementById('inputBookType').value = 'Chính sử biên niên quốc gia';
     document.getElementById('modalAddBook').querySelector('h3').textContent = 'Thêm Sách & Cổ Thư Mới';
     updateBookImagePreview('');
     document.getElementById('modalAddBook').classList.remove('hidden');
@@ -1100,6 +1104,7 @@
     document.getElementById('inputBookTitle').value = title;
     document.getElementById('inputBookAuthor').value = author;
     document.getElementById('inputBookEra').value = era;
+    document.getElementById('inputBookType').value = existing?.type || 'Chính sử biên niên quốc gia';
     document.getElementById('inputBookDesc').value = description || `Hiệu đính cập nhật dữ liệu lịch sử cho tác phẩm: ${title}.`;
     document.getElementById('inputBookImageUrl').value = pendingBookImage.startsWith('data:') ? '' : pendingBookImage;
     document.getElementById('inputBookImageFile').value = '';
@@ -1124,10 +1129,11 @@
     const era = document.getElementById('inputBookEra').value.trim();
     const description = document.getElementById('inputBookDesc').value.trim();
     const imageUrl = document.getElementById('inputBookImageUrl').value.trim();
+    const type = document.getElementById('inputBookType')?.value || 'Tư liệu lịch sử';
     const existing = managedBooks().find((book) => book.title === editingBookTitle);
     persistManagedBook({
       ...(existing || {}), title, author, era, description,
-      type: existing?.type || 'Tư liệu lịch sử',
+      type,
       image: pendingBookImage || imageUrl || existing?.image || 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80',
       source: existing?.source || '#', sourceName: existing?.sourceName || 'Kho lưu trữ Sử Việt Ký',
       fullText: existing?.fullText || description, translation: existing?.translation || description, audioText: existing?.audioText || description
@@ -1136,6 +1142,7 @@
     localStorage.setItem('adminDeletedBooks', JSON.stringify(deleted));
     addAdminNotification(`${editingBookTitle ? 'Đã cập nhật' : 'Đã thêm'} sách “${title}”.`);
     document.getElementById('formNewBook').reset();
+    document.getElementById('inputBookType').value = 'Chính sử biên niên quốc gia';
     pendingBookImage = '';
     updateBookImagePreview('');
     document.getElementById('modalAddBook').classList.add('hidden');
@@ -1200,6 +1207,7 @@
     const labels = { week: 'Lượt truy cập 7 ngày qua', month: 'Lượt truy cập 30 ngày qua', year: 'Lượt truy cập 365 ngày qua' };
     document.getElementById('statsPeriodLabel').textContent = labels[period];
     updateAdminStats();
+    window.showAppToast?.(`Đã cập nhật thống kê ${period === 'week' ? 'tuần' : period === 'month' ? 'tháng' : 'năm'}.`, 'info');
   }
 
   function showNotifications() {
@@ -1216,20 +1224,21 @@
     document.getElementById('btnLangVI')?.classList.toggle('border-2', lang === 'vi');
     document.getElementById('btnLangEN')?.classList.toggle('border-2', lang === 'en');
     const labels = lang === 'en'
-      ? { overview: 'Overview', books: 'Book management', members: 'Member management', settings: 'Settings' }
-      : { overview: 'Tổng quan', books: 'Quản lý sách', members: 'Quản lý thành viên', settings: 'Cài đặt' };
-    [['nav-overview', labels.overview], ['nav-books', labels.books], ['nav-members', labels.members], ['nav-settings', labels.settings]].forEach(([id, text]) => {
+      ? { overview: 'Overview', books: 'Book management', posts: 'Posts', guides: 'Help guides', members: 'Member management', settings: 'Settings' }
+      : { overview: 'Tổng quan', books: 'Quản lý sách', posts: 'Bài viết', guides: 'Sách hướng dẫn', members: 'Quản lý thành viên', settings: 'Cài đặt' };
+    [['nav-overview', labels.overview], ['nav-books', labels.books], ['nav-posts', labels.posts], ['nav-guides', labels.guides], ['nav-members', labels.members], ['nav-settings', labels.settings]].forEach(([id, text]) => {
       const label = document.querySelector(`#${id} span:last-child`);
       if (label) label.textContent = text;
     });
-    if (notify) alert(lang === 'en' ? 'Language preference saved.' : 'Đã lưu ngôn ngữ Tiếng Việt.');
+    if (notify) window.showAppToast?.(lang === 'en' ? 'Language preference saved.' : 'Đã lưu ngôn ngữ Tiếng Việt.');
   }
 
-  function applyAdminTheme(theme) {
+  function applyAdminTheme(theme, notify = false) {
     localStorage.setItem('adminTheme', theme);
     let style = document.getElementById('adminThemeStyle');
     if (!style) { style = document.createElement('style'); style.id = 'adminThemeStyle'; document.head.appendChild(style); }
     style.textContent = theme === 'dark' ? `body { background:#171412 !important; color:#f5f3ef !important; } body > div, main, header, footer, section, table, td, th, .bg-surface-container-lowest { background-color:#241f1c !important; color:#f5f3ef !important; } .bg-surface-container-low, .bg-surface-container { background-color:#302925 !important; color:#f5f3ef !important; } input, select, textarea { background-color:#302925 !important; color:#f5f3ef !important; }` : '';
+    if (notify) window.showAppToast?.(theme === 'dark' ? 'Đã bật giao diện tối.' : 'Đã bật giao diện sáng.');
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -1266,10 +1275,15 @@
     setLang(localStorage.getItem('adminLanguage') || 'vi', false);
     applyAdminTheme(localStorage.getItem('adminTheme') || 'light');
     [...document.querySelectorAll('#section-settings .cursor-pointer')].forEach((card) => {
-      if (card.textContent.includes('Chế độ Sáng')) card.onclick = () => applyAdminTheme('light');
-      if (card.textContent.includes('Chế độ Tối')) card.onclick = () => applyAdminTheme('dark');
+      if (card.textContent.includes('Chế độ Sáng')) card.onclick = () => applyAdminTheme('light', true);
+      if (card.textContent.includes('Chế độ Tối')) card.onclick = () => applyAdminTheme('dark', true);
     });
   });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
 <script src="auth.js"></script>
+<script src="posts.js"></script>
+<script src="guide-center.js"></script>
+<script src="app-effects.js"></script>
 </body></html>

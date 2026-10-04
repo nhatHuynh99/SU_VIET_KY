@@ -821,13 +821,14 @@
   const escapeHtml = (value = "") => String(value).replace(/[&<>\"']/g, (char) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[char]));
 
   function openBook(index) {
+    window.setAppToastForNextPage?.('Đang mở nội dung tác phẩm.', 'info');
     window.location.href = `book.html?book=${index}`;
   }
 
   function speakText(text) {
     const speech = window.speechSynthesis;
     if (!speech) {
-      alert("Trình duyệt của bạn chưa hỗ trợ chức năng đọc to.");
+      window.showAppToast?.("Trình duyệt của bạn chưa hỗ trợ chức năng đọc to.", 'error');
       return;
     }
     speech.cancel();
@@ -835,6 +836,7 @@
     utterance.lang = "vi-VN";
     utterance.rate = 0.9;
     speech.speak(utterance);
+    window.showAppToast?.('Đang đọc nội dung thành tiếng.', 'info');
   }
 
   function renderBookList() {
@@ -936,13 +938,19 @@
 
     const filterInput = document.getElementById("book-filter");
     filterInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") window.location.href = `book.html?q=${encodeURIComponent(filterInput.value.trim())}`;
+      if (event.key === "Enter") {
+        window.setAppToastForNextPage?.('Đang tìm trong kho sách.', 'info');
+        window.location.href = `book.html?q=${encodeURIComponent(filterInput.value.trim())}`;
+      }
     });
     const headerInput = document.querySelector("header input");
     if (headerInput) {
       headerInput.value = query;
       headerInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" && headerInput.value.trim()) window.location.href = `book.html?q=${encodeURIComponent(headerInput.value.trim())}`;
+        if (event.key === "Enter" && headerInput.value.trim()) {
+          window.setAppToastForNextPage?.(`Đang tìm “${headerInput.value.trim()}” trong kho sách.`, 'info');
+          window.location.href = `book.html?q=${encodeURIComponent(headerInput.value.trim())}`;
+        }
       });
     }
   }
@@ -1035,7 +1043,11 @@
       });
     };
 
-    buttons.forEach((btn) => btn.addEventListener("click", () => renderPanel(btn.dataset.view)));
+    buttons.forEach((btn) => btn.addEventListener("click", () => {
+      renderPanel(btn.dataset.view);
+      const labels = { overview: 'tổng quan', translation: 'bản dịch quốc ngữ', full: 'toàn văn' };
+      window.showAppToast?.(`Đã mở ${labels[btn.dataset.view]}.`, 'info');
+    }));
     document.getElementById("read-aloud-btn").addEventListener("click", () => speakText(book.audioText || book.translation || book.fullText || book.description));
     renderPanel("overview");
   }
@@ -1048,6 +1060,30 @@
     renderBookList();
   }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
 <script src="auth.js"></script>
+<script>
+  (() => {
+    const addBookHomeButton = () => {
+      const actions = document.getElementById('user-header-area');
+      if (!actions || actions.querySelector('[data-book-home]')) return;
+      const homeLink = document.createElement('a');
+      homeLink.href = 'index.html';
+      homeLink.dataset.bookHome = 'true';
+      homeLink.className = 'inline-flex items-center gap-1.5 rounded-full border border-[#e2e8f0] bg-white px-3 py-1.5 text-primary transition-colors hover:bg-[#f8fafc]';
+      homeLink.setAttribute('aria-label', 'Về trang chủ');
+      homeLink.title = 'Về trang chủ';
+      homeLink.innerHTML = '<span class="material-symbols-outlined text-[18px]">home</span><span class="hidden md:inline">Trang chủ</span>';
+      actions.prepend(homeLink);
+    };
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', addBookHomeButton);
+    else addBookHomeButton();
+  })();
+</script>
+<script src="guide-center.js"></script>
+<script src="app-effects.js"></script>
+<script src="search-suggestions.js"></script>
 <script>recordSiteView();</script>
 </body></html>

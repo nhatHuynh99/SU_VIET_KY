@@ -1,19 +1,24 @@
 // auth.js - Xử lý logic Đăng ký, Đăng nhập, LocalStorage và Trạng thái người dùng
 
+function authFeedback(message, kind = 'info') {
+  if (window.showAppToast) window.showAppToast(message, kind);
+  else alert(message);
+}
+
 // 1. Hàm Đăng Ký
-function registerUser(name, email, password) {
+async function registerUser(name, email, password) {
   const users = JSON.parse(localStorage.getItem('users')) || [];
   name = name.trim();
   email = email.trim().toLowerCase();
 
   const existingUser = users.find(user => user.email === email);
   if (existingUser) {
-    alert("Email này đã được đăng ký! Vui lòng chọn đăng nhập.");
+    authFeedback("Email này đã được đăng ký! Vui lòng chọn đăng nhập.", 'error');
     return false;
   }
 
   if (name.length < 2 || password.length < 8) {
-    alert("Họ tên phải có ít nhất 2 ký tự và mật khẩu phải có ít nhất 8 ký tự.");
+    authFeedback("Họ tên phải có ít nhất 2 ký tự và mật khẩu phải có ít nhất 8 ký tự.", 'error');
     return false;
   }
 
@@ -21,22 +26,28 @@ function registerUser(name, email, password) {
   users.push(newUser);
   localStorage.setItem('users', JSON.stringify(users));
 
-  // Tự động đăng nhập người dùng vừa đăng ký
-  localStorage.setItem('currentUser', JSON.stringify({ name: newUser.name, email: newUser.email, role: 'user', loginAt: Date.now() }));
-  alert(`Xin chào, ${newUser.name}! Bạn đã đăng ký thành công.`);
-  window.location.href = "index.html";
+  if (window.suvietSupabase) {
+    const { error } = await window.suvietSupabase.auth.signUp({ email, password, options: { data: { name } } });
+    if (error && !error.message.toLowerCase().includes('already registered')) console.warn('Supabase sign-up fallback:', error.message);
+  }
+
+  localStorage.removeItem('currentUser');
+  const loginEmail = document.getElementById('login-email');
+  if (loginEmail) loginEmail.value = email;
+  if (typeof window.switchAuthTab === 'function') window.switchAuthTab('login');
+  authFeedback(`Đăng ký thành công cho ${newUser.name}. Vui lòng đăng nhập bằng email và mật khẩu vừa tạo.`, 'success');
   return true;
 }
 
 // 2. Hàm Đăng Nhập
-function loginUser(email, password) {
+async function loginUser(email, password) {
   const users = JSON.parse(localStorage.getItem('users')) || [];
   email = email.trim().toLowerCase();
 
   if (email === 'admin@123' && password === '030312') {
     const adminUser = { name: 'Quản trị viên', email: 'admin@123', role: 'admin', loginAt: Date.now() };
     localStorage.setItem('currentUser', JSON.stringify(adminUser));
-    alert('Đăng nhập tài khoản quản trị thành công.');
+    window.setAppToastForNextPage?.('Đăng nhập admin thành công.', 'success');
     window.location.href = 'admin.html';
     return true;
   }
@@ -44,12 +55,16 @@ function loginUser(email, password) {
   const user = users.find(u => u.email === email && u.password === password);
 
   if (user) {
+    if (window.suvietSupabase && email.includes('@')) {
+      const { error } = await window.suvietSupabase.auth.signInWithPassword({ email, password });
+      if (error) console.warn('Supabase login fallback:', error.message);
+    }
     localStorage.setItem('currentUser', JSON.stringify({ name: user.name, email: user.email, role: user.role || 'user', loginAt: Date.now() }));
-    alert(`Xin chào, ${user.name}! Bạn đã đăng nhập thành công.`);
+    window.setAppToastForNextPage?.(`Đăng nhập thành công. Xin chào, ${user.name}!`, 'success');
     window.location.href = "index.html";
     return true;
   } else {
-    alert("Email hoặc mật khẩu không chính xác!");
+    authFeedback("Email hoặc mật khẩu không chính xác!", 'error');
     return false;
   }
 }
@@ -57,6 +72,7 @@ function loginUser(email, password) {
 // 3. Hàm Đăng Xuất
 function logoutUser() {
   localStorage.removeItem('currentUser');
+  window.setAppToastForNextPage?.('Bạn đã đăng xuất.', 'success');
   window.location.href = 'login.html';
 }
 
@@ -85,18 +101,27 @@ function addAdminNotification(message) {
   const notifications = JSON.parse(localStorage.getItem('adminNotifications') || '[]');
   notifications.unshift({ message, createdAt: new Date().toLocaleString('vi-VN'), read: false });
   localStorage.setItem('adminNotifications', JSON.stringify(notifications.slice(0, 50)));
+  window.showAppToast?.(message, 'success');
+  if (window.suvietSupabase) window.suvietSupabase.from('notifications').insert({ message }).then(({ error }) => { if (error) console.warn('Supabase notification fallback:', error.message); });
 }
 
 function recordSiteView() {
   const views = JSON.parse(localStorage.getItem('siteViews') || '[]');
   views.push(Date.now());
   localStorage.setItem('siteViews', JSON.stringify(views.slice(-10000)));
+  if (window.suvietSupabase) {
+    const userId = window.suvietSupabase.auth.currentUser?.id || null;
+    window.suvietSupabase.from('site_views').insert({ path: window.location.pathname, user_id: userId }).then(({ error }) => { if (error) console.warn('Supabase view fallback:', error.message); });
+  }
 }
 
 // 4. Kiểm tra trạng thái đăng nhập và hiển thị tên trên Header của index.html
 function checkAuthState() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   const headerRightDiv = document.getElementById('user-header-area');
+  const displayName = currentUser
+    ? String(currentUser.name || currentUser.email || 'người dùng').replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]))
+    : '';
 
   if (headerRightDiv && currentUser) {
     headerRightDiv.innerHTML = `
@@ -106,7 +131,7 @@ function checkAuthState() {
           : `<a href="login.html?admin=1" class="font-label-sm text-[12px] bg-primary text-on-primary hover:bg-primary-container px-2.5 py-1.5 rounded-lg transition-all font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>Đăng nhập Admin</a>`}
         <span class="font-body-sm text-[14px] text-primary font-bold bg-primary/10 px-3 py-1.5 rounded-xl flex items-center gap-1.5">
           <span class="material-symbols-outlined text-[18px]">person</span>
-          Xin chào, ${currentUser.name}
+          Xin chào, ${displayName}
         </span>
         <button onclick="logoutUser()" class="font-label-sm text-[12px] bg-red-100 text-red-700 hover:bg-red-200 px-2.5 py-1.5 rounded-lg transition-all font-semibold">
           Đăng xuất
@@ -153,7 +178,9 @@ function syncSharedHeader() {
     input.addEventListener('keydown', (event) => {
       if (event.key !== 'Enter' || !input.value.trim()) return;
       const value = input.value.trim();
-      window.location.href = /^\d{4}$/.test(value)
+      const isYear = /^\d{4}$/.test(value);
+      window.setAppToastForNextPage?.(isYear ? `Đang mở kết quả năm ${value}.` : `Đang tìm “${value}” trong kho sách.`, 'info');
+      window.location.href = isYear
         ? `search.html?year=${encodeURIComponent(value)}`
         : `book.html?q=${encodeURIComponent(value)}`;
     });
@@ -166,7 +193,7 @@ function handleRegisterSubmit(formId) {
   const passwordConfirmation = form.querySelector('#reg-pwd-confirm').value;
 
   if (password !== passwordConfirmation) {
-    alert("Mật khẩu xác nhận không khớp.");
+    authFeedback("Mật khẩu xác nhận không khớp.", 'error');
     return false;
   }
 

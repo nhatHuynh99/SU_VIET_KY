@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sử Việt Ký - Đăng Tải &amp; Khảo Cứu Lịch Sử</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#6B0210",
+            "primary-container": "#8B1E24",
+            "primary-dark": "#4a010a",
+            secondary: "#9E782F",
+            "secondary-gold": "#B38E3F",
+            "secondary-container": "#FDE68A",
+            surface: "#FBF9F5",
+            "surface-card": "#FFFFFF",
+            "surface-container": "#F4F1EA",
+            "surface-container-low": "#F8F6F2",
+            "on-surface": "#1B1C1A",
+            "on-surface-variant": "#584140",
+            tertiary: "#1C4A3E",
+            "tertiary-container": "#D2E9DF",
+            "border-parchment": "#E8E2D5",
+            "admin-red": "#6B0210"
+          },
+          fontFamily: {
+            serif: ["Noto Serif", "serif"],
+            sans: ["Be Vietnam Pro", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      background-color: #FBF9F5;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      color: #1B1C1A;
+    }
+    .font-heritage {
+      font-family: 'Noto Serif', serif;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D8CFBF;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col justify-between">
+<!-- ==================== HEADER CHUẨN XÁC 100% NHƯ IMAGE_3 ==================== -->
+<header class="w-full bg-[#FCFAF6] border-b border-[#EAE4D7] sticky top-0 z-50 shadow-[0_2px_10px_rgba(75,30,30,0.04)]">
+<div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-[74px] flex items-center justify-between gap-4">
+<!-- BÊN TRÁI: Icon đền đài/bảo tàng + Logo thương hiệu Sử Việt Ký -->
+<a class="flex items-center gap-3 shrink-0 group" href="index.html" aria-label="Về trang chủ Sử Việt Ký">
+<div class="w-11 h-11 rounded-2xl bg-[#F6EFEA] border border-[#ECDCCF] flex items-center justify-center text-[#6B0210] shadow-sm group-hover:bg-[#EFE3DB] transition-colors">
+<span class="material-symbols-outlined text-[26px]">account_balance</span>
+</div>
+<div class="flex flex-col justify-center">
+<span class="font-heritage font-bold text-[19px] sm:text-[21px] leading-[22px] tracking-wide text-[#6B0210]">SỬ VIỆT KÝ</span>
+<span class="text-[10px] sm:text-[11px] font-semibold tracking-[0.14em] text-[#9E782F] uppercase mt-0.5">DÒNG CHẢY LỊCH SỬ VIỆT NAM</span>
+</div>
+</a>
+<!-- Ở GIỮA: Thanh tìm kiếm dài bo tròn rounded-full với ⌘K và pill VN -->
+<div class="flex-1 max-w-2xl mx-2 lg:mx-6 hidden md:block">
+<div class="relative flex items-center w-full bg-white border border-[#E4DDD0] rounded-2xl sm:rounded-full px-4 py-2 shadow-[0_1px_3px_rgba(0,0,0,0.02)] focus-within:border-[#8B1E24] focus-within:ring-2 focus-within:ring-[#8B1E24]/10 transition-all">
+<span class="material-symbols-outlined text-[#6B0210] text-[21px] mr-2 shrink-0">search</span>
+<input class="w-full bg-transparent border-none text-[13.5px] text-[#2C2421] placeholder-[#7D7068] focus:outline-none focus:ring-0 p-0" id="postSearchInput" placeholder="Tìm kiếm bài viết, niên đại, sự kiện..." type="search" aria-label="Tìm bài viết"/>
+<div class="flex items-center gap-2 shrink-0 ml-2">
+<span class="text-[11px] font-medium text-[#7D7068] bg-[#F4EFEA] border border-[#E4DCD3] px-2 py-0.5 rounded-md font-mono">⌘K</span>
+<span class="text-[11px] font-bold text-[#5A3F33] bg-[#EFE8E0] px-2.5 py-0.5 rounded-full">VN</span>
+</div>
+</div>
+</div>
+<!-- BÊN PHẢI: Admin button, User pill, Đăng xuất -->
+<div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+<!-- Nút Admin đỏ mận sẫm có icon khiên -->
+<a class="inline-flex items-center gap-1 rounded-xl border border-[#E8E2D5] px-2.5 py-2 text-[12px] font-semibold text-[#6B0210] transition hover:bg-[#F6ECE7] sm:gap-1.5 sm:px-3" href="index.html" title="Về trang chủ"><span class="material-symbols-outlined text-[18px]">home</span><span class="hidden lg:inline">Trang chủ</span></a>
+<a class="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl bg-[#6B0210] hover:bg-[#52000B] text-white text-[13px] font-semibold tracking-wide shadow-sm transition-all" href="login.html?admin=1" id="postAdminLink">
+<span class="material-symbols-outlined text-[17px]">security</span>
+<span>Admin</span>
+</a>
+<!-- Nút / Pill màu kem hồng nhạt: Xin chào, Quản trị viên -->
+<div class="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-xl bg-[#F6ECE7] text-[#421A1A] text-[13px] font-medium border border-[#EEDBD2]">
+<span class="material-symbols-outlined text-[17px] text-[#8B1E24]">person</span>
+<span class="hidden sm:inline">Xin chào,</span>
+<span class="font-semibold" id="postGreetingName">Khách</span>
+</div>
+<!-- Nút màu hồng đào nhạt: Đăng xuất đỏ -->
+<button class="px-3 sm:px-3.5 py-2 rounded-xl bg-[#FCE8E6] hover:bg-[#F9D7D4] text-[#B81E1E] text-[13px] font-semibold transition-colors" id="postLogoutButton" type="button">
+          Đăng xuất
+        </button>
+</div>
+</div>
+</header>
+<!-- ==================== MAIN CONTENT: 2-COLUMN BALANCED COMPACT VIEW ==================== -->
+<main class="flex-1 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- CỘT TRÁI: KHU VỰC POST BÀI LỊCH SỬ (~ 48% / 5.5 cols on desktop) -->
+<div class="lg:col-span-6 xl:col-span-5 flex flex-col">
+<div class="bg-surface-card rounded-2xl border border-border-parchment shadow-sm overflow-hidden relative">
+<!-- Chỉ son trang trí phong cách cung đình -->
+<div class="h-1.5 w-full bg-gradient-to-r from-primary via-secondary to-primary"></div>
+<div class="p-5 sm:p-6 bg-[#FCFAF6] border-b border-border-parchment flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-primary/10 border border-primary/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">edit_note</span>
+</div>
+<div>
+<h2 class="font-heritage font-bold text-[18px] text-primary leading-tight">Khởi Tạo Chuyên Khảo Lịch Sử</h2>
+<p class="text-xs text-on-surface-variant mt-0.5">Soạn luận đề, trích lục cổ sử và truyền kỳ dân tộc</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-secondary-container/40 text-[#845F12] border border-secondary/20 rounded-full text-[11px] font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-[#845F12] animate-pulse"></span>
+              Đăng bài nhanh
+            </span>
+</div>
+<!-- Form post bài -->
+<form class="p-5 sm:p-6 flex flex-col gap-4 bg-white" id="anonymousPostForm" onsubmit="submitAnonymousPost(event)">
+<!-- Tiêu đề -->
+<div>
+<label class="block text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-1.5">
+                Tiêu đề khảo cứu <span class="text-primary">*</span>
+</label>
+<input class="w-full bg-[#FBF9F5] border border-border-parchment rounded-xl px-3.5 py-2.5 text-sm font-heritage font-semibold text-on-surface placeholder:text-stone-400 placeholder:font-sans focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary transition-all" maxlength="160" name="title" placeholder="Tiêu đề bài viết hoặc câu chuyện lịch sử..." required type="text"/>
+</div>
+<!-- Chọn Triều đại / Thời kỳ (Pill tags bấm chọn nhanh) -->
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">history_edu</span>
+                  Triều Đại / Thời Kỳ
+                </label>
+<span class="text-[11px] text-stone-500" id="selectedEraLabel">Đã chọn: Tây Sơn</span>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<button class="px-2.5 py-1 rounded-lg text-xs font-medium bg-[#F6F2E9] hover:bg-[#EFE8D9] text-[#4F4138] border border-border-parchment" data-era-option type="button">Hồng Bàng</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-medium bg-[#F6F2E9] hover:bg-[#EFE8D9] text-[#4F4138] border border-border-parchment" data-era-option type="button">Lý — Trần</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-medium bg-[#F6F2E9] hover:bg-[#EFE8D9] text-[#4F4138] border border-border-parchment" data-era-option type="button">Hậu Lê — Mạc</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-primary text-white border border-primary shadow-xs" data-era-option data-selected-era type="button">Thời Tây Sơn (1778–1802)</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-medium bg-[#F6F2E9] hover:bg-[#EFE8D9] text-[#4F4138] border border-border-parchment" data-era-option type="button">Triều Nguyễn</button>
+<button class="px-2.5 py-1 rounded-lg text-xs font-medium bg-[#F6F2E9] hover:bg-[#EFE8D9] text-[#4F4138] border border-border-parchment" data-era-option type="button">Cận &amp; Hiện Đại</button>
+</div>
+</div>
+<!-- Chủ đề bài viết -->
+<div>
+<label class="block text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-1.5">
+                Chủ Đề Trọng Tâm
+              </label>
+<div class="flex flex-wrap gap-1.5">
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-[#F6ECE7] text-primary border border-primary/20" data-topic-option data-topic-label="Chiến trận &amp; Binh pháp" data-selected-topic type="button" aria-pressed="true">
+<span class="material-symbols-outlined text-[13px]">swords</span>
+                  Chiến trận &amp; Binh pháp
+                </button>
+                <button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-[#F6F2E9] text-stone-700 hover:bg-[#EFE8D9]" data-topic-option data-topic-label="Nhân vật lịch sử" type="button" aria-pressed="false">
+<span class="material-symbols-outlined text-[13px]">person_celebrate</span>
+                  Nhân vật lịch sử
+                </button>
+                <button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-[#F6F2E9] text-stone-700 hover:bg-[#EFE8D9]" data-topic-option data-topic-label="Văn hóa cổ truyền" type="button" aria-pressed="false">
+<span class="material-symbols-outlined text-[13px]">temple_buddhist</span>
+                  Văn hóa cổ truyền
+                </button>
+                <button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium bg-[#F6F2E9] text-stone-700 hover:bg-[#EFE8D9]" data-topic-option data-topic-label="Văn bia Hán Nôm" type="button" aria-pressed="false">
+<span class="material-symbols-outlined text-[13px]">menu_book</span>
+                  Văn bia Hán Nôm
+                </button>
+</div>
+</div>
+<!-- Khung soạn nội dung kèm thanh công cụ tiện ích -->
+<div class="rounded-xl border border-border-parchment overflow-hidden bg-[#FCFAF6]">
+<div class="px-3 py-2 bg-[#F5F0E6] border-b border-border-parchment flex items-center justify-between flex-wrap gap-2">
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 rounded hover:bg-white text-stone-700 flex items-center justify-center transition-colors" data-editor-action="bold" title="In đậm" type="button">
+<span class="material-symbols-outlined text-[17px]">format_bold</span>
+</button>
+<button class="w-7 h-7 rounded hover:bg-white text-stone-700 flex items-center justify-center transition-colors" data-editor-action="italic" title="In nghiêng" type="button">
+<span class="material-symbols-outlined text-[17px]">format_italic</span>
+</button>
+<button class="w-7 h-7 rounded hover:bg-white text-stone-700 flex items-center justify-center transition-colors" data-editor-action="blockquote" title="Trích đoạn" type="button">
+<span class="material-symbols-outlined text-[17px]">format_quote</span>
+</button>
+<div class="h-4 w-px bg-stone-300 mx-1"></div>
+<label class="sr-only" for="editorFont">Phông chữ</label>
+<select class="h-7 rounded border border-border-parchment bg-white px-2 text-[11px] text-stone-700" id="editorFont" title="Phông chữ">
+<option value="default">Phông chữ</option><option value="serif">Chữ có chân</option><option value="sans">Chữ không chân</option>
+</select>
+<label class="sr-only" for="editorSize">Cỡ chữ</label>
+<select class="h-7 rounded border border-border-parchment bg-white px-2 text-[11px] text-stone-700" id="editorSize" title="Cỡ chữ">
+<option value="default">Cỡ chữ</option><option value="small">Nhỏ</option><option value="normal">Vừa</option><option value="large">Lớn</option>
+</select>
+<div class="h-4 w-px bg-stone-300 mx-1"></div>
+<!-- Chữ Nôm, Trích sử liệu, Mộc bản -->
+<button class="px-2 py-0.5 rounded text-[11px] font-semibold bg-white text-primary border border-primary/20 flex items-center gap-1 shadow-2xs hover:bg-[#FAF4F0]" data-editor-action="nom" title="Định dạng vùng chọn theo kiểu chữ Hán Nôm" type="button">
+<span class="material-symbols-outlined text-[14px] text-secondary">translate</span>
+<span>Chữ Nôm (漢喃)</span>
+</button>
+<button class="px-2 py-0.5 rounded text-[11px] font-medium hover:bg-white text-stone-700 flex items-center gap-1" data-editor-action="quote" title="Chèn trích dẫn có dấu ngoặc kép" type="button">
+<span class="material-symbols-outlined text-[14px]">auto_stories</span>
+<span>Trích Sử Liệu « »</span>
+</button>
+</div>
+<button class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#EAE2D3] hover:bg-white text-[#523B2A] flex items-center gap-1 transition-colors" data-editor-action="image" title="Thêm ảnh tư liệu từ thiết bị" type="button">
+<span class="material-symbols-outlined text-[14px]">image</span>
+<span>Mộc bản / Ảnh</span>
+</button>
+</div>
+<!-- Rich-text editor -->
+<div aria-label="Nội dung bài viết" class="post-editor min-h-40 w-full bg-white p-3.5 text-sm leading-relaxed text-on-surface focus:outline-none" contenteditable="true" data-placeholder="Nhập nội dung luận giải lịch sử, diễn biến sự kiện, khảo chứng cổ thư..." id="postEditor" role="textbox" aria-multiline="true"></div>
+<textarea class="hidden" id="postEditorValue" name="content" tabindex="-1"></textarea>
+<input accept="image/*" class="hidden" id="postImageInput" type="file"/>
+<!-- Nguồn sử liệu trích dẫn nhanh -->
+<div class="px-3.5 py-2.5 bg-[#FAF7F0] border-t border-border-parchment flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary shrink-0">bookmark</span>
+<input class="w-full bg-transparent border-0 text-xs text-stone-600 p-0 focus:ring-0 italic" maxlength="300" name="source" placeholder="Nguồn sử liệu (không bắt buộc)" type="text"/>
+</div>
+</div>
+<!-- Nút hành động nổi bật: Đăng bài ngay & Lưu nháp -->
+<div class="pt-2 flex items-center justify-between gap-3">
+<button class="px-4 py-2.5 rounded-xl border border-border-parchment hover:bg-[#F5EFE6] text-stone-700 text-xs font-semibold flex items-center gap-1.5 transition-colors" data-editor-action="draft" type="button">
+<span class="material-symbols-outlined text-[16px]">save</span>
+<span>Lưu nháp</span>
+</button>
+<div class="flex items-center gap-2">
+<button class="px-3 py-2.5 rounded-xl hover:bg-primary/5 text-primary text-xs font-semibold transition-colors" data-editor-action="preview" type="button">
+                  Xem trước
+                </button>
+<button class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-primary to-[#8B1E24] hover:from-[#5A020E] hover:to-primary text-white text-xs font-bold tracking-wide shadow-md shadow-primary/20 hover:shadow-lg flex items-center gap-1.5 transition-all" type="submit">
+<span class="material-symbols-outlined text-[17px]">send</span>
+<span>Đăng bài ngay</span>
+</button>
+</div>
+</div>
+<p class="hidden text-right text-xs font-semibold text-tertiary" id="postSubmitStatus" role="status"></p>
+</form>
+</div>
+</div>
+<!-- CỘT PHẢI: KHU VỰC XEM BÀI VIẾT - FEED BÀI VIẾT NỔI BẬT & MỚI NHẤT (~ 52% / 6.5 cols) -->
+<div class="lg:col-span-6 xl:col-span-7 flex flex-col gap-4">
+<!-- Thanh lọc bài viết trực quan & đếm số lượng -->
+<div class="bg-surface-card rounded-2xl border border-border-parchment p-3 flex items-center justify-between gap-3 shadow-2xs">
+<div class="flex items-center gap-1.5 overflow-x-auto">
+<button class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-primary text-white shadow-xs shrink-0" data-feed-filter="all" type="button" aria-pressed="true">
+              Tất cả bài viết
+            </button>
+<button class="px-3.5 py-1.5 rounded-xl text-xs font-medium text-stone-600 hover:bg-[#F5F0E6] hover:text-stone-900 transition-colors shrink-0" data-feed-filter="latest" type="button" aria-pressed="false">
+              Mới nhất
+            </button>
+<button class="px-3.5 py-1.5 rounded-xl text-xs font-medium text-stone-600 hover:bg-[#F5F0E6] hover:text-stone-900 transition-colors shrink-0" data-feed-filter="featured" type="button" aria-pressed="false">
+              Nổi bật
+            </button>
+<button class="px-3.5 py-1.5 rounded-xl text-xs font-medium text-stone-600 hover:bg-[#F5F0E6] hover:text-stone-900 transition-colors shrink-0 flex items-center gap-1" data-feed-filter="verified" type="button" aria-pressed="false">
+<span class="material-symbols-outlined text-[14px] text-tertiary">verified</span>
+<span>Đã thẩm định</span>
+</button>
+</div>
+<span class="text-xs text-stone-500 shrink-0 hidden sm:inline" id="postCount">3 bài viết</span>
+</div>
+<!-- DANH SÁCH BÀI VIẾT (3 Thẻ Card di sản cao cấp) -->
+<div class="flex flex-col gap-3.5" id="communityPostList"></div>
+<div class="flex flex-col gap-3.5" id="staticPostList">
+<!-- BÀI 1: Có ảnh tư liệu Ngọc Hồi Đống Đa / Quang Trung -->
+<article class="bg-surface-card rounded-2xl border border-border-parchment p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-primary/40 transition-all flex flex-col sm:flex-row gap-4" data-static-post="quang-trung" data-verified="true" data-base-likes="2400" data-base-comments="186">
+<div class="w-full sm:w-44 h-40 rounded-xl overflow-hidden shrink-0 relative bg-stone-100 border border-stone-200">
+<img alt="Trận đánh Ngọc Hồi Đống Đa - Binh pháp Hoàng đế Quang Trung" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwyA7VUE9kITuITWDngxx-5neLdAyUCPBbpyc5rJRFzaafo8EnX6JYyBxjArLQt0sd9XzoDk6Q89jvRfzBRxhdJtAE1Yz2g4lGD4iW2BNCc0JjeaNn-XlmJcUeQaCF7zBH-IGi5SN1SjeuNxnVjP7E96CldC0ZQY06R9DycKdOHRXFD8MROL8_4GmjZPS1iS0QsxlNPZVxbL5KH00YWxemzDkak4-vNbIlRCCW7RVECLT1QnShhz-V"/>
+<span class="absolute top-2 left-2 bg-[#6B0210]/90 backdrop-blur-xs text-white text-[10.5px] font-semibold px-2 py-0.5 rounded shadow-xs">
+                Kỷ Dậu 1789
+              </span>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-1.5 flex-wrap">
+<span class="px-2 py-0.5 rounded bg-secondary-container/40 text-[#855D10] text-[11px] font-semibold border border-secondary/20">
+                    Thời Tây Sơn • Năm 1789
+                  </span>
+<span class="inline-flex items-center gap-1 text-[11px] text-tertiary font-semibold">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+                    Viện Sử Học phê chuẩn
+                  </span>
+</div>
+<h3 class="font-heritage font-bold text-[16.5px] sm:text-[17px] text-primary hover:text-[#8B1E24] cursor-pointer leading-snug">
+                  Nghệ thuật chuyển quân thần tốc của Hoàng đế Quang Trung đại phá 29 vạn quân Thanh
+                </h3>
+<p class="text-xs text-on-surface-variant line-clamp-2 mt-1.5 leading-relaxed">
+                  Khảo cứu chi tiết chiến lược vượt hơn 600 dặm trong 35 ngày, phương thức "cáng võng luân phiên tam nhân" và đòn tập kích chớp nhoáng xóa sổ đạo quân Tôn Sĩ Nghị tại Thăng Long.
+                </p>
+</div>
+<!-- Footer của bài viết: Tác giả & Tương tác -->
+<div class="pt-3 mt-2 border-t border-border-parchment flex items-center justify-between text-xs text-stone-500">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center"><span class="material-symbols-outlined text-[15px]">visibility_off</span></div>
+<span class="font-medium text-stone-800">Ẩn danh</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1 hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px] text-primary">favorite</span>
+<span class="font-semibold text-stone-700">2.4k</span>
+</button>
+<button class="flex items-center gap-1 hover:text-stone-800 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">mode_comment</span>
+<span>186</span>
+</button>
+<button class="flex items-center gap-1 text-secondary hover:text-stone-900 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">bookmark_border</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- BÀI 2: Bí ẩn chiến thuật cọc ngầm sông Bạch Đằng -->
+<article class="bg-surface-card rounded-2xl border border-border-parchment p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-primary/40 transition-all flex flex-col sm:flex-row gap-4" data-static-post="bach-dang" data-verified="false" data-base-likes="1800" data-base-comments="94">
+<div class="w-full sm:w-44 h-40 rounded-xl overflow-hidden shrink-0 relative bg-stone-100 border border-stone-200">
+<img alt="Bí ẩn cọc ngầm sông Bạch Đằng" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvLNC2AYUQm2TvhDkqEOjviGaTqGYZ4SrRYIYk48VrbE0K575V4DrsSf0LVPAzFuAYwppu12kujnmp-NrujqyjEF7NxtjRhU_IdX8XjxnnvXYNdA6m7-Hsf_C7zmHspUceTuKlMSZcfa9WYY3ZIP16mazozWh1r2jItK8DSa0UYW_-ev7mHfioaC1bGePRwyYTcTCP0jA-J04ng_Jo2sH3NQ2tKz8jTXs8Ii8LyOw8HXbtSv6wqYuW"/>
+<span class="absolute top-2 left-2 bg-[#1C4A3E]/90 backdrop-blur-xs text-white text-[10.5px] font-semibold px-2 py-0.5 rounded shadow-xs">
+                Thủy Chiến
+              </span>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-1.5 flex-wrap">
+<span class="px-2 py-0.5 rounded bg-stone-100 text-stone-800 text-[11px] font-semibold border border-stone-200">
+                    Thế kỷ XIII • Thời Trần
+                  </span>
+<span class="text-[11px] text-stone-500">Khảo cổ học bãi cọc Cao Quỳ</span>
+</div>
+<h3 class="font-heritage font-bold text-[16.5px] sm:text-[17px] text-primary hover:text-[#8B1E24] cursor-pointer leading-snug">
+                  Bí ẩn chiến thuật cọc ngầm sông Bạch Đằng: Trí tuệ thủy chiến ngàn năm
+                </h3>
+<p class="text-xs text-on-surface-variant line-clamp-2 mt-1.5 leading-relaxed">
+                  Phân tích cấu tạo gỗ lim vạt nhọn, góc nghiêng 45 độ đón dòng thủy triều rút và sự kế thừa thiên tài của Hưng Đạo Đại Vương từ chiến thắng năm 938 của Ngô Quyền.
+                </p>
+</div>
+<!-- Footer của bài viết -->
+<div class="pt-3 mt-2 border-t border-border-parchment flex items-center justify-between text-xs text-stone-500">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-tertiary text-white flex items-center justify-center"><span class="material-symbols-outlined text-[15px]">visibility_off</span></div>
+<span class="font-medium text-stone-800">Ẩn danh</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1 hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px] text-primary">favorite</span>
+<span class="font-semibold text-stone-700">1.8k</span>
+</button>
+<button class="flex items-center gap-1 hover:text-stone-800 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">mode_comment</span>
+<span>94</span>
+</button>
+<button class="flex items-center gap-1 text-secondary hover:text-stone-900 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">bookmark_border</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+<!-- BÀI 3: Khảo sát bản dịch Hán Nôm Chiếu dời đô -->
+<article class="bg-surface-card rounded-2xl border border-border-parchment p-4 sm:p-5 shadow-xs hover:shadow-md hover:border-primary/40 transition-all flex flex-col sm:flex-row gap-4" data-static-post="chieu-doi-do" data-verified="false" data-base-likes="960" data-base-comments="42">
+<div class="w-full sm:w-44 h-40 rounded-xl overflow-hidden shrink-0 relative bg-stone-100 border border-stone-200">
+<img alt="Khảo sát bản dịch Hán Nôm Chiếu dời đô" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDbxlSdFhNMlrXSbZ788AXFugTl6LV4q4Iv7pt4oaPT8Ji03K1gDahgqWHfAXAht_RKLS7Pa-tXqnc4QsFophu0HnzX1UlZCA1IyCDwKbqlwveWX9BoKUVFiouWnuswjpZJQWLaw38gVkpDQlRQ2v9VEd6NR821gRMyLD_0wHmc92BjlSKAmmUfV_A7eWym5qGACoaKGBOVBK_-BfOg9AvB-8eHceCfJv0emj48OGyBDJBQvxB5Qtn"/>
+<span class="absolute top-2 left-2 bg-secondary/90 backdrop-blur-xs text-white text-[10.5px] font-semibold px-2 py-0.5 rounded shadow-xs">
+                Mộc Bản Cổ
+              </span>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-1.5 flex-wrap">
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary text-[11px] font-semibold border border-primary/20">
+                    Thời Lý • Năm 1010
+                  </span>
+<span class="text-[11px] text-stone-500">Đại Việt Sử Ký Toàn Thư (Bản Nội Các)</span>
+</div>
+<h3 class="font-heritage font-bold text-[16.5px] sm:text-[17px] text-primary hover:text-[#8B1E24] cursor-pointer leading-snug">
+                  Khảo sát bản dịch Hán Nôm Chiếu dời đô của Lý Thái Tổ và vị thế trung tâm vũ trụ Thăng Long
+                </h3>
+<p class="text-xs text-on-surface-variant line-clamp-2 mt-1.5 leading-relaxed">
+                  Đối chiếu nguyên tác chữ Hán của thiên định đô chiếu với tư duy phong thủy "rồng cuộn hổ ngồi" mở ra kỷ nguyên văn minh Thăng Long thịnh trị muôn đời.
+                </p>
+</div>
+<!-- Footer của bài viết -->
+<div class="pt-3 mt-2 border-t border-border-parchment flex items-center justify-between text-xs text-stone-500">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-gold text-white flex items-center justify-center"><span class="material-symbols-outlined text-[15px]">visibility_off</span></div>
+<span class="font-medium text-stone-800">Ẩn danh</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1 hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px] text-primary">favorite</span>
+<span class="font-semibold text-stone-700">960</span>
+</button>
+<button class="flex items-center gap-1 hover:text-stone-800 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">mode_comment</span>
+<span>42</span>
+</button>
+<button class="flex items-center gap-1 text-secondary hover:text-stone-900 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">bookmark_border</span>
+</button>
+</div>
+</div>
+</div>
+</article>
+</div>
+</div>
+</div>
+</main>
+<!-- ==================== CHÂN TRANG (FOOTER TINH GỌN DI SẢN) ==================== -->
+<footer class="w-full bg-[#FAF7F2] border-t border-[#EAE2D5] mt-6">
+<!-- Câu đối trích dẫn Bác Hồ trên MỘT DÒNG DUY NHẤT chuẩn mực -->
+<div class="w-full bg-[#6B0210] py-2.5 px-4 text-center border-t border-b border-[#9E782F]/40 shadow-xs">
+<p class="font-heritage text-xs sm:text-[13px] md:text-[14px] text-[#FFF6E9] tracking-wide flex items-center justify-center gap-2 flex-wrap">
+<span class="italic font-medium">« Dân ta phải biết sử ta, Cho tường gốc tích nước nhà Việt Nam »</span>
+<span class="text-[#EBC878] font-sans font-bold text-[11px] tracking-widest uppercase">— HỒ CHÍ MINH (1942)</span>
+</p>
+</div>
+<!-- Dòng bản quyền tinh gọn -->
+<div class="max-w-[1440px] mx-auto px-4 py-3.5 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-2">
+<div class="flex items-center gap-2">
+<span class="font-heritage font-bold text-primary">Sử Việt Ký</span>
+<span>•</span>
+<span>Nền tảng chia sẻ và lưu trữ tri thức lịch sử Việt Nam.</span>
+</div>
+<div>
+<span>© 2025 Sử Việt Ký. Tất cả các quyền được bảo lưu.</span>
+</div>
+</div>
+</footer>
+<div class="fixed bottom-4 right-4 z-[70] sm:bottom-6 sm:right-6" id="communityChatWidget">
+  <section aria-label="Chat cộng đồng" class="mb-3 hidden w-[min(360px,calc(100vw-2rem))] overflow-hidden rounded-xl border border-[#E8E2D5] bg-white shadow-2xl" id="communityChatPanel">
+    <header class="flex items-center justify-between gap-3 bg-[#6B0210] px-4 py-3 text-white">
+      <div class="flex items-center gap-2.5"><span class="material-symbols-outlined">forum</span><div><h2 class="text-sm font-bold">Trò chuyện ẩn danh</h2><p class="text-[10px] text-white/75">Tin nhắn lưu trên trình duyệt này</p></div></div>
+      <button aria-label="Thu gọn chat" class="rounded p-1 transition hover:bg-white/15" id="closeCommunityChat" type="button"><span class="material-symbols-outlined">expand_more</span></button>
+    </header>
+    <div aria-live="polite" class="flex h-72 flex-col gap-2 overflow-y-auto bg-[#FBF9F5] p-3" id="communityChatMessages" role="log" aria-relevant="additions text"></div>
+    <form class="flex items-end gap-2 border-t border-[#E8E2D5] bg-white p-3" id="communityChatForm">
+      <label class="sr-only" for="communityChatInput">Tin nhắn chat</label>
+      <textarea class="max-h-24 min-h-10 flex-1 resize-none rounded-lg border border-[#E8E2D5] bg-[#FBF9F5] px-3 py-2 text-sm leading-5 focus:border-[#6B0210] focus:ring-[#6B0210]/20" id="communityChatInput" maxlength="500" placeholder="Nhập tin nhắn..." rows="1"></textarea>
+      <button aria-label="Gửi tin nhắn" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#6B0210] text-white transition hover:bg-[#4a010a]" type="submit"><span class="material-symbols-outlined">send</span></button>
+    </form>
+  </section>
+  <button aria-controls="communityChatPanel" aria-expanded="false" aria-label="Mở chat cộng đồng" class="flex items-center gap-2 rounded-full bg-[#6B0210] px-4 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5 hover:bg-[#4a010a] focus:outline-none focus:ring-2 focus:ring-[#9E782F] focus:ring-offset-2" id="toggleCommunityChat" type="button"><span class="material-symbols-outlined">chat</span><span>Chat cộng đồng</span></button>
+</div>
+<script src="posts.js"></script>
+<script src="guide-center.js"></script>
+<script src="app-effects.js"></script>
+<script src="search-suggestions.js"></script>
+</body></html>
