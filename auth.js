@@ -69,6 +69,103 @@ async function loginUser(email, password) {
   }
 }
 
+function getAuthRedirectUrl() {
+  if (window.location.protocol === 'file:') {
+    return 'http://localhost:3000/index.html';
+  }
+
+  if (window.location.origin && window.location.origin !== 'null') {
+    return `${window.location.origin}/index.html`;
+  }
+
+  const currentHref = window.location.href || '';
+  return currentHref.includes('index.html')
+    ? currentHref
+    : currentHref.replace(/(login|re)\.html.*$/, 'index.html');
+}
+
+async function loginWithGoogle() {
+  if (!window.suvietSupabase) {
+    authFeedback('Tính năng đăng nhập Google hiện chưa sẵn sàng. Vui lòng thử lại sau.', 'error');
+    return false;
+  }
+
+  if (window.location.protocol === 'file:') {
+    authFeedback('Google Auth chỉ hoạt động khi trang được chạy qua HTTP/HTTPS. Hãy mở bằng local server như http://localhost:3000 hoặc http://localhost:8000.', 'error');
+    return false;
+  }
+
+  try {
+    const redirectUrl = getAuthRedirectUrl();
+    const { error } = await window.suvietSupabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: redirectUrl,
+      },
+    });
+
+    if (error) throw error;
+
+    authFeedback('Đang chuyển hướng đến Google để xác thực...', 'info');
+    return true;
+  } catch (error) {
+    console.error('Google login error:', error);
+    const message = error?.message || '';
+
+    if (message.toLowerCase().includes('provider is not enabled') || message.toLowerCase().includes('unsupported provider')) {
+      authFeedback('Google chưa được bật trong Supabase Authentication. Vào Supabase > Authentication > Providers > Google và kích hoạt provider.', 'error');
+    } else {
+      authFeedback('Không thể đăng nhập bằng Google. Vui lòng thử lại sau.', 'error');
+    }
+
+    return false;
+  }
+}
+
+function hydrateSupabaseGoogleSession() {
+  if (!window.suvietSupabase) return;
+
+  const setGoogleUserFromSession = (session) => {
+    if (!session?.user) return;
+
+    const metadata = session.user.user_metadata || {};
+    const displayName = metadata.full_name || metadata.name || metadata.preferred_username || session.user.email?.split('@')[0] || 'Google User';
+    localStorage.setItem('currentUser', JSON.stringify({
+      name: displayName,
+      email: session.user.email,
+      role: 'user',
+      provider: 'google',
+      loginAt: Date.now(),
+    }));
+
+    if (window.location.pathname.endsWith('/login.html') || window.location.pathname.endsWith('/re.html')) {
+      window.location.href = 'index.html';
+    }
+  };
+
+  window.suvietSupabase.auth.getSession().then(({ data: { session } }) => {
+    if (session) setGoogleUserFromSession(session);
+  }).catch((error) => console.warn('Supabase session sync warning:', error));
+
+  window.suvietSupabase.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+      setGoogleUserFromSession(session);
+    }
+
+    if (event === 'SIGNED_OUT') {
+      localStorage.removeItem('currentUser');
+    }
+  });
+}
+
+function bindGoogleAuthButtons() {
+  const buttons = document.querySelectorAll('#google-login-btn, #google-register-btn, [data-google-auth]');
+  buttons.forEach((button) => {
+    button.removeEventListener('click', loginWithGoogle);
+    button.addEventListener('click', loginWithGoogle);
+  });
+}
+
 // 3. Hàm Đăng Xuất
 function logoutUser() {
   localStorage.removeItem('currentUser');
@@ -207,11 +304,15 @@ function handleRegisterSubmit(formId) {
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     if (document.body && !window.location.pathname.endsWith('/admin.html')) syncSharedHeader();
+    bindGoogleAuthButtons();
+    hydrateSupabaseGoogleSession();
     checkAuthState();
     if (window.location.pathname.endsWith('/admin.html')) requireAdminPage();
   });
 } else {
   if (!window.location.pathname.endsWith('/admin.html')) syncSharedHeader();
+  bindGoogleAuthButtons();
+  hydrateSupabaseGoogleSession();
   checkAuthState();
   if (window.location.pathname.endsWith('/admin.html')) requireAdminPage();
 }
