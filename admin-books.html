@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Quản Lý Sách &amp; Cổ Thư — Sử Việt Ký</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#fbf9f5",
+            "surface": "#fbf9f5",
+            "on-primary-fixed": "#410006",
+            "tertiary-container": "#235043",
+            "surface-container-high": "#eae8e4",
+            "on-tertiary-fixed-variant": "#214f41",
+            "on-surface": "#1b1c1a",
+            "on-secondary-fixed-variant": "#5a4300",
+            "tertiary-fixed": "#bcedda",
+            "primary-fixed": "#ffdad8",
+            "on-primary-fixed-variant": "#891c22",
+            "on-tertiary": "#ffffff",
+            "surface-container-low": "#f5f3ef",
+            "surface-bright": "#fbf9f5",
+            "on-surface-variant": "#584140",
+            "primary-fixed-dim": "#ffb3b0",
+            "outline-variant": "#dfbfbd",
+            "outline": "#8b716f",
+            "inverse-on-surface": "#f2f0ed",
+            "tertiary-fixed-dim": "#a1d1bf",
+            "surface-tint": "#a93537",
+            "error": "#ba1a1a",
+            "primary": "#6b0210",
+            "on-error": "#ffffff",
+            "tertiary": "#06392d",
+            "on-secondary-container": "#735700",
+            "secondary": "#775a00",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "inverse-surface": "#30312e",
+            "on-tertiary-fixed": "#002118",
+            "surface-container-highest": "#e4e2de",
+            "on-secondary": "#ffffff",
+            "on-background": "#1b1c1a",
+            "surface-container": "#efeeea",
+            "primary-container": "#8b1e24",
+            "secondary-fixed-dim": "#eec14b",
+            "inverse-primary": "#ffb3b0",
+            "on-primary-container": "#ff9d99",
+            "on-tertiary-container": "#92c1b0",
+            "secondary-container": "#fece57",
+            "on-secondary-fixed": "#251a00",
+            "surface-dim": "#dbdad6",
+            "surface-variant": "#e4e2de",
+            "secondary-fixed": "#ffdf98",
+            "on-primary": "#ffffff",
+            "on-error-container": "#93000a"
+          },
+          borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+          spacing: {
+            "space-2xs": "0.25rem", "space-xs": "0.5rem", "space-sm": "0.75rem", "space-md": "1rem",
+            "space-lg": "1.5rem", "space-xl": "2rem", "space-2xl": "3rem", "space-3xl": "4.5rem", "space-4xl": "6rem",
+            "gutter": "1.5rem"
+          },
+          fontFamily: {
+            "display-lg": ["Noto Serif"], "headline-lg": ["Noto Serif"], "headline-md": ["Noto Serif"], "headline-sm": ["Noto Serif"], "caption-era": ["Noto Serif"],
+            "body-lg": ["Be Vietnam Pro"], "body-md": ["Be Vietnam Pro"], "body-sm": ["Be Vietnam Pro"], "label-lg": ["Be Vietnam Pro"], "label-md": ["Be Vietnam Pro"], "label-sm": ["Be Vietnam Pro"]
+          },
+          fontSize: {
+            "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.04em", fontWeight: "600" }],
+            "display-lg": ["56px", { lineHeight: "68px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-sm": ["14px", { lineHeight: "22px", fontWeight: "400" }],
+            "body-md": ["16px", { lineHeight: "26px", fontWeight: "400" }],
+            "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+            "headline-lg": ["36px", { lineHeight: "46px", fontWeight: "600" }],
+            "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.06em", fontWeight: "500" }],
+            "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+            "caption-era": ["13px", { lineHeight: "18px", letterSpacing: "0.12em", fontWeight: "600" }],
+            "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased">
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-30 flex flex-col justify-between border-r border-outline-variant/30 shadow-[0_1px_12px_rgba(71,56,32,0.06)]">
+    <div class="flex flex-col">
+      <!-- Brand header -->
+      <a href="admin.html" class="h-20 px-space-md flex items-center gap-space-xs border-b border-surface-container transition-colors hover:bg-surface-container/30">
+        <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[24px]">account_balance</span>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span class="font-headline-sm text-[19px] text-primary font-bold tracking-tight truncate">Sử Việt Ký</span>
+          <span class="font-label-sm text-[11px] text-secondary uppercase tracking-wider truncate font-semibold">Quản Trị Di Sản Lịch Sử</span>
+        </div>
+      </a>
+      <!-- Role badge -->
+      <div class="px-space-md py-space-xs">
+        <div class="flex items-center gap-space-2xs px-space-sm py-space-2xs rounded bg-primary/5 border border-primary/15">
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          <span class="font-label-sm text-[11px] text-primary font-bold uppercase tracking-wider">Chế độ Quản trị Tối cao</span>
+        </div>
+      </div>
+      <!-- NAVIGATION -->
+      <nav class="flex flex-col gap-1.5 px-space-sm mt-space-xs" id="sidebarMenu">
+        <!-- 1. Tổng quan -->
+        <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="admin.html" id="nav-overview">
+          <span class="material-symbols-outlined text-[22px]">dashboard</span>
+          <span class="font-label-lg text-label-lg">Tổng quan</span>
+        </a>
+        <!-- 2. Quản lý sách (ACTIVE) -->
+        <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded bg-primary-container text-on-primary font-bold shadow-sm transition-all" href="admin-books.html" id="nav-books">
+          <span class="material-symbols-outlined text-[22px]">menu_book</span>
+          <span class="font-label-lg text-label-lg">Quản lý sách</span>
+        </a>
+        <!-- 3. Bài viết -->
+        <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="admin-posts.html" id="nav-posts">
+          <span class="material-symbols-outlined text-[22px]">dynamic_feed</span>
+          <span class="font-label-lg text-label-lg">Bài viết</span>
+        </a>
+        <!-- 4. Sách hướng dẫn -->
+        <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="admin-guides.html" id="nav-guides">
+          <span class="material-symbols-outlined text-[22px]">menu_book</span>
+          <span class="font-label-lg text-label-lg">Sách hướng dẫn</span>
+        </a>
+        <!-- 5. Quản lý thành viên -->
+        <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="admin-members.html" id="nav-members">
+          <span class="material-symbols-outlined text-[22px]">groups</span>
+          <span class="font-label-lg text-label-lg">Quản lý thành viên</span>
+        </a>
+        <!-- 6. Cài đặt -->
+        <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="admin-settings.html" id="nav-settings">
+          <span class="material-symbols-outlined text-[22px]">settings</span>
+          <span class="font-label-lg text-label-lg">Cài đặt</span>
+        </a>
+      </nav>
+    </div>
+    <!-- Bottom widget -->
+    <div class="p-space-md mx-space-sm mb-space-md rounded bg-surface-container-low border border-outline-variant/30">
+      <div class="flex items-center justify-between mb-space-2xs">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Đồng bộ Di sản</span>
+        <span class="font-label-sm text-label-sm text-tertiary font-bold">100% Hoàn tất</span>
+      </div>
+      <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mb-space-xs">
+        <div class="bg-tertiary-container h-full w-full rounded-full"></div>
+      </div>
+      <div class="flex items-center gap-space-2xs text-on-surface-variant font-label-sm text-label-sm">
+        <span class="material-symbols-outlined text-[15px] text-secondary">verified</span>
+        <span>30.000+ trang quét cổ bản</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="pl-72 flex flex-col min-h-screen">
+    <!-- HEADER -->
+    <header class="fixed top-0 left-72 right-0 h-20 bg-surface/95 backdrop-blur-xl border-b border-outline-variant/30 shadow-[0_1px_8px_rgba(71,56,32,0.04)] z-40 px-gutter flex items-center justify-between gap-space-md">
+      <div class="flex items-center gap-space-md flex-1 max-w-2xl">
+        <div class="relative w-full">
+          <span class="material-symbols-outlined absolute left-space-sm top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+          <input class="w-full pl-10 pr-space-md py-2 bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm rounded outline-none border border-transparent focus:border-primary focus:bg-surface-container-lowest transition-all" id="headerGlobalSearch" placeholder="Tìm nhanh tác phẩm, cổ thư, mộc bản, thành viên, niên đại..." type="search"/>
+        </div>
+      </div>
+      <div class="flex items-center gap-space-md">
+        <!-- Về trang công chúng -->
+        <a class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-secondary hover:bg-secondary/10 font-label-sm text-label-sm font-semibold transition-colors border border-secondary/20" href="index.html" title="Xem Cổng thông tin công chúng">
+          <span class="material-symbols-outlined text-[17px]">open_in_browser</span>
+          <span class="hidden md:inline">Về Trang Công Chúng</span>
+        </a>
+        <!-- Bộ chọn ngôn ngữ -->
+        <div class="flex items-center bg-surface-container-low rounded p-1 border border-outline-variant/30" id="langSwitcher">
+          <button class="px-space-xs py-1 rounded bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold shadow-sm" type="button" onclick="setLang('vi')">VI</button>
+          <button class="px-space-xs py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium transition-colors" type="button" onclick="setLang('en')">EN</button>
+        </div>
+        <!-- Thông báo -->
+        <button class="relative p-space-xs text-on-surface-variant hover:text-on-surface rounded hover:bg-surface-container transition-colors cursor-pointer" id="notificationButton" type="button" onclick="showNotifications()">
+          <span class="material-symbols-outlined text-[22px]">notifications</span>
+          <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary ring-2 ring-surface"></span>
+        </button>
+        <!-- Super Administrator profile -->
+        <div class="flex items-center gap-space-xs pl-space-xs border-l border-surface-container">
+          <div class="text-right hidden sm:block">
+            <div class="font-label-lg text-label-lg text-on-surface leading-tight font-bold">Ban Biên Tập Quốc Sử</div>
+            <div class="font-label-sm text-label-sm text-secondary font-medium">Super Administrator</div>
+          </div>
+          <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-sm ring-2 ring-primary/20">
+            <span class="material-symbols-outlined text-[20px]">person</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="w-full pt-24 px-gutter bg-surface flex-1 pb-space-2xl">
+      <div class="flex flex-col w-full gap-space-xl">
+        <!-- TOP BREADCRUMB & REALTIME SYNC TICKER -->
+        <div class="flex flex-wrap items-center justify-between gap-space-sm">
+          <div class="flex items-center gap-space-xs text-on-surface-variant">
+            <a href="admin.html" class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-bold hover:underline">Trung Tâm Điều Hành</a>
+            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+            <span class="font-label-sm text-label-sm font-medium text-on-surface">Quản Lý Tủ Sách &amp; Cổ Thư Biên Khảo</span>
+          </div>
+          <div class="flex items-center gap-space-xs px-space-sm py-space-2xs bg-surface-container-lowest rounded shadow-sm text-on-surface-variant border border-outline-variant/30">
+            <span class="material-symbols-outlined text-[16px] text-secondary">security</span>
+            <span class="font-label-sm text-label-sm">Cơ sở dữ liệu: <strong class="text-primary font-bold">Phiên bản Quốc gia 4.2</strong> (Cập nhật 08:30 hôm nay)</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-tertiary-container animate-pulse ml-space-2xs"></span>
+          </div>
+        </div>
+
+        <!-- SECTION: QUẢN LÝ SÁCH & CỔ THƯ -->
+        <section class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 p-space-lg" id="section-books">
+          <!-- Header của Quản lý Sách -->
+          <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-md border-b border-surface-container">
+            <div>
+              <div class="flex items-center gap-space-xs">
+                <span class="material-symbols-outlined text-primary text-[28px]">menu_book</span>
+                <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Quản Lý Tủ Sách &amp; Cổ Thư Biên Khảo</h2>
+                <span class="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-[12px] font-bold" id="booksTotalBadge">86 Tác phẩm</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Hệ thống lưu trữ, đối chiếu mộc bản, chỉnh sửa thông tin thư tịch cổ và quản lý ấn bản điện tử chính sử.
+              </p>
+            </div>
+            <!-- Nút nổi bật: + Thêm Sách Mới -->
+            <div class="flex items-center gap-space-sm flex-wrap">
+              <button class="inline-flex items-center gap-space-xs px-space-lg py-2.5 rounded bg-primary hover:bg-primary-container text-on-primary font-label-lg text-label-lg font-bold shadow-sm transition-all cursor-pointer" onclick="openAddBook()" type="button" id="btnAddBookTop">
+                <span class="material-symbols-outlined text-[20px]">add_box</span>
+                <span>+ Thêm Sách Mới</span>
+              </button>
+              <button class="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded bg-surface-container-low hover:bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold transition-colors border border-outline-variant/30 cursor-pointer" onclick="exportBooksCSV()" type="button">
+                <span class="material-symbols-outlined text-[18px]">file_download</span> Xuất Danh Mục
+              </button>
+            </div>
+          </div>
+
+          <!-- Thanh tìm kiếm và bộ lọc nhanh theo triều đại / thể loại sách -->
+          <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-sm my-space-md p-space-sm rounded-lg bg-surface-container-low border border-outline-variant/20">
+            <div class="relative flex-1 max-w-md">
+              <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+              <input class="w-full pl-9 pr-3 py-1.5 bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm rounded border border-outline-variant/30 outline-none focus:border-primary" id="bookSearchInput" placeholder="Tìm tên sách, tác giả, triều đại..." type="text"/>
+            </div>
+            <div class="flex flex-wrap items-center gap-space-xs">
+              <span class="font-label-sm text-label-sm text-on-surface-variant font-semibold">Triều đại:</span>
+              <select class="bg-surface-container-lowest text-on-surface font-label-sm text-label-sm px-space-sm py-1.5 rounded border border-outline-variant/30 outline-none cursor-pointer" id="bookEraFilter" onchange="renderAdminBooks()">
+                <option value="">Tất cả các thời kỳ</option>
+                <option value="Thời Lý - Trần">Thời Lý - Trần (1009 - 1400)</option>
+                <option value="Thời Hậu Lê">Thời Hậu Lê (1428 - 1789)</option>
+                <option value="Thời Tây Sơn">Thời Tây Sơn (1778 - 1802)</option>
+                <option value="Thời Triều Nguyễn">Thời Triều Nguyễn (1802 - 1945)</option>
+                <option value="Thời Cận & Hiện Đại">Thời Cận &amp; Hiện Đại (1945 - nay)</option>
+              </select>
+              <span class="font-label-sm text-label-sm text-on-surface-variant font-semibold ml-2">Thể loại:</span>
+              <select class="bg-surface-container-lowest text-on-surface font-label-sm text-label-sm px-space-sm py-1.5 rounded border border-outline-variant/30 outline-none cursor-pointer" id="bookTypeFilter" onchange="renderAdminBooks()">
+                <option value="">Tất cả thể loại</option>
+                <option value="Chính sử biên niên quốc gia">Chính sử biên niên quốc gia</option>
+                <option value="Quân thư">Quân thư / Binh thư</option>
+                <option value="Cáo văn">Cáo văn / Tuyên ngôn</option>
+                <option value="Thơ yêu nước">Thơ yêu nước</option>
+                <option value="Truyện danh nhân">Truyện danh nhân</option>
+                <option value="Điển tích lịch sử">Điển tích lịch sử</option>
+                <option value="Hịch">Hịch</option>
+                <option value="Thực lục">Thực lục</option>
+                <option value="Lịch sử phổ thông">Lịch sử phổ thông</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Bảng danh sách sách -->
+          <div class="overflow-x-auto border border-outline-variant/20 rounded-lg">
+            <table class="w-full text-left font-body-sm text-body-sm">
+              <thead class="bg-surface-container-low text-on-surface-variant uppercase font-label-sm text-label-sm tracking-wider border-b border-outline-variant/20">
+                <tr>
+                  <th class="py-space-sm px-space-md font-semibold">Tác Phẩm &amp; Cổ Thư</th>
+                  <th class="py-space-sm px-space-md font-semibold">Tác Giả / Chủ Biên</th>
+                  <th class="py-space-sm px-space-md font-semibold">Niên Đại</th>
+                  <th class="py-space-sm px-space-md font-semibold">Tóm Lược &amp; Giá Trị</th>
+                  <th class="py-space-sm px-space-md font-semibold">Trạng Thái Số Hóa</th>
+                  <th class="py-space-sm px-space-md font-semibold text-right">Thao Tác</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-surface-container text-on-surface" id="booksTableBody">
+                <!-- Nội dung được render tự động bằng Javascript -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Phân trang -->
+          <div class="flex items-center justify-between pt-space-md border-t border-surface-container mt-space-md text-on-surface-variant font-label-sm text-label-sm">
+            <span id="booksPaginationInfo">Hiển thị tác phẩm trong hệ thống</span>
+            <div class="flex items-center gap-1">
+              <button class="px-space-xs py-1 rounded bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer" onclick="prevBookPage()">Trước</button>
+              <button class="px-space-sm py-1 rounded bg-primary text-on-primary font-bold">1</button>
+              <button class="px-space-xs py-1 rounded bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer" onclick="nextBookPage()">Sau</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full bg-surface-container-low border-t border-outline-variant/30 mt-auto">
+      <div class="w-full px-gutter py-space-lg">
+        <div class="bg-surface-container-lowest p-space-md rounded shadow-[0_1px_6px_rgba(71,56,32,0.03)] border border-outline-variant/20 text-center mb-space-md">
+          <p class="font-caption-era text-[14px] text-primary tracking-wide font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+            « Dân ta phải biết sử ta, Cho tường gốc tích nước nhà Việt Nam » — HỒ CHÍ MINH (LỊCH SỬ NƯỚC TA, 1942)
+          </p>
+        </div>
+        <div class="flex flex-col md:flex-row items-center justify-between gap-space-md text-on-surface-variant font-label-md text-label-md">
+          <div>© 2025 SỬ VIỆT KÝ. Hệ thống Quản trị Di sản Văn hóa phi vật thể và Lịch sử Quốc gia.</div>
+          <div class="flex items-center gap-space-lg">
+            <a class="hover:text-primary transition-colors" href="#">Quy chế Khảo cứu</a>
+            <a class="hover:text-primary transition-colors" href="#">Chuẩn Số hóa Cổ thư</a>
+            <a class="hover:text-primary transition-colors" href="#">Bảo mật &amp; Phân quyền</a>
+            <a class="hover:text-primary transition-colors" href="#">Nhật ký Hệ thống</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- MODAL THÊM / CHỈNH SỬA SÁCH (TRỰC TIẾP Ở BODY - SỬA TRIỆT ĐỂ LỖI MÀN HÌNH MỜ) -->
+  <div class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden overflow-y-auto" id="modalAddBook" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 100;" onclick="if(event.target === this) closeAddBook()">
+    <div class="relative z-10 my-auto w-full max-w-2xl rounded-xl bg-surface-container-lowest shadow-2xl border border-outline-variant/30 overflow-hidden" onclick="event.stopPropagation()">
+      <!-- Header modal -->
+      <div class="px-space-lg py-space-md bg-primary text-on-primary flex items-center justify-between">
+        <div class="flex items-center gap-space-xs">
+          <span class="material-symbols-outlined text-[24px]">library_add</span>
+          <h3 class="font-headline-sm text-headline-sm font-bold text-white">Thêm Sách &amp; Cổ Thư Mới</h3>
+        </div>
+        <button class="p-1 rounded hover:bg-white/20 text-on-primary transition-colors cursor-pointer" onclick="closeAddBook()" type="button" aria-label="Đóng">
+          <span class="material-symbols-outlined text-[22px]">close</span>
+        </button>
+      </div>
+      <!-- Body form -->
+      <form class="p-space-lg flex flex-col gap-space-md max-h-[80vh] overflow-y-auto" id="formNewBook" onsubmit="handleSaveBook(event)">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+          <div>
+            <label class="block font-label-md text-label-md font-bold text-on-surface mb-1">Tên Tác Phẩm / Cổ Thư *</label>
+            <input class="w-full px-3 py-2 rounded bg-surface-container-low border border-outline-variant/40 font-body-sm text-body-sm text-on-surface focus:border-primary outline-none" id="inputBookTitle" placeholder="VD: Khâm Định Việt Sử Thông Giám Cương Mục" required="" type="text"/>
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md font-bold text-on-surface mb-1">Tác Giả / Chủ Biên *</label>
+            <input class="w-full px-3 py-2 rounded bg-surface-container-low border border-outline-variant/40 font-body-sm text-body-sm text-on-surface focus:border-primary outline-none" id="inputBookAuthor" placeholder="VD: Quốc Sử Quán Triều Nguyễn" required="" type="text"/>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+          <div>
+            <label class="block font-label-md text-label-md font-bold text-on-surface mb-1">Thời Đại / Niên Đại *</label>
+            <input class="w-full px-3 py-2 rounded bg-surface-container-low border border-outline-variant/40 font-body-sm text-body-sm text-on-surface focus:border-primary outline-none" id="inputBookEra" placeholder="VD: Năm 1856 - 1884 (Triều Nguyễn)" required="" type="text"/>
+          </div>
+          <div>
+            <label class="block font-label-md text-label-md font-bold text-on-surface mb-1">Thể Loại Văn Bản *</label>
+            <select class="w-full px-3 py-2 rounded bg-surface-container-low border border-outline-variant/40 font-body-sm text-body-sm text-on-surface focus:border-primary outline-none cursor-pointer" id="inputBookType" name="bookType">
+              <option value="Chính sử biên niên quốc gia">Chính sử biên niên quốc gia</option>
+              <option value="Binh thư & Chiến thuật">Binh thư &amp; Chiến thuật</option>
+              <option value="Tuyên ngôn & Chiếu văn">Tuyên ngôn &amp; Chiếu văn</option>
+              <option value="Địa chí & Bản đồ cổ">Địa chí &amp; Bản đồ cổ</option>
+              <option value="Văn học & Thi ca yêu nước">Văn học &amp; Thi ca yêu nước</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block font-label-md text-label-md font-bold text-on-surface mb-1">Hình Thức Bản Thảo / Lưu Trữ</label>
+          <div class="grid grid-cols-3 gap-space-sm">
+            <label class="flex items-center gap-2 p-2 rounded bg-surface-container-low border border-outline-variant/30 text-xs font-semibold cursor-pointer">
+              <input checked="" class="text-primary focus:ring-primary" name="bookFormat" type="radio" value="Mộc bản triều đình"/> Mộc bản triều đình
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded bg-surface-container-low border border-outline-variant/30 text-xs font-semibold cursor-pointer">
+              <input class="text-primary focus:ring-primary" name="bookFormat" type="radio" value="Bản chép tay giấy dó"/> Bản chép tay giấy dó
+            </label>
+            <label class="flex items-center gap-2 p-2 rounded bg-surface-container-low border border-outline-variant/30 text-xs font-semibold cursor-pointer">
+              <input class="text-primary focus:ring-primary" name="bookFormat" type="radio" value="Bản khắc đá / Chuông đồng"/> Bản khắc đá / Chuông đồng
+            </label>
+          </div>
+        </div>
+        <div>
+          <label class="block font-label-md text-label-md font-bold text-on-surface mb-1">Ý Nghĩa Lịch Sử &amp; Giá Trị Tư Liệu *</label>
+          <textarea class="w-full px-3 py-2 rounded bg-surface-container-low border border-outline-variant/40 font-body-sm text-body-sm text-on-surface focus:border-primary outline-none" id="inputBookDesc" placeholder="Tóm lược giá trị văn hóa, sự kiện then chốt và tính xác thực của cổ thư..." required="" rows="3"></textarea>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+          <div>
+            <label class="block font-label-md text-label-md font-bold text-on-surface mb-1">Ảnh bìa / Hình tư liệu</label>
+            <input class="w-full px-3 py-2 rounded bg-surface-container-low border border-outline-variant/40 font-body-sm text-body-sm text-on-surface focus:border-primary outline-none" id="inputBookImageUrl" placeholder="Dán URL ảnh https://..." type="url"/>
+            <label class="inline-flex items-center gap-2 mt-2 px-3 py-2 rounded bg-surface-container text-primary font-label-sm font-semibold cursor-pointer hover:bg-surface-container-high transition-colors">
+              <span class="material-symbols-outlined text-[18px]">upload</span> Chọn ảnh từ máy
+              <input accept="image/*" class="hidden" id="inputBookImageFile" type="file"/>
+            </label>
+          </div>
+          <div class="h-32 rounded-lg overflow-hidden bg-surface-container border border-outline-variant/30 flex items-center justify-center">
+            <img alt="Xem trước ảnh bìa" class="hidden w-full h-full object-cover" id="bookImagePreview"/>
+            <span class="font-label-sm text-on-surface-variant text-center px-3" id="bookImagePlaceholder">Chưa có ảnh xem trước</span>
+          </div>
+        </div>
+        <div class="flex items-center justify-end gap-space-sm pt-space-sm border-t border-surface-container">
+          <button class="px-space-md py-2 rounded bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold transition-colors cursor-pointer" onclick="closeAddBook()" type="button">
+            Hủy Bỏ
+          </button>
+          <button class="inline-flex items-center gap-1.5 px-space-lg py-2 rounded bg-primary hover:bg-primary-container text-on-primary font-label-sm text-label-sm font-bold shadow transition-colors cursor-pointer" type="submit">
+            <span class="material-symbols-outlined text-[18px]">save</span> Lưu Tác Phẩm
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    let editingBookTitle = null;
+    let pendingBookImage = '';
+
+    const adminEscape = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[char]));
+
+    function managedBooks() {
+      const seed = [
+        { title: 'Binh Thư Yếu Lược', author: 'Trần Hưng Đạo', era: 'Năm 1285 (Thời Lý - Trần)', type: 'Quân thư', description: 'Khí phách và nghệ thuật quân sự Đại Việt trong cuộc kháng chiến chống quân Nguyên Mông.' },
+        { title: 'Bình Ngô Đại Cáo', author: 'Nguyễn Trãi', era: 'Năm 1428 (Thời Hậu Lê)', type: 'Cáo văn', description: 'Bản tuyên ngôn độc lập thứ hai của dân tộc Việt Nam sau thắng lợi Lam Sơn.' },
+        { title: 'Đại Việt Sử Ký Toàn Thư', author: 'Ngô Sĩ Liên', era: 'Bản in Chính Hòa, 1697 (Thời Hậu Lê)', type: 'Bộ quốc sử', description: 'Bộ chính sử toàn diện nền tảng của sử học truyền thống Việt Nam.' },
+        { title: 'Nam Quốc Sơn Hà', author: 'Lý Thường Kiệt', era: 'Nhà Lý, thế kỷ XI (Thời Lý - Trần)', type: 'Thơ yêu nước', description: 'Tuyên ngôn chủ quyền sông núi nước Nam vang danh phòng tuyến Như Nguyệt.' },
+        { title: 'Đại Việt Anh Hùng Truyện', author: 'Tuyển khảo về Trần Quốc Tuấn', era: 'Thời Trần, thế kỷ XIII (Thời Lý - Trần)', type: 'Truyện danh nhân', description: 'Cuộc đời và sự nghiệp quân sự thiên tài của Tiết chế Hưng Đạo Đại Vương.' },
+        { title: 'Đại Nam Liệu Nguyên', author: 'Tuyển khảo về Hoàng đế Quang Trung', era: 'Tây Sơn, thế kỷ XVIII (Thời Tây Sơn)', type: 'Khảo cứu lịch sử', description: 'Khảo cứu phong trào nông dân Tây Sơn và thiên tài quân sự Nguyễn Huệ.' },
+        { title: 'Gươm Thuận Thiên', author: 'Tuyển khảo về Lê Lợi', era: 'Hậu Lê, thế kỷ XV (Thời Hậu Lê)', type: 'Điển tích lịch sử', description: 'Biểu tượng ý chí quật cường của cuộc khởi nghĩa Lam Sơn và độc lập Đại Việt.' },
+        { title: 'Khởi Nghĩa Mê Linh', author: 'Tuyển khảo về Hai Bà Trưng', era: 'Năm 40 (Thời Bắc thuộc)', type: 'Danh nhân nữ', description: 'Ý chí kiên cường chống giặc ngoại xâm của Hai Bà Trưng đền nợ nước trả thù nhà.' },
+        { title: 'Hịch Tướng Sĩ', author: 'Trần Quốc Tuấn', era: 'Năm 1285, thời Trần (Thời Lý - Trần)', type: 'Hịch', description: 'Lời hiệu triệu đanh thép cổ vũ tinh thần quyết chiến quyết thắng của tướng sĩ Đại Việt.' },
+        { title: 'Lam Sơn Thực Lục', author: 'Nguyễn Trãi', era: 'Thế kỷ XV (Thời Hậu Lê)', type: 'Thực lục', description: 'Ghi chép chân thực về toàn bộ quá trình khởi nghĩa và chiến thắng Lam Sơn.' },
+        { title: 'Việt Nam Sử Lược', author: 'Trần Trọng Kim', era: 'Xuất bản lần đầu 1920 (Thời Cận & Hiện Đại)', type: 'Lịch sử phổ thông', description: 'Công trình lịch sử Việt Nam đầu tiên viết bằng chữ Quốc ngữ theo phương pháp phương Tây.' }
+      ];
+      const base = JSON.parse(localStorage.getItem('siteBooksBase') || 'null') || seed;
+      const overrides = getAdminBooks();
+      const byTitle = new Map(overrides.map((book) => [book.sourceTitle || book.title, book]));
+      const deleted = new Set(JSON.parse(localStorage.getItem('adminDeletedBooks') || '[]'));
+      const books = base.map((book) => byTitle.get(book.title) || book).filter((book) => !deleted.has(book.title));
+      overrides.filter((book) => !base.some((item) => item.title === (book.sourceTitle || book.title))).forEach((book) => books.push(book));
+      return books;
+    }
+
+    function persistManagedBook(book, sourceTitle = book.title) {
+      const overrides = getAdminBooks().filter((item) => (item.sourceTitle || item.title) !== sourceTitle);
+      overrides.push({ ...book, sourceTitle });
+      saveAdminBooks(overrides);
+    }
+
+    function renderAdminBooks() {
+      const table = document.getElementById('booksTableBody');
+      if (!table) return;
+      const query = (document.getElementById('bookSearchInput')?.value || '').trim().toLowerCase();
+      const eraFilter = (document.getElementById('bookEraFilter')?.value || '').trim().toLowerCase();
+      const typeFilter = (document.getElementById('bookTypeFilter')?.value || '').trim().toLowerCase();
+
+      let books = managedBooks().filter((book) => {
+        const matchesQuery = !query || [book.title, book.author, book.era, book.description, book.type].some((value) => String(value || '').toLowerCase().includes(query));
+        const matchesEra = !eraFilter || String(book.era || '').toLowerCase().includes(eraFilter);
+        const matchesType = !typeFilter || String(book.type || '').toLowerCase().includes(typeFilter);
+        return matchesQuery && matchesEra && matchesType;
+      });
+
+      if (books.length === 0) {
+        table.innerHTML = `
+          <tr>
+            <td colspan="6" class="py-12 text-center text-on-surface-variant font-body-md">
+              <span class="material-symbols-outlined text-4xl text-outline mb-2">menu_book</span>
+              <p>Không tìm thấy tác phẩm nào phù hợp với bộ lọc.</p>
+              <button class="mt-3 px-4 py-1.5 rounded bg-primary text-white font-label-sm" onclick="document.getElementById('bookSearchInput').value='';document.getElementById('bookEraFilter').value='';document.getElementById('bookTypeFilter').value='';renderAdminBooks();">Xóa bộ lọc</button>
+            </td>
+          </tr>
+        `;
+      } else {
+        table.innerHTML = books.map((book) => `
+          <tr class="hover:bg-surface-container-low/60 transition-colors">
+            <td class="py-space-md px-space-md">
+              <div class="flex items-center gap-space-sm">
+                <div class="w-12 h-16 rounded overflow-hidden shadow-sm flex-shrink-0 bg-surface-container-high border border-outline-variant/30">
+                  <img alt="${adminEscape(book.title)}" class="w-full h-full object-cover" src="${adminEscape(book.image || 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=300&q=80')}" onerror="this.src='https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=300&q=80'">
+                </div>
+                <div>
+                  <div class="font-headline-sm text-[16px] font-bold text-primary">${adminEscape(book.title)}</div>
+                  <span class="inline-block mt-1 font-label-sm text-[11px] px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-semibold">${adminEscape(book.type || 'Tư liệu lịch sử')}</span>
+                </div>
+              </div>
+            </td>
+            <td class="py-space-md px-space-md">
+              <div class="font-label-lg text-label-lg font-semibold text-on-surface">${adminEscape(book.author)}</div>
+            </td>
+            <td class="py-space-md px-space-md">
+              <span class="inline-block px-2 py-1 rounded bg-surface-container font-caption-era text-caption-era font-bold text-secondary">${adminEscape(book.era)}</span>
+            </td>
+            <td class="py-space-md px-space-md max-w-xs">
+              <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">${adminEscape(book.description)}</p>
+            </td>
+            <td class="py-space-md px-space-md whitespace-nowrap">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-[12px] font-bold">
+                <span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Đang hoạt động
+              </span>
+            </td>
+            <td class="py-space-md px-space-md text-right whitespace-nowrap">
+              <div class="inline-flex items-center gap-1">
+                <button class="px-2.5 py-1.5 rounded bg-surface-container hover:bg-surface-container-high text-primary font-label-sm font-semibold transition-colors cursor-pointer" onclick="editBook('${adminEscape(book.title)}', '${adminEscape(book.author)}', '${adminEscape(book.era)}', '${adminEscape(book.description)}', '${adminEscape(book.image || '')}')" title="Chỉnh sửa tác phẩm">
+                  <span class="material-symbols-outlined text-[16px] align-middle">edit</span> Sửa
+                </button>
+                <button class="px-2 py-1.5 rounded hover:bg-error/10 text-error font-label-sm font-semibold transition-colors cursor-pointer" onclick="confirmDeleteBook('${adminEscape(book.title)}')" title="Xóa tác phẩm">
+                  <span class="material-symbols-outlined text-[17px] align-middle">delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      const countBadge = document.getElementById('booksTotalBadge');
+      if (countBadge) countBadge.textContent = `${books.length} Tác phẩm`;
+      const paginationInfo = document.getElementById('booksPaginationInfo');
+      if (paginationInfo) paginationInfo.textContent = `Hiển thị ${books.length} tác phẩm trong hệ thống di sản`;
+    }
+
+    function updateBookImagePreview(source) {
+      const preview = document.getElementById('bookImagePreview');
+      const placeholder = document.getElementById('bookImagePlaceholder');
+      if (!preview || !placeholder) return;
+      if (!source) {
+        preview.removeAttribute('src');
+        preview.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+        return;
+      }
+      preview.src = source;
+      preview.classList.remove('hidden');
+      placeholder.classList.add('hidden');
+      preview.onerror = () => {
+        preview.classList.add('hidden');
+        placeholder.textContent = 'Không thể tải ảnh này';
+        placeholder.classList.remove('hidden');
+      };
+    }
+
+    // Mở modal Thêm Sách Mới (Đã sửa lỗi hiển thị mờ, hiện form chuẩn xác)
+    function openAddBook() {
+      editingBookTitle = null;
+      pendingBookImage = '';
+      const form = document.getElementById('formNewBook');
+      if (form) form.reset();
+      const urlInput = document.getElementById('inputBookImageUrl');
+      if (urlInput) urlInput.value = '';
+      const fileInput = document.getElementById('inputBookImageFile');
+      if (fileInput) fileInput.value = '';
+      const typeInput = document.getElementById('inputBookType');
+      if (typeInput) typeInput.value = 'Chính sử biên niên quốc gia';
+      const titleEl = document.querySelector('#modalAddBook h3');
+      if (titleEl) titleEl.textContent = 'Thêm Sách & Cổ Thư Mới';
+      updateBookImagePreview('');
+      
+      const modal = document.getElementById('modalAddBook');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+      }
+      document.getElementById('inputBookTitle')?.focus();
+    }
+
+    function closeAddBook() {
+      const modal = document.getElementById('modalAddBook');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.style.display = 'none';
+      }
+    }
+
+    function editBook(title, author, era, description = '', image = '') {
+      const existing = managedBooks().find((book) => book.title === title);
+      editingBookTitle = title;
+      pendingBookImage = image || existing?.image || '';
+      document.getElementById('inputBookTitle').value = title;
+      document.getElementById('inputBookAuthor').value = author;
+      document.getElementById('inputBookEra').value = era;
+      document.getElementById('inputBookType').value = existing?.type || 'Chính sử biên niên quốc gia';
+      document.getElementById('inputBookDesc').value = description || `Hiệu đính cập nhật dữ liệu lịch sử cho tác phẩm: ${title}.`;
+      document.getElementById('inputBookImageUrl').value = pendingBookImage.startsWith('data:') ? '' : pendingBookImage;
+      document.getElementById('inputBookImageFile').value = '';
+      updateBookImagePreview(pendingBookImage);
+      
+      const titleEl = document.querySelector('#modalAddBook h3');
+      if (titleEl) titleEl.textContent = 'Chỉnh sửa sách và cổ thư';
+
+      const modal = document.getElementById('modalAddBook');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.style.display = 'flex';
+      }
+    }
+
+    function confirmDeleteBook(title) {
+      if (!confirm(`Bạn có chắc muốn xóa sách “${title}” khỏi kho lưu trữ không?`)) return;
+      const deleted = JSON.parse(localStorage.getItem('adminDeletedBooks') || '[]');
+      if (!deleted.includes(title)) deleted.push(title);
+      localStorage.setItem('adminDeletedBooks', JSON.stringify(deleted));
+      addAdminNotification(`Đã xóa sách “${title}”.`);
+      renderAdminBooks();
+    }
+
+    function handleSaveBook(event) {
+      event.preventDefault();
+      const title = document.getElementById('inputBookTitle').value.trim();
+      const author = document.getElementById('inputBookAuthor').value.trim();
+      const era = document.getElementById('inputBookEra').value.trim();
+      const description = document.getElementById('inputBookDesc').value.trim();
+      const imageUrl = document.getElementById('inputBookImageUrl').value.trim();
+      const type = document.getElementById('inputBookType')?.value || 'Tư liệu lịch sử';
+      
+      if (!title || !author) {
+        alert('Vui lòng điền đầy đủ tên sách và tác giả.');
+        return;
+      }
+
+      const existing = managedBooks().find((book) => book.title === editingBookTitle);
+      persistManagedBook({
+        ...(existing || {}),
+        title,
+        author,
+        era,
+        description,
+        type,
+        image: pendingBookImage || imageUrl || existing?.image || 'https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=800&q=80',
+        source: existing?.source || '#',
+        sourceName: existing?.sourceName || 'Kho lưu trữ Sử Việt Ký',
+        fullText: existing?.fullText || description,
+        translation: existing?.translation || description,
+        audioText: existing?.audioText || description
+      }, editingBookTitle || title);
+
+      const deleted = JSON.parse(localStorage.getItem('adminDeletedBooks') || '[]').filter((item) => item !== title);
+      localStorage.setItem('adminDeletedBooks', JSON.stringify(deleted));
+
+      addAdminNotification(`${editingBookTitle ? 'Đã cập nhật' : 'Đã thêm'} sách “${title}”.`);
+      closeAddBook();
+      renderAdminBooks();
+    }
+
+    function exportBooksCSV() {
+      const books = managedBooks();
+      let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+      csvContent += "Tên Tác Phẩm,Tác Giả,Niên Đại,Thể Loại,Mô Tả\n";
+      books.forEach((b) => {
+        csvContent += `"${(b.title||'').replace(/"/g, '""')}","${(b.author||'').replace(/"/g, '""')}","${(b.era||'').replace(/"/g, '""')}","${(b.type||'').replace(/"/g, '""')}","${(b.description||'').replace(/"/g, '""')}"\n`;
+      });
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "danh_muc_su_viet_ky.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.showAppToast?.('Đã xuất danh mục sách ra file CSV thành công!', 'success');
+    }
+
+    function prevBookPage() { window.showAppToast?.('Bạn đang ở trang đầu tiên.', 'info'); }
+    function nextBookPage() { window.showAppToast?.('Đã hiển thị toàn bộ tác phẩm trên trang này.', 'info'); }
+
+    function showNotifications() {
+      const items = JSON.parse(localStorage.getItem('adminNotifications') || '[]');
+      let panel = document.getElementById('adminNotificationsPanel');
+      if (!panel) {
+        panel = document.createElement('div');
+        panel.id = 'adminNotificationsPanel';
+        panel.className = 'fixed top-16 right-6 z-[60] w-80 max-w-[calc(100vw-2rem)] bg-white rounded-xl shadow-xl border border-outline-variant/30 p-4';
+        document.body.appendChild(panel);
+      }
+      panel.innerHTML = `
+        <div class="flex items-center justify-between border-b pb-2 mb-2 font-bold text-primary">
+          <span>Thông báo quản trị</span>
+          <button class="text-xl leading-none text-gray-500 hover:text-black cursor-pointer" onclick="document.getElementById('adminNotificationsPanel').remove()">×</button>
+        </div>
+        ${items.length ? items.map((item) => `
+          <p class="text-sm py-2 border-b border-surface-container">
+            ${adminEscape(item.message)}
+            <small class="block text-gray-500 mt-1">${adminEscape(item.createdAt)}</small>
+          </p>
+        `).join('') : '<p class="text-sm text-gray-500 py-3">Chưa có thông báo nào.</p>'}
+      `;
+      localStorage.setItem('adminNotifications', JSON.stringify(items.map((item) => ({ ...item, read: true }))));
+    }
+
+    function setLang(lang, notify = true) {
+      localStorage.setItem('adminLanguage', lang);
+      document.documentElement.lang = lang === 'en' ? 'en' : 'vi';
+      const labels = lang === 'en'
+        ? { overview: 'Overview', books: 'Book management', posts: 'Posts', guides: 'Help guides', members: 'Member management', settings: 'Settings' }
+        : { overview: 'Tổng quan', books: 'Quản lý sách', posts: 'Bài viết', guides: 'Sách hướng dẫn', members: 'Quản lý thành viên', settings: 'Cài đặt' };
+      [['nav-overview', labels.overview], ['nav-books', labels.books], ['nav-posts', labels.posts], ['nav-guides', labels.guides], ['nav-members', labels.members], ['nav-settings', labels.settings]].forEach(([id, text]) => {
+        const label = document.querySelector(`#${id} span:last-child`);
+        if (label) label.textContent = text;
+      });
+      if (notify) window.showAppToast?.(lang === 'en' ? 'Language preference saved.' : 'Đã lưu ngôn ngữ Tiếng Việt.');
+    }
+
+    function applyAdminTheme(theme) {
+      let style = document.getElementById('adminThemeStyle');
+      if (!style) { style = document.createElement('style'); style.id = 'adminThemeStyle'; document.head.appendChild(style); }
+      style.textContent = theme === 'dark' ? `body { background:#171412 !important; color:#f5f3ef !important; } body > div, main, header, footer, section, table, td, th, .bg-surface-container-lowest { background-color:#241f1c !important; color:#f5f3ef !important; } .bg-surface-container-low, .bg-surface-container { background-color:#302925 !important; color:#f5f3ef !important; } input, select, textarea { background-color:#302925 !important; color:#f5f3ef !important; }` : '';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAdminBooks();
+      applyAdminTheme(localStorage.getItem('adminTheme') || 'light');
+      setLang(localStorage.getItem('adminLanguage') || 'vi', false);
+
+      document.getElementById('bookSearchInput')?.addEventListener('input', renderAdminBooks);
+      document.getElementById('headerGlobalSearch')?.addEventListener('input', (event) => {
+        const input = document.getElementById('bookSearchInput');
+        if (input) {
+          input.value = event.target.value;
+          renderAdminBooks();
+        }
+      });
+
+      document.getElementById('inputBookImageUrl')?.addEventListener('input', (event) => {
+        pendingBookImage = event.target.value.trim();
+        updateBookImagePreview(pendingBookImage);
+      });
+
+      document.getElementById('inputBookImageFile')?.addEventListener('change', (event) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          pendingBookImage = String(reader.result);
+          document.getElementById('inputBookImageUrl').value = '';
+          updateBookImagePreview(pendingBookImage);
+        };
+        reader.readAsDataURL(file);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeAddBook();
+      });
+
+      // Tự động mở form thêm sách nếu URL có ?action=add
+      if (new URLSearchParams(window.location.search).get('action') === 'add') {
+        openAddBook();
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script src="auth.js"></script>
+  <script src="posts.js"></script>
+  <script src="guide-center.js"></script>
+  <script src="app-effects.js"></script>
+</body>
+</html>

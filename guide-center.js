@@ -86,7 +86,8 @@
   }
 
   function initPublicGuide() {
-    if (getCurrentPage() === 'admin.html') return;
+    const page = getCurrentPage();
+    if (page === 'admin.html' || page.startsWith('admin-')) return;
     const button = document.createElement('button');
     button.type = 'button';
     button.id = 'openPageGuide';

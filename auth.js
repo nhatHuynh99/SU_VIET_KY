@@ -167,8 +167,18 @@ function bindGoogleAuthButtons() {
 }
 
 // 3. Hàm Đăng Xuất
-function logoutUser() {
+async function logoutUser() {
+  try {
+    if (window.suvietSupabase && window.suvietSupabase.auth) {
+      const { error } = await window.suvietSupabase.auth.signOut();
+      if (error) console.warn('Supabase logout warning:', error.message);
+    }
+  } catch (error) {
+    console.warn('Logout session cleanup warning:', error);
+  }
+
   localStorage.removeItem('currentUser');
+  sessionStorage.removeItem('currentUser');
   window.setAppToastForNextPage?.('Bạn đã đăng xuất.', 'success');
   window.location.href = 'login.html';
 }
@@ -301,18 +311,23 @@ function handleRegisterSubmit(formId) {
   );
 }
 
+function isAdminPath() {
+  const file = (window.location.pathname.split('/').pop() || '').toLowerCase();
+  return file === 'admin.html' || file.startsWith('admin-');
+}
+
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
-    if (document.body && !window.location.pathname.endsWith('/admin.html')) syncSharedHeader();
+    if (document.body && !isAdminPath()) syncSharedHeader();
     bindGoogleAuthButtons();
     hydrateSupabaseGoogleSession();
     checkAuthState();
-    if (window.location.pathname.endsWith('/admin.html')) requireAdminPage();
+    if (isAdminPath()) requireAdminPage();
   });
 } else {
-  if (!window.location.pathname.endsWith('/admin.html')) syncSharedHeader();
+  if (!isAdminPath()) syncSharedHeader();
   bindGoogleAuthButtons();
   hydrateSupabaseGoogleSession();
   checkAuthState();
-  if (window.location.pathname.endsWith('/admin.html')) requireAdminPage();
+  if (isAdminPath()) requireAdminPage();
 }

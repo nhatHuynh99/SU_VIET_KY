@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Quản Lý Bài Viết — Sử Việt Ký</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#fbf9f5",
+            "surface": "#fbf9f5",
+            "on-primary-fixed": "#410006",
+            "tertiary-container": "#235043",
+            "surface-container-high": "#eae8e4",
+            "on-tertiary-fixed-variant": "#214f41",
+            "on-surface": "#1b1c1a",
+            "on-secondary-fixed-variant": "#5a4300",
+            "tertiary-fixed": "#bcedda",
+            "primary-fixed": "#ffdad8",
+            "on-primary-fixed-variant": "#891c22",
+            "on-tertiary": "#ffffff",
+            "surface-container-low": "#f5f3ef",
+            "surface-bright": "#fbf9f5",
+            "on-surface-variant": "#584140",
+            "primary-fixed-dim": "#ffb3b0",
+            "outline-variant": "#dfbfbd",
+            "outline": "#8b716f",
+            "inverse-on-surface": "#f2f0ed",
+            "tertiary-fixed-dim": "#a1d1bf",
+            "surface-tint": "#a93537",
+            "error": "#ba1a1a",
+            "primary": "#6b0210",
+            "on-error": "#ffffff",
+            "tertiary": "#06392d",
+            "on-secondary-container": "#735700",
+            "secondary": "#775a00",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "inverse-surface": "#30312e",
+            "on-tertiary-fixed": "#002118",
+            "surface-container-highest": "#e4e2de",
+            "on-secondary": "#ffffff",
+            "on-background": "#1b1c1a",
+            "surface-container": "#efeeea",
+            "primary-container": "#8b1e24",
+            "secondary-fixed-dim": "#eec14b",
+            "inverse-primary": "#ffb3b0",
+            "on-primary-container": "#ff9d99",
+            "on-tertiary-container": "#92c1b0",
+            "secondary-container": "#fece57",
+            "on-secondary-fixed": "#251a00",
+            "surface-dim": "#dbdad6",
+            "surface-variant": "#e4e2de",
+            "secondary-fixed": "#ffdf98",
+            "on-primary": "#ffffff",
+            "on-error-container": "#93000a"
+          },
+          borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+          spacing: {
+            "space-2xs": "0.25rem", "space-xs": "0.5rem", "space-sm": "0.75rem", "space-md": "1rem",
+            "space-lg": "1.5rem", "space-xl": "2rem", "space-2xl": "3rem", "space-3xl": "4.5rem", "space-4xl": "6rem",
+            "gutter": "1.5rem"
+          },
+          fontFamily: {
+            "display-lg": ["Noto Serif"], "headline-lg": ["Noto Serif"], "headline-md": ["Noto Serif"], "headline-sm": ["Noto Serif"], "caption-era": ["Noto Serif"],
+            "body-lg": ["Be Vietnam Pro"], "body-md": ["Be Vietnam Pro"], "body-sm": ["Be Vietnam Pro"], "label-lg": ["Be Vietnam Pro"], "label-md": ["Be Vietnam Pro"], "label-sm": ["Be Vietnam Pro"]
+          },
+          fontSize: {
+            "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.04em", fontWeight: "600" }],
+            "display-lg": ["56px", { lineHeight: "68px", letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-sm": ["14px", { lineHeight: "22px", fontWeight: "400" }],
+            "body-md": ["16px", { lineHeight: "26px", fontWeight: "400" }],
+            "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+            "headline-lg": ["36px", { lineHeight: "46px", fontWeight: "600" }],
+            "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.06em", fontWeight: "500" }],
+            "headline-sm": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+            "caption-era": ["13px", { lineHeight: "18px", letterSpacing: "0.12em", fontWeight: "600" }],
+            "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body-md text-on-surface antialiased">
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="fixed left-0 top-0 h-full w-72 bg-surface-container-lowest z-30 flex flex-col justify-between border-r border-outline-variant/30 shadow-[0_1px_12px_rgba(71,56,32,0.06)]">
+    <div class="flex flex-col">
+      <!-- Brand header -->
+      <a href="admin.html" class="h-20 px-space-md flex items-center gap-space-xs border-b border-surface-container transition-colors hover:bg-surface-container/30">
+        <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+          <span class="material-symbols-outlined text-[24px]">account_balance</span>
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span class="font-headline-sm text-[19px] text-primary font-bold tracking-tight truncate">Sử Việt Ký</span>
+          <span class="font-label-sm text-[11px] text-secondary uppercase tracking-wider truncate font-semibold">Quản Trị Di Sản Lịch Sử</span>
+        </div>
+      </a>
+      <!-- Role badge -->
+      <div class="px-space-md py-space-xs">
+        <div class="flex items-center gap-space-2xs px-space-sm py-space-2xs rounded bg-primary/5 border border-primary/15">
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          <span class="font-label-sm text-[11px] text-primary font-bold uppercase tracking-wider">Chế độ Quản trị Tối cao</span>
+        </div>
+      </div>
+      <!-- NAVIGATION -->
+      <nav class="flex flex-col gap-1.5 px-space-sm mt-space-xs" id="sidebarMenu">
+        <!-- 1. Tổng quan -->
+        <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="admin.html" id="nav-overview">
+          <span class="material-symbols-outlined text-[22px]">dashboard</span>
+          <span class="font-label-lg text-label-lg">Tổng quan</span>
+        </a>
+        <!-- 2. Quản lý sách -->
+        <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="admin-books.html" id="nav-books">
+          <span class="material-symbols-outlined text-[22px]">menu_book</span>
+          <span class="font-label-lg text-label-lg">Quản lý sách</span>
+        </a>
+        <!-- 3. Bài viết (ACTIVE) -->
+        <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded bg-primary-container text-on-primary font-bold shadow-sm transition-all" href="admin-posts.html" id="nav-posts">
+          <span class="material-symbols-outlined text-[22px]">dynamic_feed</span>
+          <span class="font-label-lg text-label-lg">Bài viết</span>
+        </a>
+        <!-- 4. Sách hướng dẫn -->
+        <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="admin-guides.html" id="nav-guides">
+          <span class="material-symbols-outlined text-[22px]">menu_book</span>
+          <span class="font-label-lg text-label-lg">Sách hướng dẫn</span>
+        </a>
+        <!-- 5. Quản lý thành viên -->
+        <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="admin-members.html" id="nav-members">
+          <span class="material-symbols-outlined text-[22px]">groups</span>
+          <span class="font-label-lg text-label-lg">Quản lý thành viên</span>
+        </a>
+        <!-- 6. Cài đặt -->
+        <a class="flex items-center gap-space-xs px-space-sm py-2.5 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all font-medium" href="admin-settings.html" id="nav-settings">
+          <span class="material-symbols-outlined text-[22px]">settings</span>
+          <span class="font-label-lg text-label-lg">Cài đặt</span>
+        </a>
+      </nav>
+    </div>
+    <!-- Bottom widget -->
+    <div class="p-space-md mx-space-sm mb-space-md rounded bg-surface-container-low border border-outline-variant/30">
+      <div class="flex items-center justify-between mb-space-2xs">
+        <span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Đồng bộ Di sản</span>
+        <span class="font-label-sm text-label-sm text-tertiary font-bold">100% Hoàn tất</span>
+      </div>
+      <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mb-space-xs">
+        <div class="bg-tertiary-container h-full w-full rounded-full"></div>
+      </div>
+      <div class="flex items-center gap-space-2xs text-on-surface-variant font-label-sm text-label-sm">
+        <span class="material-symbols-outlined text-[15px] text-secondary">verified</span>
+        <span>30.000+ trang quét cổ bản</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="pl-72 flex flex-col min-h-screen">
+    <!-- HEADER -->
+    <header class="fixed top-0 left-72 right-0 h-20 bg-surface/95 backdrop-blur-xl border-b border-outline-variant/30 shadow-[0_1px_8px_rgba(71,56,32,0.04)] z-40 px-gutter flex items-center justify-between gap-space-md">
+      <div class="flex items-center gap-space-md flex-1 max-w-2xl">
+        <div class="relative w-full">
+          <span class="material-symbols-outlined absolute left-space-sm top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
+          <input class="w-full pl-10 pr-space-md py-2 bg-surface-container-low text-on-surface placeholder:text-on-surface-variant font-body-sm text-body-sm rounded outline-none border border-transparent focus:border-primary focus:bg-surface-container-lowest transition-all" id="headerGlobalSearch" placeholder="Tìm kiếm bài viết, tác giả..." type="search"/>
+        </div>
+      </div>
+      <div class="flex items-center gap-space-md">
+        <!-- Về trang công chúng -->
+        <a class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded text-secondary hover:bg-secondary/10 font-label-sm text-label-sm font-semibold transition-colors border border-secondary/20" href="index.html" title="Xem Cổng thông tin công chúng">
+          <span class="material-symbols-outlined text-[17px]">open_in_browser</span>
+          <span class="hidden md:inline">Về Trang Công Chúng</span>
+        </a>
+        <!-- Bộ chọn ngôn ngữ -->
+        <div class="flex items-center bg-surface-container-low rounded p-1 border border-outline-variant/30" id="langSwitcher">
+          <button class="px-space-xs py-1 rounded bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold shadow-sm" type="button" onclick="setLang('vi')">VI</button>
+          <button class="px-space-xs py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium transition-colors" type="button" onclick="setLang('en')">EN</button>
+        </div>
+        <!-- Thông báo -->
+        <button class="relative p-space-xs text-on-surface-variant hover:text-on-surface rounded hover:bg-surface-container transition-colors cursor-pointer" id="notificationButton" type="button" onclick="showNotifications()">
+          <span class="material-symbols-outlined text-[22px]">notifications</span>
+          <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary ring-2 ring-surface"></span>
+        </button>
+        <!-- Super Administrator profile -->
+        <div class="flex items-center gap-space-xs pl-space-xs border-l border-surface-container">
+          <div class="text-right hidden sm:block">
+            <div class="font-label-lg text-label-lg text-on-surface leading-tight font-bold">Ban Biên Tập Quốc Sử</div>
+            <div class="font-label-sm text-label-sm text-secondary font-medium">Super Administrator</div>
+          </div>
+          <div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-sm ring-2 ring-primary/20">
+            <span class="material-symbols-outlined text-[20px]">person</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="w-full pt-24 px-gutter bg-surface flex-1 pb-space-2xl">
+      <div class="flex flex-col w-full gap-space-xl">
+        <!-- TOP BREADCRUMB & REALTIME SYNC TICKER -->
+        <div class="flex flex-wrap items-center justify-between gap-space-sm">
+          <div class="flex items-center gap-space-xs text-on-surface-variant">
+            <a href="admin.html" class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-bold hover:underline">Trung Tâm Điều Hành</a>
+            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+            <span class="font-label-sm text-label-sm font-medium text-on-surface">Quản Lý Bài Viết Cộng Đồng</span>
+          </div>
+          <div class="flex items-center gap-space-xs px-space-sm py-space-2xs bg-surface-container-lowest rounded shadow-sm text-on-surface-variant border border-outline-variant/30">
+            <span class="material-symbols-outlined text-[16px] text-secondary">security</span>
+            <span class="font-label-sm text-label-sm">Cơ sở dữ liệu: <strong class="text-primary font-bold">Phiên bản Quốc gia 4.2</strong></span>
+          </div>
+        </div>
+
+        <!-- SECTION: QUẢN LÝ BÀI VIẾT -->
+        <section class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 p-space-lg" id="section-posts">
+          <div class="mb-space-md flex flex-wrap items-center justify-between gap-space-sm border-b border-surface-container pb-space-md">
+            <div>
+              <div class="flex items-center gap-space-xs">
+                <span class="material-symbols-outlined text-primary text-[28px]">dynamic_feed</span>
+                <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Quản Lý Bài Viết Cộng Đồng</h2>
+                <span class="rounded-full bg-primary/10 px-2.5 py-0.5 text-[12px] font-bold text-primary" id="adminPostCount">0</span>
+              </div>
+              <p class="mt-1 font-body-sm text-on-surface-variant">
+                Các bài nghiên cứu, thảo luận và đóng góp lịch sử từ cộng đồng độc giả. Quản trị viên có toàn quyền kiểm duyệt, gỡ bỏ hoặc ghim bài viết giá trị.
+              </p>
+            </div>
+            <a class="inline-flex items-center gap-1.5 rounded bg-surface-container px-4 py-2 font-label-sm text-sm font-semibold text-primary hover:bg-surface-container-high transition-colors" href="post.html" target="_blank">
+              <span class="material-symbols-outlined text-lg">open_in_new</span> Xem Diễn Đàn Công Khai
+            </a>
+          </div>
+
+          <!-- Danh sách bài viết -->
+          <div class="grid gap-space-md md:grid-cols-2" id="adminPostList">
+            <!-- Được render tự động bởi posts.js -->
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full bg-surface-container-low border-t border-outline-variant/30 mt-auto">
+      <div class="w-full px-gutter py-space-lg">
+        <div class="bg-surface-container-lowest p-space-md rounded shadow-[0_1px_6px_rgba(71,56,32,0.03)] border border-outline-variant/20 text-center mb-space-md">
+          <p class="font-caption-era text-[14px] text-primary tracking-wide font-bold whitespace-nowrap overflow-hidden text-ellipsis">
+            « Dân ta phải biết sử ta, Cho tường gốc tích nước nhà Việt Nam » — HỒ CHÍ MINH (LỊCH SỬ NƯỚC TA, 1942)
+          </p>
+        </div>
+        <div class="flex flex-col md:flex-row items-center justify-between gap-space-md text-on-surface-variant font-label-md text-label-md">
+          <div>© 2025 SỬ VIỆT KÝ. Hệ thống Quản trị Di sản Văn hóa phi vật thể và Lịch sử Quốc gia.</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const adminEscape = (value = '') => String(value).replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[char]));
+
+    function showNotifications() {
+      const items = JSON.parse(localStorage.getItem('adminNotifications') || '[]');
+      let panel = document.getElementById('adminNotificationsPanel');
+      if (!panel) {
+        panel = document.createElement('div');
+        panel.id = 'adminNotificationsPanel';
+        panel.className = 'fixed top-16 right-6 z-[60] w-80 max-w-[calc(100vw-2rem)] bg-white rounded-xl shadow-xl border border-outline-variant/30 p-4';
+        document.body.appendChild(panel);
+      }
+      panel.innerHTML = `
+        <div class="flex items-center justify-between border-b pb-2 mb-2 font-bold text-primary">
+          <span>Thông báo quản trị</span>
+          <button class="text-xl leading-none text-gray-500 hover:text-black cursor-pointer" onclick="document.getElementById('adminNotificationsPanel').remove()">×</button>
+        </div>
+        ${items.length ? items.map((item) => `
+          <p class="text-sm py-2 border-b border-surface-container">${adminEscape(item.message)}<small class="block text-gray-500 mt-1">${adminEscape(item.createdAt)}</small></p>
+        `).join('') : '<p class="text-sm text-gray-500 py-3">Chưa có thông báo nào.</p>'}
+      `;
+      localStorage.setItem('adminNotifications', JSON.stringify(items.map((item) => ({ ...item, read: true }))));
+    }
+
+    function setLang(lang, notify = true) {
+      localStorage.setItem('adminLanguage', lang);
+      document.documentElement.lang = lang === 'en' ? 'en' : 'vi';
+      const labels = lang === 'en'
+        ? { overview: 'Overview', books: 'Book management', posts: 'Posts', guides: 'Help guides', members: 'Member management', settings: 'Settings' }
+        : { overview: 'Tổng quan', books: 'Quản lý sách', posts: 'Bài viết', guides: 'Sách hướng dẫn', members: 'Quản lý thành viên', settings: 'Cài đặt' };
+      [['nav-overview', labels.overview], ['nav-books', labels.books], ['nav-posts', labels.posts], ['nav-guides', labels.guides], ['nav-members', labels.members], ['nav-settings', labels.settings]].forEach(([id, text]) => {
+        const label = document.querySelector(`#${id} span:last-child`);
+        if (label) label.textContent = text;
+      });
+      if (notify) window.showAppToast?.(lang === 'en' ? 'Language preference saved.' : 'Đã lưu ngôn ngữ Tiếng Việt.');
+    }
+
+    function applyAdminTheme(theme) {
+      let style = document.getElementById('adminThemeStyle');
+      if (!style) { style = document.createElement('style'); style.id = 'adminThemeStyle'; document.head.appendChild(style); }
+      style.textContent = theme === 'dark' ? `body { background:#171412 !important; color:#f5f3ef !important; } body > div, main, header, footer, section, table, td, th, .bg-surface-container-lowest { background-color:#241f1c !important; color:#f5f3ef !important; } .bg-surface-container-low, .bg-surface-container { background-color:#302925 !important; color:#f5f3ef !important; } input, select, textarea { background-color:#302925 !important; color:#f5f3ef !important; }` : '';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      applyAdminTheme(localStorage.getItem('adminTheme') || 'light');
+      setLang(localStorage.getItem('adminLanguage') || 'vi', false);
+      if (window.renderAdminPosts) window.renderAdminPosts();
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script src="auth.js"></script>
+  <script src="posts.js"></script>
+  <script src="guide-center.js"></script>
+  <script src="app-effects.js"></script>
+</body>
+</html>

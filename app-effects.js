@@ -1,10 +1,10 @@
 (function () {
   const style = document.createElement('style');
   style.textContent = `
-    @keyframes app-page-enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes app-page-enter { from { opacity: 0; } to { opacity: 1; } }
     @keyframes app-reveal { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes app-toast-enter { from { opacity: 0; transform: translate3d(12px,-6px,0); } to { opacity: 1; transform: translate3d(0,0,0); } }
-    body.app-effects-ready { animation: app-page-enter .38s ease-out both; }
+    body.app-effects-ready { animation: app-page-enter .38s ease-out; }
     body.app-effects-ready button, body.app-effects-ready a[href] { transition-property: transform, box-shadow; transition-duration: 150ms; }
     body.app-effects-ready button:active, body.app-effects-ready a[href]:active { transform: scale(.98); }
     .app-reveal-pending { opacity: 0; transform: translateY(12px); }
