@@ -746,6 +746,34 @@
                       trữ.
                     </p>
                   </div>
+                  <!-- Hộp thông tin tài khoản Supabase mẫu -->
+                  <div class="p-3.5 rounded-xl bg-surface-container-low border border-primary/20 space-y-2">
+                    <div class="flex items-center justify-between text-xs">
+                      <span class="font-bold text-primary flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Đăng Nhập Qua Supabase Cloud
+                      </span>
+                      <span class="text-[11px] text-secondary font-semibold">Tài khoản mẫu</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                      <button type="button" onclick="fillQuickAuth('admin@suvietky.vn', 'Admin@123456')" class="p-2.5 rounded-lg bg-surface-container-lowest border border-outline-variant/30 hover:border-primary text-left transition-all cursor-pointer shadow-sm group">
+                        <div class="flex items-center justify-between">
+                          <span class="font-bold text-primary text-[12px]">🛡️ Quản trị (Admin)</span>
+                          <span class="text-[10px] text-primary underline opacity-0 group-hover:opacity-100 transition-opacity">Điền</span>
+                        </div>
+                        <div class="text-[11px] text-on-surface-variant font-mono mt-0.5">admin@suvietky.vn</div>
+                        <div class="text-[10px] text-secondary mt-0.5">Pass: Admin@123456</div>
+                      </button>
+                      <button type="button" onclick="fillQuickAuth('docgia@suvietky.vn', 'User@123456')" class="p-2.5 rounded-lg bg-surface-container-lowest border border-outline-variant/30 hover:border-primary text-left transition-all cursor-pointer shadow-sm group">
+                        <div class="flex items-center justify-between">
+                          <span class="font-bold text-tertiary text-[12px]">👤 Người dùng (User)</span>
+                          <span class="text-[10px] text-tertiary underline opacity-0 group-hover:opacity-100 transition-opacity">Điền</span>
+                        </div>
+                        <div class="text-[11px] text-on-surface-variant font-mono mt-0.5">docgia@suvietky.vn</div>
+                        <div class="text-[10px] text-secondary mt-0.5">Pass: User@123456</div>
+                      </button>
+                    </div>
+                  </div>
                   <form
                     class="space-y-space-sm"
                     onsubmit="event.preventDefault(); loginUser(document.getElementById('login-email').value, document.getElementById('login-pwd').value)"
@@ -764,7 +792,7 @@
                           placeholder="Ví dụ: nguyenvanan@gmail.com"
                           id="login-email"
                           required=""
-                          type="email"
+                          type="text"
                         />
                       </div>
                     </div>
@@ -890,6 +918,14 @@
           } else {
             input.type = "password";
             icon.innerText = "visibility";
+          }
+        function fillQuickAuth(email, pwd) {
+          const emailInput = document.getElementById('login-email');
+          const pwdInput = document.getElementById('login-pwd');
+          if (emailInput) emailInput.value = email;
+          if (pwdInput) pwdInput.value = pwd;
+          if (typeof window.switchAuthTab === 'function') {
+            window.switchAuthTab('login');
           }
         }
       </script>

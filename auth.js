@@ -1,83 +1,190 @@
-// auth.js - Xử lý logic Đăng ký, Đăng nhập, LocalStorage và Trạng thái người dùng
+// auth.js - Xử lý logic Đăng ký, Đăng nhập và Phân quyền HOÀN TOÀN qua Supabase Auth
 
 function authFeedback(message, kind = 'info') {
   if (window.showAppToast) window.showAppToast(message, kind);
   else alert(message);
 }
 
-// 1. Hàm Đăng Ký
-async function registerUser(name, email, password) {
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  name = name.trim();
-  email = email.trim().toLowerCase();
-
-  const existingUser = users.find(user => user.email === email);
-  if (existingUser) {
-    authFeedback("Email này đã được đăng ký! Vui lòng chọn đăng nhập.", 'error');
-    return false;
+// Chuẩn hóa email: hỗ trợ cả tài khoản nhập dạng 'admin@123' hay username thông thường
+function normalizeEmail(input) {
+  if (!input) return '';
+  const trimmed = input.trim().toLowerCase();
+  // Nếu người dùng nhập admin@123, tự động chuyển về email admin chuẩn trên Supabase
+  if (trimmed === 'admin@123' || trimmed === 'admin') {
+    return 'admin@suvietky.vn';
   }
-
-  if (name.length < 2 || password.length < 8) {
-    authFeedback("Họ tên phải có ít nhất 2 ký tự và mật khẩu phải có ít nhất 8 ký tự.", 'error');
-    return false;
+  // Nếu nhập username không có domain @ thì bổ sung đuôi @suvietky.vn
+  if (!trimmed.includes('@')) {
+    return `${trimmed}@suvietky.vn`;
   }
-
-  const newUser = { name, email, password };
-  users.push(newUser);
-  localStorage.setItem('users', JSON.stringify(users));
-
-  if (window.suvietSupabase) {
-    const { error } = await window.suvietSupabase.auth.signUp({ email, password, options: { data: { name } } });
-    if (error && !error.message.toLowerCase().includes('already registered')) console.warn('Supabase sign-up fallback:', error.message);
-  }
-
-  localStorage.removeItem('currentUser');
-  const loginEmail = document.getElementById('login-email');
-  if (loginEmail) loginEmail.value = email;
-  if (typeof window.switchAuthTab === 'function') window.switchAuthTab('login');
-  authFeedback(`Đăng ký thành công cho ${newUser.name}. Vui lòng đăng nhập bằng email và mật khẩu vừa tạo.`, 'success');
-  return true;
+  return trimmed;
 }
 
-// 2. Hàm Đăng Nhập
-async function loginUser(email, password) {
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  email = email.trim().toLowerCase();
-
-  if (email === 'admin@123' && password === '030312') {
-    const adminUser = { name: 'Quản trị viên', email: 'admin@123', role: 'admin', loginAt: Date.now() };
-    localStorage.setItem('currentUser', JSON.stringify(adminUser));
-    window.setAppToastForNextPage?.('Đăng nhập admin thành công.', 'success');
-    window.location.href = 'admin.html';
-    return true;
+// 1. Hàm Đăng Ký người dùng mới qua Supabase Auth
+async function registerUser(name, emailInput, password) {
+  if (!window.suvietSupabase) {
+    authFeedback("Dịch vụ Supabase chưa được tải. Vui lòng kiểm tra lại kết nối mạng.", 'error');
+    return false;
   }
 
-  const user = users.find(u => u.email === email && u.password === password);
+  name = (name || '').trim();
+  const email = normalizeEmail(emailInput);
+  password = (password || '').trim();
 
-  if (user) {
-    if (window.suvietSupabase && email.includes('@')) {
-      const { error } = await window.suvietSupabase.auth.signInWithPassword({ email, password });
-      if (error) console.warn('Supabase login fallback:', error.message);
+  if (name.length < 2) {
+    authFeedback("Họ tên phải có ít nhất 2 ký tự.", 'error');
+    return false;
+  }
+
+  if (password.length < 6) {
+    authFeedback("Mật khẩu phải có ít nhất 6 ký tự theo tiêu chuẩn bảo mật Supabase.", 'error');
+    return false;
+  }
+
+  // Mặc định người dùng tự đăng ký sẽ mang quyền 'user'
+  const isSuperAdminEmail = email === 'admin@suvietky.vn';
+  const role = isSuperAdminEmail ? 'admin' : 'user';
+
+  authFeedback("Đang khởi tạo tài khoản trên hệ thống Supabase...", 'info');
+
+  try {
+    const { data, error } = await window.suvietSupabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: {
+          name: name,
+          role: role
+        }
+      }
+    });
+
+    if (error) {
+      console.error("Supabase signUp error:", error);
+      if (error.message.toLowerCase().includes('already registered') || error.message.toLowerCase().includes('user already exists')) {
+        authFeedback("Email này đã được đăng ký trên Supabase! Vui lòng chuyển sang tab Đăng Nhập.", 'error');
+      } else if (error.status === 429 || error.message.toLowerCase().includes('rate limit')) {
+        authFeedback("Đã chạm giới hạn gửi email của gói miễn phí Supabase. Hãy tắt 'Confirm email' trong Supabase Dashboard (Auth > Providers > Email) để đăng ký ngay lập tức không cần xác nhận email.", 'error');
+      } else {
+        authFeedback(`Lỗi đăng ký Supabase: ${error.message}`, 'error');
+      }
+      return false;
     }
-    localStorage.setItem('currentUser', JSON.stringify({ name: user.name, email: user.email, role: user.role || 'user', loginAt: Date.now() }));
-    window.setAppToastForNextPage?.(`Đăng nhập thành công. Xin chào, ${user.name}!`, 'success');
-    window.location.href = "index.html";
+
+    // Nếu Supabase trả về session ngay (trường hợp email autoconfirm bật)
+    if (data.session && data.user) {
+      const currentUser = {
+        id: data.user.id,
+        name: name,
+        email: data.user.email,
+        role: role,
+        loginAt: Date.now(),
+        provider: 'supabase'
+      };
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      window.setAppToastForNextPage?.(`Đăng ký và đăng nhập thành công! Xin chào, ${name}.`, 'success');
+      window.location.href = role === 'admin' ? 'admin.html' : 'index.html';
+      return true;
+    }
+
+    // Nếu Supabase yêu cầu đăng nhập sau khi tạo
+    const loginEmail = document.getElementById('login-email');
+    if (loginEmail) loginEmail.value = emailInput;
+    if (typeof window.switchAuthTab === 'function') window.switchAuthTab('login');
+    authFeedback(`Tạo tài khoản thành công cho ${name} trên Supabase! Hãy đăng nhập bằng mật khẩu vừa đặt.`, 'success');
     return true;
-  } else {
-    authFeedback("Email hoặc mật khẩu không chính xác!", 'error');
+  } catch (err) {
+    console.error("SignUp error:", err);
+    authFeedback(`Lỗi kết nối máy chủ: ${err.message}`, 'error');
     return false;
   }
 }
 
+// 2. Hàm Đăng Nhập người dùng qua Supabase Auth
+async function loginUser(emailInput, password) {
+  if (!window.suvietSupabase) {
+    authFeedback("Dịch vụ Supabase chưa sẵn sàng. Vui lòng làm mới trang.", 'error');
+    return false;
+  }
+
+  const email = normalizeEmail(emailInput);
+  password = (password || '').trim();
+
+  if (!email || !password) {
+    authFeedback("Vui lòng nhập đầy đủ email và mật khẩu.", 'error');
+    return false;
+  }
+
+  authFeedback("Đang xác thực thông tin qua máy chủ Supabase...", 'info');
+
+  try {
+    const { data, error } = await window.suvietSupabase.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+    if (error) {
+      console.error("Supabase signIn error:", error);
+      const msg = error.message.toLowerCase();
+      if (msg.includes("invalid login credentials")) {
+        authFeedback("Email hoặc mật khẩu không chính xác trên hệ thống Supabase!", 'error');
+      } else if (msg.includes("email not confirmed")) {
+        authFeedback("Tài khoản chưa được xác nhận email. Bạn vui lòng kiểm tra hộp thư hoặc tắt 'Confirm email' trong Supabase Auth Settings.", 'error');
+      } else {
+        authFeedback(`Lỗi đăng nhập: ${error.message}`, 'error');
+      }
+      return false;
+    }
+
+    const user = data.user;
+    const metadata = user.user_metadata || {};
+
+    // Phân quyền Admin:
+    // 1. role trong metadata của user là 'admin'
+    // 2. hoặc email thuộc nhóm admin đặc quyền (admin@suvietky.vn, admin@gmail.com)
+    // 3. hoặc người dùng nhập 'admin@123'
+    const isAdmin = metadata.role === 'admin' ||
+                    email === 'admin@suvietky.vn' ||
+                    email === 'admin@gmail.com' ||
+                    emailInput.trim().toLowerCase() === 'admin@123';
+
+    const role = isAdmin ? 'admin' : (metadata.role || 'user');
+    const displayName = metadata.name || metadata.full_name || email.split('@')[0] || (isAdmin ? 'Quản trị viên' : 'Thành viên');
+
+    const currentUser = {
+      id: user.id,
+      name: displayName,
+      email: user.email,
+      role: role,
+      loginAt: Date.now(),
+      provider: 'supabase'
+    };
+
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+    if (isAdmin) {
+      window.setAppToastForNextPage?.(`Đăng nhập thành công với quyền Quản trị viên (Admin)! Xin chào, ${displayName}.`, 'success');
+      window.location.href = 'admin.html';
+    } else {
+      window.setAppToastForNextPage?.(`Đăng nhập thành công! Xin chào, ${displayName}.`, 'success');
+      window.location.href = 'index.html';
+    }
+    return true;
+  } catch (err) {
+    console.error("Login error:", err);
+    authFeedback(`Lỗi kết nối Supabase: ${err.message}`, 'error');
+    return false;
+  }
+}
+
+// 3. Đăng nhập qua Google (OAuth trên Supabase)
 function getAuthRedirectUrl() {
   if (window.location.protocol === 'file:') {
     return 'http://localhost:3000/index.html';
   }
-
   if (window.location.origin && window.location.origin !== 'null') {
     return `${window.location.origin}/index.html`;
   }
-
   const currentHref = window.location.href || '';
   return currentHref.includes('index.html')
     ? currentHref
@@ -86,12 +193,12 @@ function getAuthRedirectUrl() {
 
 async function loginWithGoogle() {
   if (!window.suvietSupabase) {
-    authFeedback('Tính năng đăng nhập Google hiện chưa sẵn sàng. Vui lòng thử lại sau.', 'error');
+    authFeedback('Tính năng đăng nhập Google chưa sẵn sàng. Vui lòng thử lại sau.', 'error');
     return false;
   }
 
   if (window.location.protocol === 'file:') {
-    authFeedback('Google Auth chỉ hoạt động khi trang được chạy qua HTTP/HTTPS. Hãy mở bằng local server như http://localhost:3000 hoặc http://localhost:8000.', 'error');
+    authFeedback('Google OAuth chỉ hoạt động qua giao thức HTTP/HTTPS (ví dụ chạy qua Live Server: http://localhost:5500 hoặc http://localhost:3000).', 'error');
     return false;
   }
 
@@ -99,61 +206,55 @@ async function loginWithGoogle() {
     const redirectUrl = getAuthRedirectUrl();
     const { error } = await window.suvietSupabase.auth.signInWithOAuth({
       provider: 'google',
-      options: {
-        redirectTo: redirectUrl,
-      },
+      options: { redirectTo: redirectUrl }
     });
-
     if (error) throw error;
-
     authFeedback('Đang chuyển hướng đến Google để xác thực...', 'info');
     return true;
   } catch (error) {
     console.error('Google login error:', error);
-    const message = error?.message || '';
-
-    if (message.toLowerCase().includes('provider is not enabled') || message.toLowerCase().includes('unsupported provider')) {
-      authFeedback('Google chưa được bật trong Supabase Authentication. Vào Supabase > Authentication > Providers > Google và kích hoạt provider.', 'error');
-    } else {
-      authFeedback('Không thể đăng nhập bằng Google. Vui lòng thử lại sau.', 'error');
-    }
-
+    authFeedback('Chưa bật nhà cung cấp Google trong Supabase Dashboard (Auth > Providers > Google).', 'error');
     return false;
   }
 }
 
-function hydrateSupabaseGoogleSession() {
+// 4. Đồng bộ phiên đăng nhập từ Supabase
+function hydrateSupabaseSession() {
   if (!window.suvietSupabase) return;
 
-  const setGoogleUserFromSession = (session) => {
+  const syncUserFromSession = (session) => {
     if (!session?.user) return;
+    const user = session.user;
+    const metadata = user.user_metadata || {};
+    const email = (user.email || '').toLowerCase();
+    const isAdmin = metadata.role === 'admin' || email === 'admin@suvietky.vn' || email === 'admin@gmail.com';
+    const displayName = metadata.name || metadata.full_name || email.split('@')[0] || (isAdmin ? 'Quản trị viên' : 'Thành viên');
 
-    const metadata = session.user.user_metadata || {};
-    const displayName = metadata.full_name || metadata.name || metadata.preferred_username || session.user.email?.split('@')[0] || 'Google User';
     localStorage.setItem('currentUser', JSON.stringify({
+      id: user.id,
       name: displayName,
-      email: session.user.email,
-      role: 'user',
-      provider: 'google',
+      email: user.email,
+      role: isAdmin ? 'admin' : (metadata.role || 'user'),
       loginAt: Date.now(),
+      provider: 'supabase'
     }));
 
-    if (window.location.pathname.endsWith('/login.html') || window.location.pathname.endsWith('/re.html')) {
-      window.location.href = 'index.html';
-    }
+    checkAuthState();
   };
 
+  // Kiểm tra phiên đăng nhập hiện tại trên Supabase
   window.suvietSupabase.auth.getSession().then(({ data: { session } }) => {
-    if (session) setGoogleUserFromSession(session);
-  }).catch((error) => console.warn('Supabase session sync warning:', error));
+    if (session) syncUserFromSession(session);
+  }).catch((error) => console.warn('Supabase getSession warning:', error));
 
+  // Lắng nghe thay đổi trạng thái Auth từ Supabase
   window.suvietSupabase.auth.onAuthStateChange((event, session) => {
     if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-      setGoogleUserFromSession(session);
+      syncUserFromSession(session);
     }
-
     if (event === 'SIGNED_OUT') {
       localStorage.removeItem('currentUser');
+      checkAuthState();
     }
   });
 }
@@ -166,32 +267,36 @@ function bindGoogleAuthButtons() {
   });
 }
 
-// 3. Hàm Đăng Xuất
+// 5. Hàm Đăng Xuất hoàn toàn qua Supabase
 async function logoutUser() {
   try {
     if (window.suvietSupabase && window.suvietSupabase.auth) {
-      const { error } = await window.suvietSupabase.auth.signOut();
-      if (error) console.warn('Supabase logout warning:', error.message);
+      await window.suvietSupabase.auth.signOut();
     }
   } catch (error) {
-    console.warn('Logout session cleanup warning:', error);
+    console.warn('Supabase signOut warning:', error);
   }
 
   localStorage.removeItem('currentUser');
   sessionStorage.removeItem('currentUser');
-  window.setAppToastForNextPage?.('Bạn đã đăng xuất.', 'success');
+  window.setAppToastForNextPage?.('Đã đăng xuất khỏi tài khoản Supabase.', 'success');
   window.location.href = 'login.html';
 }
 
+// 6. Kiểm tra quyền Quản trị viên
 function isAdminUser() {
   const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
-  return currentUser && currentUser.email === 'admin@123' && currentUser.role === 'admin';
+  return Boolean(currentUser && currentUser.role === 'admin');
 }
 
+// Bắt buộc quyền Admin cho các trang quản trị
 function requireAdminPage() {
-  if (!isAdminUser()) window.location.replace('login.html?admin=1');
+  if (!isAdminUser()) {
+    window.location.replace('login.html?admin=1');
+  }
 }
 
+// 7. Các tiện ích dữ liệu quản trị
 function getAdminBooks() {
   try {
     return JSON.parse(localStorage.getItem('adminBooks') || '[]');
@@ -209,7 +314,11 @@ function addAdminNotification(message) {
   notifications.unshift({ message, createdAt: new Date().toLocaleString('vi-VN'), read: false });
   localStorage.setItem('adminNotifications', JSON.stringify(notifications.slice(0, 50)));
   window.showAppToast?.(message, 'success');
-  if (window.suvietSupabase) window.suvietSupabase.from('notifications').insert({ message }).then(({ error }) => { if (error) console.warn('Supabase notification fallback:', error.message); });
+  if (window.suvietSupabase) {
+    window.suvietSupabase.from('notifications').insert({ message }).then(({ error }) => {
+      if (error) console.warn('Supabase notification fallback:', error.message);
+    });
+  }
 }
 
 function recordSiteView() {
@@ -218,31 +327,47 @@ function recordSiteView() {
   localStorage.setItem('siteViews', JSON.stringify(views.slice(-10000)));
   if (window.suvietSupabase) {
     const userId = window.suvietSupabase.auth.currentUser?.id || null;
-    window.suvietSupabase.from('site_views').insert({ path: window.location.pathname, user_id: userId }).then(({ error }) => { if (error) console.warn('Supabase view fallback:', error.message); });
+    window.suvietSupabase.from('site_views').insert({ path: window.location.pathname, user_id: userId }).then(({ error }) => {
+      if (error) console.warn('Supabase view fallback:', error.message);
+    });
   }
 }
 
-// 4. Kiểm tra trạng thái đăng nhập và hiển thị tên trên Header của index.html
+// 8. Cập nhật giao diện Header theo người dùng đã đăng nhập Supabase
 function checkAuthState() {
-  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
   const headerRightDiv = document.getElementById('user-header-area');
-  const displayName = currentUser
-    ? String(currentUser.name || currentUser.email || 'người dùng').replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]))
-    : '';
+  if (!headerRightDiv) return;
 
-  if (headerRightDiv && currentUser) {
+  if (currentUser) {
+    const displayName = String(currentUser.name || currentUser.email || 'người dùng').replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+
     headerRightDiv.innerHTML = `
       <div class="flex items-center gap-2">
         ${isAdminUser()
-          ? `<a href="admin.html" class="font-label-sm text-[12px] bg-primary text-on-primary hover:bg-primary-container px-2.5 py-1.5 rounded-lg transition-all font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>Admin</a>`
-          : `<a href="login.html?admin=1" class="font-label-sm text-[12px] bg-primary text-on-primary hover:bg-primary-container px-2.5 py-1.5 rounded-lg transition-all font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>Đăng nhập Admin</a>`}
-        <span class="font-body-sm text-[14px] text-primary font-bold bg-primary/10 px-3 py-1.5 rounded-xl flex items-center gap-1.5">
-          <span class="material-symbols-outlined text-[18px]">person</span>
-          Xin chào, ${displayName}
+          ? `<a href="admin.html" class="font-label-sm text-[12px] bg-primary text-on-primary hover:bg-primary-container px-2.5 py-1.5 rounded-lg transition-all font-semibold flex items-center gap-1 shadow-sm"><span class="material-symbols-outlined text-[16px]">admin_panel_settings</span>Admin</a>`
+          : ''}
+        <span class="font-body-sm text-[13px] text-primary font-bold bg-primary/10 px-3 py-1.5 rounded-xl flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[17px]">account_circle</span>
+          <span>${displayName}</span>
+          ${currentUser.role === 'admin' ? '<span class="text-[10px] bg-primary text-white px-1.5 py-0.5 rounded uppercase font-bold">Admin</span>' : ''}
         </span>
-        <button onclick="logoutUser()" class="font-label-sm text-[12px] bg-red-100 text-red-700 hover:bg-red-200 px-2.5 py-1.5 rounded-lg transition-all font-semibold">
+        <button onclick="logoutUser()" class="font-label-sm text-[12px] bg-red-100 text-red-700 hover:bg-red-200 px-2.5 py-1.5 rounded-lg transition-all font-semibold cursor-pointer" title="Đăng xuất khỏi Supabase">
           Đăng xuất
         </button>
+      </div>
+    `;
+  } else {
+    headerRightDiv.innerHTML = `
+      <div class="flex items-center gap-2">
+        <a href="login.html" class="px-3 py-1.5 rounded-full bg-primary text-white font-label-sm text-[12px] font-semibold hover:bg-primary-container transition-colors shadow-sm">
+          Đăng Nhập
+        </a>
+        <a href="re.html" class="px-3 py-1.5 rounded-full border border-primary text-primary font-label-sm text-[12px] font-semibold hover:bg-primary/5 transition-colors hidden sm:inline-block">
+          Đăng Ký
+        </a>
       </div>
     `;
   }
@@ -296,19 +421,18 @@ function syncSharedHeader() {
 
 function handleRegisterSubmit(formId) {
   const form = document.getElementById(formId);
-  const password = form.querySelector('#reg-pwd').value;
-  const passwordConfirmation = form.querySelector('#reg-pwd-confirm').value;
+  if (!form) return false;
+  const name = form.querySelector('#reg-name')?.value;
+  const email = form.querySelector('#reg-email')?.value;
+  const password = form.querySelector('#reg-pwd')?.value;
+  const passwordConfirmation = form.querySelector('#reg-pwd-confirm')?.value;
 
-  if (password !== passwordConfirmation) {
+  if (password && passwordConfirmation && password !== passwordConfirmation) {
     authFeedback("Mật khẩu xác nhận không khớp.", 'error');
     return false;
   }
 
-  return registerUser(
-    form.querySelector('#reg-name').value,
-    form.querySelector('#reg-email').value,
-    password,
-  );
+  return registerUser(name, email, password);
 }
 
 function isAdminPath() {
@@ -316,18 +440,19 @@ function isAdminPath() {
   return file === 'admin.html' || file.startsWith('admin-');
 }
 
+// Khởi chạy khi DOM sẵn sàng
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => {
     if (document.body && !isAdminPath()) syncSharedHeader();
     bindGoogleAuthButtons();
-    hydrateSupabaseGoogleSession();
+    hydrateSupabaseSession();
     checkAuthState();
     if (isAdminPath()) requireAdminPage();
   });
 } else {
   if (!isAdminPath()) syncSharedHeader();
   bindGoogleAuthButtons();
-  hydrateSupabaseGoogleSession();
+  hydrateSupabaseSession();
   checkAuthState();
   if (isAdminPath()) requireAdminPage();
 }

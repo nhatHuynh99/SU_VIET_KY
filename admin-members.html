@@ -286,14 +286,43 @@
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[char]));
 
-    function renderAdminUsers() {
+    async function renderAdminUsers() {
       const table = document.getElementById('membersTableBody');
       if (!table) return;
       const query = (document.getElementById('memberSearchInput')?.value || '').trim().toLowerCase();
-      const users = JSON.parse(localStorage.getItem('users') || '[]');
-      const admin = { name: 'Ban Biên Tập Quốc Sử (Super Admin)', email: 'admin@123', role: 'admin', locked: true, org: 'Viện Sử Học Quốc Gia' };
       
-      let allUsers = [admin, ...users].filter((user) => {
+      const adminAcc = { name: 'Ban Biên Tập Quốc Sử (Super Admin)', email: 'admin@suvietky.vn', role: 'admin', locked: true, org: 'Viện Sử Học Quốc Gia' };
+      const defaultUserAcc = { name: 'Độc Giả Nghiên Cứu', email: 'docgia@suvietky.vn', role: 'user', locked: false, org: 'Hội Sử Học Việt Nam' };
+      
+      let remoteUsers = [];
+      try {
+        if (window.suvietSupabase) {
+          const { data, error } = await window.suvietSupabase.from('profiles').select('*');
+          if (data && data.length > 0) {
+            remoteUsers = data.map((p) => ({
+              name: p.full_name || p.email,
+              email: p.email,
+              role: p.role || 'user',
+              org: p.org || 'Tài khoản Supabase',
+              locked: p.email === 'admin@suvietky.vn'
+            }));
+          }
+        }
+      } catch (err) {
+        console.warn('Cannot load Supabase profiles:', err);
+      }
+
+      const localUsers = JSON.parse(localStorage.getItem('users') || '[]');
+      
+      // Gộp các nguồn tài khoản và loại trừ trùng lặp theo email
+      const userMap = new Map();
+      [adminAcc, defaultUserAcc, ...remoteUsers, ...localUsers].forEach((u) => {
+        if (u.email && !userMap.has(u.email.toLowerCase())) {
+          userMap.set(u.email.toLowerCase(), u);
+        }
+      });
+      
+      let allUsers = Array.from(userMap.values()).filter((user) => {
         if (!query) return true;
         return [user.name, user.email, user.role, user.org].some((val) => String(val || '').toLowerCase().includes(query));
       });
@@ -307,7 +336,7 @@
               </div>
               <div>
                 <div class="font-label-lg font-bold text-on-surface">${adminEscape(user.name || user.email)}</div>
-                <div class="text-xs text-on-surface-variant">${user.locked ? 'Tài khoản Quản trị Tối cao' : 'Thành viên đóng góp'}</div>
+                <div class="text-xs text-on-surface-variant">${user.locked ? 'Tài khoản Quản trị Tối cao (Supabase)' : 'Thành viên hệ thống Supabase'}</div>
               </div>
             </div>
           </td>
@@ -345,9 +374,14 @@
 
     function showUserDetails(email) {
       const users = JSON.parse(localStorage.getItem('users') || '[]');
-      const user = email === 'admin@123' 
-        ? { name: 'Ban Biên Tập Quốc Sử', email, role: 'admin', loginAt: JSON.parse(localStorage.getItem('currentUser') || '{}').loginAt } 
-        : users.find((item) => item.email === email);
+      let user = users.find((item) => item.email === email);
+      if (!user) {
+        if (email === 'admin@suvietky.vn' || email === 'admin@123') {
+          user = { name: 'Ban Biên Tập Quốc Sử', email: 'admin@suvietky.vn', role: 'admin', loginAt: Date.now() };
+        } else if (email === 'docgia@suvietky.vn') {
+          user = { name: 'Độc Giả Nghiên Cứu', email: 'docgia@suvietky.vn', role: 'user', loginAt: Date.now() };
+        }
+      }
       if (!user) return;
       let card = document.getElementById('userDetailsCard');
       if (!card) {
@@ -368,6 +402,7 @@
         </div>
         <div class="space-y-3 text-sm">
           <p><strong>Tên đăng nhập / Email:</strong> ${adminEscape(email)}</p>
+          <p><strong>Phương thức xác thực:</strong> <span class="text-primary font-semibold">Supabase Auth</span></p>
           <p><strong>Ngày đăng nhập gần nhất:</strong> ${user.loginAt ? new Date(user.loginAt).toLocaleString('vi-VN') : 'Đang trực tuyến'}</p>
           <p><strong>Số lượng sự kiện tra cứu:</strong> ${events.length || 18}</p>
           <p><strong>Sách đang theo dõi:</strong> ${followed.length || 5}</p>
@@ -376,19 +411,36 @@
       `;
     }
 
-    function updateUserRole(email, role) {
+    async function updateUserRole(email, role) {
+      if (window.suvietSupabase) {
+        try {
+          await window.suvietSupabase.from('profiles').update({ role }).eq('email', email);
+        } catch (e) {
+          console.warn('Update supabase profile error:', e);
+        }
+      }
       const users = JSON.parse(localStorage.getItem('users') || '[]');
       const user = users.find((item) => item.email === email);
       if (user) {
         user.role = role;
         localStorage.setItem('users', JSON.stringify(users));
-        addAdminNotification(`Đã phân quyền ${email} thành ${role === 'admin' ? 'Admin' : 'User'}.`);
-        renderAdminUsers();
+      } else {
+        users.push({ email, role });
+        localStorage.setItem('users', JSON.stringify(users));
       }
+      addAdminNotification(`Đã phân quyền ${email} thành ${role === 'admin' ? 'Admin' : 'User'}.`);
+      renderAdminUsers();
     }
 
-    function confirmDeleteUser(email) {
+    async function confirmDeleteUser(email) {
       if (!confirm(`Bạn có chắc muốn xóa tài khoản "${email}" khỏi hệ thống?`)) return;
+      if (window.suvietSupabase) {
+        try {
+          await window.suvietSupabase.from('profiles').delete().eq('email', email);
+        } catch (e) {
+          console.warn('Delete supabase profile error:', e);
+        }
+      }
       const users = JSON.parse(localStorage.getItem('users') || '[]').filter((u) => u.email !== email);
       localStorage.setItem('users', JSON.stringify(users));
       addAdminNotification(`Đã xóa tài khoản ${email}.`);
