@@ -246,6 +246,7 @@ function hydrateSupabaseSession() {
     }));
 
     checkAuthState();
+    window.identifyChatbaseUser?.();
   };
 
   // Kiểm tra phiên đăng nhập hiện tại trên Supabase

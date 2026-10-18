@@ -1,10 +1,11 @@
 (function () {
   const style = document.createElement('style');
   style.textContent = `
-    @keyframes app-page-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes app-page-enter { from { opacity: 0; } to { opacity: 1; } }
     @keyframes app-reveal { from { opacity: 0; transform: translate3d(0,18px,0) scale(.99); } to { opacity: 1; transform: translate3d(0,0,0) scale(1); } }
     @keyframes app-toast-enter { from { opacity: 0; transform: translate3d(12px,-6px,0); } to { opacity: 1; transform: translate3d(0,0,0); } }
-    body.app-effects-ready { animation: app-page-enter .48s cubic-bezier(.22,1,.36,1) both; }
+    body.app-effects-ready { animation: app-page-enter .32s ease-out; }
+    html, body { transform: none !important; perspective: none !important; }
     body.app-effects-ready button, body.app-effects-ready a[href] { transition: transform .22s cubic-bezier(.22,1,.36,1), box-shadow .22s ease, background-color .22s ease, border-color .22s ease, color .22s ease; }
     body.app-effects-ready button:not(:disabled):hover { transform: translateY(-2px); }
     body.app-effects-ready button:active, body.app-effects-ready a[href]:active { transform: scale(.98); }
