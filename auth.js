@@ -180,15 +180,21 @@ async function loginUser(emailInput, password) {
 // 3. Đăng nhập qua Google (OAuth trên Supabase)
 function getAuthRedirectUrl() {
   if (window.location.protocol === 'file:') {
-    return 'http://localhost:3000/index.html';
+    return 'http://localhost:5500/index.html';
   }
-  if (window.location.origin && window.location.origin !== 'null') {
+  try {
+    const url = new URL(window.location.href);
+    url.search = '';
+    url.hash = '';
+    if (url.pathname.endsWith('login.html') || url.pathname.endsWith('re.html')) {
+      url.pathname = url.pathname.replace(/(login|re)\.html$/, 'index.html');
+    } else if (!url.pathname.endsWith('index.html')) {
+      url.pathname = url.pathname.replace(/\/[^\/]*$/, '/index.html');
+    }
+    return url.toString();
+  } catch (e) {
     return `${window.location.origin}/index.html`;
   }
-  const currentHref = window.location.href || '';
-  return currentHref.includes('index.html')
-    ? currentHref
-    : currentHref.replace(/(login|re)\.html.*$/, 'index.html');
 }
 
 async function loginWithGoogle() {
