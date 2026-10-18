@@ -107,7 +107,24 @@
 </header>
 <!-- ==================== MAIN CONTENT: 2-COLUMN BALANCED COMPACT VIEW ==================== -->
 <main class="flex-1 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+<aside aria-label="Điều hướng chính" class="max-w-md xl:max-w-none xl:col-span-3 flex flex-col gap-3 xl:sticky xl:top-24">
+<nav class="bg-white border border-border-parchment p-3 rounded-2xl shadow-sm flex flex-col gap-2">
+<a class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#f8fafc] text-on-surface-variant text-sm font-medium transition-all" href="index.html">
+<span class="material-symbols-outlined text-[22px] text-outline">search</span><span>Tra cứu / Tìm kiếm</span>
+</a>
+<a class="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-[#f8fafc] text-on-surface-variant text-sm font-medium transition-all" href="book.html">
+<span class="material-symbols-outlined text-[22px] text-outline">menu_book</span><span>Sách lịch sử Việt Nam</span>
+</a>
+<a aria-current="page" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-[#2563eb] text-white text-sm font-semibold shadow-md transition-all" href="post.html">
+<span class="material-symbols-outlined text-[22px]">edit_note</span><span>Đăng bài</span>
+</a>
+</nav>
+<a class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white border border-border-parchment text-primary text-sm font-semibold shadow-sm hover:bg-[#F6ECE7] transition-all" href="index.html" aria-label="Quay về trang chủ">
+<span class="material-symbols-outlined text-[20px]">home</span><span>Về trang chủ</span>
+</a>
+</aside>
+<div class="xl:col-span-9 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 <!-- CỘT TRÁI: KHU VỰC POST BÀI LỊCH SỬ (~ 48% / 5.5 cols on desktop) -->
 <div class="lg:col-span-6 xl:col-span-5 flex flex-col">
 <div class="bg-surface-card rounded-2xl border border-border-parchment shadow-sm overflow-hidden relative">
@@ -409,6 +426,7 @@
 </div>
 </div>
 </article>
+</div>
 </div>
 </div>
 </div>

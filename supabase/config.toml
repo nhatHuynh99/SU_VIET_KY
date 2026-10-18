@@ -1,0 +1,2 @@
+[functions.historical-year-search]
+verify_jwt = false

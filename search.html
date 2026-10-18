@@ -402,7 +402,7 @@
 </script></main><footer class="w-full bg-white border-t border-[#f1f5f9] mt-space-4xl shadow-sm"><div class="max-w-7xl mx-auto px-space-md lg:px-margin-desktop pt-space-3xl pb-space-2xl"><div class="bg-[#faf9f6] border border-[#f1f5f9] rounded-2xl p-space-lg md:p-space-xl mb-space-3xl text-center shadow-sm"><span class="material-symbols-outlined text-secondary text-3xl mb-space-xs block mx-auto">auto_stories</span><blockquote class="font-headline-md text-headline-md text-primary italic max-w-2xl mx-auto mb-space-xs">“Dân ta phải biết sử ta, Cho tường gốc tích nước nhà Việt Nam”</blockquote><cite class="font-caption-era text-caption-era text-on-surface-variant tracking-wider uppercase not-italic">— Hồ Chí Minh (Lịch sử nước ta, 1942)</cite></div><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-xl mb-space-3xl"><div class="space-y-space-sm"><div class="flex items-center gap-space-xs"><div class="w-2.5 h-2.5 rounded-full bg-primary"></div><span class="font-headline-sm text-headline-sm text-primary">Sử Việt Ký</span></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">Dự án số hóa và trực quan hóa dòng chảy lịch sử Việt Nam thông qua không gian biên niên sử đa phương tiện, bản đồ cổ và dữ liệu bảo tồn di sản.</p><div class="flex items-center gap-space-sm pt-space-xs"><a class="w-8 h-8 rounded-full bg-[#f8fafc] border border-[#e2e8f0] flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors duration-200" href="#"><span class="material-symbols-outlined text-[18px]">public</span></a><a class="w-8 h-8 rounded-full bg-[#f8fafc] border border-[#e2e8f0] flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors duration-200" href="#"><span class="material-symbols-outlined text-[18px]">share</span></a><a class="w-8 h-8 rounded-full bg-[#f8fafc] border border-[#e2e8f0] flex items-center justify-center text-primary hover:bg-primary hover:text-on-primary transition-colors duration-200" href="#"><span class="material-symbols-outlined text-[18px]">mail</span></a></div></div><div class="space-y-space-sm"><h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Thời Kỳ Lịch Sử</h4><ul class="space-y-space-xs font-body-sm text-body-sm text-on-surface-variant"><li class=""><a class="hover:text-primary transition-colors duration-150" href="#">Thời Tiền Sử &amp; Hồng Bàng</a></li><li class=""><a class="hover:text-primary transition-colors duration-150" href="#">Thời Kỳ Bắc Thuộc</a></li><li class=""><a class="hover:text-primary transition-colors duration-150" href="#">Kỷ Nguyên Quân Chủ Độc Lập</a></li><li class=""><a class="hover:text-primary transition-colors duration-150" href="#">Cận Đại &amp; Kháng Chiến</a></li><li class=""><a class="hover:text-primary transition-colors duration-150" href="#">Hiện Đại &amp; Đổi Mới Toàn Diện</a></li></ul></div><div class="space-y-space-sm"><h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Nguồn Dữ Liệu Lưu Trữ</h4><ul class="space-y-space-xs font-body-sm text-body-sm text-on-surface-variant"><li class=""><span class="hover:text-on-surface">Viện Sử học Việt Nam</span></li><li class=""><span class="hover:text-on-surface">Bảo tàng Lịch sử Quốc gia</span></li><li class=""><span class="hover:text-on-surface">Trung tâm Lưu trữ Quốc gia I &amp; III</span></li><li class=""><span class="hover:text-on-surface">Đại Việt Sử Ký Toàn Thư</span></li><li class=""><span class="hover:text-on-surface">Khâm Định Việt Sử Thông Giám Cương Mục</span></li></ul></div><div class="space-y-space-sm"><h4 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Đóng Góp &amp; Di Sản</h4><ul class="space-y-space-xs font-body-sm text-body-sm text-on-surface-variant"><li class=""><a class="hover:text-primary transition-colors duration-150" href="#">Đóng Góp Tư Liệu &amp; Hiện Vật</a></li><li class=""><a class="hover:text-primary transition-colors duration-150" href="#">Quy Chuẩn Thẩm Định Lịch Sử</a></li><li class=""><a class="hover:text-primary transition-colors duration-150" href="#">Bản Quyền &amp; Giấy Phép Mở</a></li><li class=""><a class="hover:text-primary transition-colors duration-150" href="#">Liên Hệ Ban Biên Tập</a></li></ul></div></div><div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-sm font-label-md text-label-md text-outline"><p class="">© 2025 SỬ VIỆT KÝ. Bảo lưu mọi quyền theo giấy phép số hóa Di sản Văn hóa phi vật thể và Lịch sử Quốc gia.</p><div class="flex items-center gap-space-md"><a class="hover:text-on-surface transition-colors duration-150" href="#">Điều Khoản Sử Dụng</a><a class="hover:text-on-surface transition-colors duration-150" href="#">Chính Sách Bảo Mật</a><a class="hover:text-on-surface transition-colors duration-150" href="#">Góp Ý Biên Soạn</a></div></div></div></footer>
 
 <script>
-  const historicalEvents = {
+  window.historicalEvents = {
     1010: [
       {
         date: "Tháng 07/1010",
@@ -529,58 +529,10 @@
     ]
   };
 
-  const defaultEvent = (year) => [{
-    date: `Năm ${year}`,
-    category: "Đang cập nhật khảo cứu",
-    title: `Các dấu mốc lịch sử Việt Nam trong năm ${year}`,
-    summary: "Chưa có bộ dữ liệu biên soạn cho năm này. Bạn có thể thử các mốc 1010, 1288, 1945, 1954, 1975 hoặc 1986.",
-    detail: "Kho dữ liệu đang được bổ sung và đối soát theo các bộ sử, văn kiện và tài liệu lưu trữ chính thống. Hãy chọn một năm gợi ý để xem nội dung đầy đủ.",
-    image: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1400&q=80",
-    video: "https://www.youtube.com/results?search_query=l%E1%BB%8Bch+s%E1%BB%AD+Vi%E1%BB%87t+Nam",
-    source: "https://baotanglichsu.vn/"
-  }];
-
-  const year = Number(new URLSearchParams(window.location.search).get("year")) || 1945;
-  const events = historicalEvents[year] || defaultEvent(year);
-  const main = document.querySelector("main");
-  const safe = (value) => String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
-
-  function renderEvent(index) {
-    const event = events[index];
-    document.querySelectorAll("[data-event-tab]").forEach((tab, tabIndex) => {
-      tab.classList.toggle("bg-primary", tabIndex === index);
-      tab.classList.toggle("text-on-primary", tabIndex === index);
-      tab.classList.toggle("bg-surface-container-low", tabIndex !== index);
-      tab.classList.toggle("text-on-surface", tabIndex !== index);
-    });
-    document.getElementById("event-detail").innerHTML = `
-      <img class="w-full h-64 md:h-80 object-cover" src="${event.image}" alt="${safe(event.title)}" onerror="this.src='https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1400&q=80'">
-      <div class="p-6 md:p-8 space-y-5">
-        <div class="flex flex-wrap items-center gap-2"><span class="px-3 py-1 rounded bg-secondary-container text-on-secondary-container font-label-sm font-bold">${safe(event.category)}</span><span class="font-label-sm text-on-surface-variant">${safe(event.date)}</span></div>
-        <h2 class="font-headline-lg text-[28px] leading-tight text-primary font-bold">${safe(event.title)}</h2>
-        <p class="font-body-lg text-on-surface-variant leading-relaxed">${safe(event.summary)}</p>
-        <div class="border-l-4 border-secondary bg-surface-container-low p-4"><h3 class="font-headline-sm text-primary font-bold mb-1">Thông tin sự kiện</h3><p class="font-body-md leading-relaxed">${safe(event.detail)}</p></div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3"><a class="flex items-center justify-center gap-2 rounded-lg bg-primary text-on-primary px-4 py-3 font-label-md font-bold hover:bg-primary-container transition-colors" href="${event.video}" target="_blank" rel="noopener"><span class="material-symbols-outlined">play_circle</span>Xem video minh họa</a><a class="flex items-center justify-center gap-2 rounded-lg bg-surface-container text-primary px-4 py-3 font-label-md font-bold hover:bg-surface-container-high transition-colors" href="${event.source}" target="_blank" rel="noopener"><span class="material-symbols-outlined">verified</span>Mở nguồn tài liệu</a></div>
-      </div>`;
-  }
-
-  main.innerHTML = `<div class="w-full max-w-7xl mx-auto px-4 lg:px-12 py-8 md:py-10"><div class="mb-8"><span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm font-bold uppercase tracking-wider"><span class="material-symbols-outlined text-[16px]">manage_search</span>Niên biểu lịch sử Việt Nam</span><h1 class="font-headline-lg text-[30px] md:text-[40px] text-primary font-bold mt-3">Kết quả tra cứu năm <span class="text-secondary">${year}</span></h1><p class="font-body-md text-on-surface-variant mt-2">Tìm thấy ${events.length} sự kiện nổi bật. Chọn từng tab để xem thông tin, hình ảnh, video và nguồn tài liệu.</p></div><div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start"><aside class="lg:col-span-4 bg-surface-container-lowest rounded-xl p-4 shadow-sm"><div class="flex items-center justify-between border-b border-surface-container pb-3 mb-4"><span class="font-headline-sm text-primary font-bold">Sự kiện trong năm</span><span class="font-label-sm text-secondary font-bold">${events.length} mốc</span></div><div class="space-y-2">${events.map((event, index) => `<button data-event-tab onclick="renderEvent(${index})" class="w-full text-left rounded-lg p-4 transition-all ${index === 0 ? "bg-primary text-on-primary" : "bg-surface-container-low text-on-surface"}"><span class="font-label-sm font-bold block opacity-80">${safe(event.date)}</span><span class="font-headline-sm text-[16px] font-bold block mt-1">${safe(event.title)}</span><span class="font-label-sm block mt-2 opacity-80">${safe(event.category)}</span></button>`).join("")}</div><a href="index.html" class="mt-5 flex items-center justify-center gap-2 text-primary font-label-md font-bold hover:underline"><span class="material-symbols-outlined text-[18px]">arrow_back</span>Tra cứu năm khác</a></aside><section id="event-detail" class="lg:col-span-8 bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm"></section></div></div>`;
-  renderEvent(0);
-
-  const searchInput = document.querySelector("header input");
-  if (searchInput) {
-    searchInput.value = year;
-    searchInput.addEventListener("keydown", (event) => {
-      if (event.key !== "Enter" || !searchInput.value.trim()) return;
-      const value = searchInput.value.trim();
-      window.location.href = /^\d{4}$/.test(value)
-        ? `search.html?year=${encodeURIComponent(value)}`
-        : `book.html?q=${encodeURIComponent(value)}`;
-    });
-  }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-client.js"></script>
+<script src="search-year-ai.js"></script>
 <script src="auth.js"></script>
 <script src="guide-center.js"></script>
 <script src="app-effects.js"></script>

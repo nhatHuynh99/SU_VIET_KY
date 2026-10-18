@@ -138,7 +138,7 @@
 <div class="w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-tablet lg:px-margin-desktop py-space-xl">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
 <!-- Left Column / Filter & Utility Rail -->
-<aside class="lg:col-span-3 flex flex-col gap-space-lg w-full"><div class="flex flex-col gap-2 w-full"><a href="#" id="btn-search-mode" class="w-full bg-surface-container-lowest hover:bg-surface-container-low border border-outline-variant/30 text-on-surface-variant font-label-lg text-label-lg py-3 px-4 rounded-xl flex items-center gap-3 transition-colors shadow-sm cursor-pointer"><span class="material-symbols-outlined text-[20px] text-outline">search</span><span class="font-medium">Tra cứu / Tìm kiếm</span></a><a href="#" id="btn-library-mode" class="w-full bg-primary text-on-primary font-label-lg text-label-lg py-3 px-4 rounded-xl flex items-center gap-3 transition-all shadow-md"><span class="material-symbols-outlined text-[20px] text-on-primary">menu_book</span><span class="font-semibold">Sách Lịch Sử Việt Nam</span></a></div>
+<aside class="lg:col-span-3 flex flex-col gap-space-md w-full"><div class="bg-white border border-outline-variant/20 p-3 rounded-2xl shadow-sm flex flex-col gap-2"><a href="index.html" id="btn-search-mode" class="w-full bg-surface-container-lowest hover:bg-surface-container-low border border-outline-variant/30 text-on-surface-variant font-label-lg text-label-lg py-3 px-4 rounded-xl flex items-center gap-3 transition-colors shadow-sm"><span class="material-symbols-outlined text-[20px] text-outline">search</span><span class="font-medium">Tra cứu / Tìm kiếm</span></a><a href="book.html" id="btn-library-mode" aria-current="page" class="w-full bg-[#2563eb] text-white font-label-lg text-label-lg py-3 px-4 rounded-xl flex items-center gap-3 transition-all shadow-md"><span class="material-symbols-outlined text-[20px] text-white">menu_book</span><span class="font-semibold">Sách lịch sử Việt Nam</span></a><a href="post.html" class="w-full hover:bg-[#f8fafc] text-on-surface-variant font-label-lg text-label-lg py-3 px-4 rounded-xl flex items-center gap-3 transition-all"><span class="material-symbols-outlined text-[20px] text-primary">edit_note</span><span class="font-medium">Đăng bài</span></a></div><a href="index.html" class="w-full bg-white border border-outline-variant/20 hover:bg-surface-container-low text-primary font-label-lg text-label-lg py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm" aria-label="Quay về trang chủ"><span class="material-symbols-outlined text-[20px]">home</span><span>Về trang chủ</span></a>
 <!-- Search & Filter Card -->
 <div class="bg-surface-container-low rounded-lg p-space-md shadow-sm flex flex-col gap-space-md">
 <div class="flex items-center justify-between">
@@ -839,6 +839,15 @@
     window.showAppToast?.('Đang đọc nội dung thành tiếng.', 'info');
   }
 
+  function renderPrimaryNavigation(active) {
+    const item = (key, href, icon, label) => {
+      const current = active === key;
+      return `<a ${current ? 'aria-current="page"' : ''} href="${href}" class="w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${current ? 'bg-[#2563eb] text-white font-semibold shadow-md' : 'hover:bg-[#f8fafc] text-on-surface-variant font-medium'}"><span class="material-symbols-outlined text-[22px] ${current ? '' : 'text-outline'}">${icon}</span><span class="text-[15px]">${label}</span></a>`;
+    };
+
+    return `<nav aria-label="Điều hướng chính" class="bg-white border border-outline-variant/20 p-3 rounded-2xl shadow-sm flex flex-col gap-2">${item('search', 'index.html', 'search', 'Tra cứu / Tìm kiếm')}${item('books', 'book.html', 'menu_book', 'Sách lịch sử Việt Nam')}${item('post', 'post.html', 'edit_note', 'Đăng bài')}</nav><a href="index.html" aria-label="Quay về trang chủ" class="w-full bg-white border border-outline-variant/20 hover:bg-surface-container-low text-primary font-label-lg text-label-lg py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm"><span class="material-symbols-outlined text-[20px]">home</span><span>Về trang chủ</span></a>`;
+  }
+
   function renderBookList() {
     const main = document.querySelector("main");
     const query = (new URLSearchParams(window.location.search).get("q") || "").trim().toLowerCase();
@@ -904,10 +913,6 @@
               <h1 class="font-headline-lg text-[30px] md:text-[42px] text-primary font-bold mt-3 leading-tight">Các tác phẩm và tuyên ngôn bất hủ</h1>
               <p class="font-body-sm text-on-surface-variant mt-2">${query ? `Kết quả cho “${escapeHtml(query)}”` : "Tư liệu lịch sử được tuyển chọn và số hóa"} · ${filteredBooks.length} tác phẩm</p>
             </div>
-            <a href="index.html" class="inline-flex items-center gap-2 text-primary font-label-md font-bold hover:underline">
-              <span class="material-symbols-outlined text-[18px]">home</span>
-              Về trang chủ
-            </a>
           </div>
           <style>
             @keyframes libraryReveal { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
@@ -915,7 +920,8 @@
             @media (prefers-reduced-motion: reduce) { .library-reveal { animation: none; } }
           </style>
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
-            <aside class="lg:col-span-3 flex flex-col gap-space-lg">
+            <aside class="lg:col-span-3 flex flex-col gap-space-md">
+              ${renderPrimaryNavigation('books')}
               <div class="bg-surface-container-low rounded-lg p-space-md shadow-sm">
                 <label for="book-filter" class="font-headline-sm text-headline-sm text-primary font-bold flex items-center gap-2">
                   <span class="material-symbols-outlined text-[20px]">search</span> Lọc trong tủ sách
@@ -966,15 +972,12 @@
     main.innerHTML = `
       <section class="w-full bg-[#fbf9f5] py-8 md:py-12">
         <div class="max-w-6xl mx-auto px-4 md:px-8 lg:px-12">
+          <div class="mb-6">${renderPrimaryNavigation('books')}</div>
           <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
             <button type="button" onclick="window.location.href='book.html'" class="inline-flex items-center gap-2 text-primary font-label-md font-bold hover:underline">
               <span class="material-symbols-outlined text-[18px]">arrow_back</span>
               Quay lại thư viện
             </button>
-            <a href="index.html" class="inline-flex items-center gap-2 text-secondary font-label-md font-bold hover:underline">
-              <span class="material-symbols-outlined text-[18px]">home</span>
-              Trang chủ
-            </a>
           </div>
 
           <div class="bg-white rounded-[28px] border border-[#e2e8f0] shadow-sm overflow-hidden">

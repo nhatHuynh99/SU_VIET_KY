@@ -17,6 +17,96 @@
       main > :last-child { margin-bottom: 0 !important; }
     }
     ::-webkit-scrollbar { display: none; }
+    @keyframes settings-choice-pop {
+      0% { transform: scale(.97); }
+      65% { transform: scale(1.025); }
+      100% { transform: scale(1); }
+    }
+    @keyframes settings-dot-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, .32); }
+      50% { box-shadow: 0 0 0 5px rgba(22, 163, 74, 0); }
+    }
+    @keyframes settings-bar-grow {
+      from { transform: scaleX(.2); }
+      to { transform: scaleX(1); }
+    }
+    #section-settings > div {
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    #section-settings > div:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px rgba(71, 56, 32, .1);
+    }
+    .settings-theme-choice {
+      position: relative;
+      min-height: 4.25rem;
+      text-align: left;
+      transition: transform .2s ease, border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
+    }
+    .settings-theme-choice:hover, .settings-language-choice:hover {
+      transform: translateY(-2px);
+      border-color: #8b716f;
+    }
+    .settings-theme-choice:active, .settings-language-choice:active,
+    #timeStatsFilter button:active, #section-settings button:active {
+      transform: scale(.97);
+    }
+    .settings-theme-choice[aria-pressed="true"] {
+      border: 2px solid #6b0210;
+      background: rgba(107, 2, 16, .07);
+      box-shadow: 0 5px 16px rgba(107, 2, 16, .12);
+    }
+    .settings-theme-choice .theme-selected-dot {
+      margin-left: auto;
+      width: 9px;
+      height: 9px;
+      flex: 0 0 9px;
+      border-radius: 9999px;
+      background: #16a34a;
+      opacity: 0;
+      transform: scale(.35);
+      transition: opacity .2s ease, transform .25s cubic-bezier(.2, .8, .2, 1.4);
+    }
+    .settings-theme-choice[aria-pressed="true"] .theme-selected-dot {
+      opacity: 1;
+      transform: scale(1);
+      animation: settings-dot-pulse 1.8s ease-out infinite;
+    }
+    .settings-language-choice[aria-pressed="true"] {
+      border: 2px solid #6b0210;
+      background: rgba(107, 2, 16, .06);
+      box-shadow: 0 5px 16px rgba(107, 2, 16, .1);
+    }
+    .settings-theme-choice:focus-visible, .settings-language-choice:focus-visible,
+    #timeStatsFilter button:focus-visible, #section-settings button:focus-visible {
+      outline: 3px solid rgba(22, 163, 74, .55);
+      outline-offset: 3px;
+    }
+    .settings-choice-just-selected { animation: settings-choice-pop .38s ease-out; }
+    #timeStatsFilter button[aria-pressed="true"] {
+      background: #fff;
+      color: #6b0210;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(71, 56, 32, .12);
+    }
+    #section-settings .settings-chart-bar {
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: settings-bar-grow .9s cubic-bezier(.2, .8, .2, 1) forwards;
+    }
+    #section-settings .space-y-3 > div:nth-child(4) .settings-chart-bar { animation-delay: .12s; }
+    #section-settings .space-y-3 > div:nth-child(6) .settings-chart-bar { animation-delay: .24s; }
+    body.settings-theme-transition, body.settings-theme-transition * {
+      transition: background-color .35s ease, color .25s ease, border-color .25s ease !important;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #section-settings > div, .settings-theme-choice, .settings-language-choice,
+      .settings-theme-choice .theme-selected-dot { transition: none; }
+      #section-settings > div:hover { transform: none; }
+      .settings-choice-just-selected, .settings-theme-choice[aria-pressed="true"] .theme-selected-dot,
+      #section-settings .settings-chart-bar { animation: none; }
+      body.settings-theme-transition, body.settings-theme-transition * { transition: none !important; }
+    }
   </style>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script id="tailwind-config">
@@ -189,8 +279,8 @@
         </a>
         <!-- Bộ chọn ngôn ngữ -->
         <div class="flex items-center bg-surface-container-low rounded p-1 border border-outline-variant/30" id="langSwitcher">
-          <button class="px-space-xs py-1 rounded bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold shadow-sm" type="button" onclick="setLang('vi')">VI</button>
-          <button class="px-space-xs py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium transition-colors" type="button" onclick="setLang('en')">EN</button>
+          <button class="px-space-xs py-1 rounded bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold shadow-sm transition-all" id="topLangVI" type="button" aria-pressed="true" onclick="setLang('vi')">VI</button>
+          <button class="px-space-xs py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium transition-all" id="topLangEN" type="button" aria-pressed="false" onclick="setLang('en')">EN</button>
         </div>
         <!-- Thông báo -->
         <button class="relative p-space-xs text-on-surface-variant hover:text-on-surface rounded hover:bg-surface-container transition-colors cursor-pointer" id="notificationButton" type="button" onclick="showNotifications()">
@@ -244,14 +334,14 @@
                   </label>
                   <p class="font-body-sm text-body-sm text-on-surface-variant">Chọn ngôn ngữ làm việc mặc định cho toàn bộ bảng điều khiển quản trị.</p>
                   <div class="grid grid-cols-2 gap-space-sm mt-1">
-                    <button class="p-space-sm rounded-lg border-2 border-primary bg-primary/5 flex items-center justify-between font-label-md text-label-md font-bold text-primary transition-all cursor-pointer" id="btnLangVI" onclick="setLang('vi')">
+                    <button class="settings-language-choice p-space-sm rounded-lg border-2 border-primary bg-primary/5 flex items-center justify-between font-label-md text-label-md font-bold text-primary transition-all cursor-pointer" id="btnLangVI" aria-pressed="true" onclick="setLang('vi')">
                       <div class="flex items-center gap-space-xs">
                         <span class="material-symbols-outlined text-[20px]">check_circle</span>
                         <span>Tiếng Việt (Mặc định)</span>
                       </div>
                       <span class="text-xs bg-primary text-on-primary px-1.5 py-0.5 rounded">VI</span>
                     </button>
-                    <button class="p-space-sm rounded-lg border border-outline-variant/30 hover:border-outline bg-surface-container-low flex items-center justify-between font-label-md text-label-md text-on-surface transition-all cursor-pointer" id="btnLangEN" onclick="setLang('en')">
+                    <button class="settings-language-choice p-space-sm rounded-lg border border-outline-variant/30 hover:border-outline bg-surface-container-low flex items-center justify-between font-label-md text-label-md text-on-surface transition-all cursor-pointer" id="btnLangEN" aria-pressed="false" onclick="setLang('en')">
                       <div class="flex items-center gap-space-xs">
                         <span class="material-symbols-outlined text-[20px] text-outline">circle</span>
                         <span>English (International)</span>
@@ -269,20 +359,22 @@
                   </label>
                   <p class="font-body-sm text-body-sm text-on-surface-variant">Giao diện giấy dó cổ truyền hoặc chế độ tối dịu mắt khi hiệu đính cổ thư.</p>
                   <div class="grid grid-cols-2 gap-space-sm mt-1">
-                    <div class="cursor-pointer p-space-sm rounded-lg border-2 border-primary bg-primary/5 flex items-center gap-space-xs" onclick="applyAdminTheme('light', true)" id="themeCardLight">
-                      <span class="material-symbols-outlined text-[20px] text-primary">light_mode</span>
+                    <button class="settings-theme-choice is-selected cursor-pointer p-space-sm rounded-lg border-2 border-primary bg-primary/5 flex items-center gap-space-xs" type="button" onclick="applyAdminTheme('light', true)" id="themeCardLight" aria-pressed="true">
+                      <span class="material-symbols-outlined text-[20px] text-primary" data-theme-icon>light_mode</span>
                       <div>
-                        <div class="font-label-md text-label-md font-bold text-primary">Chế độ Sáng</div>
+                        <div class="font-label-md text-label-md font-bold text-primary" data-theme-label>Chế độ Sáng</div>
                         <div class="text-[11px] text-on-surface-variant">Màu trang giấy dó</div>
                       </div>
-                    </div>
-                    <div class="cursor-pointer p-space-sm rounded-lg border border-outline-variant/30 hover:border-outline bg-surface-container-low flex items-center gap-space-xs" onclick="applyAdminTheme('dark', true)" id="themeCardDark">
-                      <span class="material-symbols-outlined text-[20px] text-on-surface-variant">dark_mode</span>
+                      <span class="theme-selected-dot" aria-hidden="true"></span>
+                    </button>
+                    <button class="settings-theme-choice cursor-pointer p-space-sm rounded-lg border border-outline-variant/30 hover:border-outline bg-surface-container-low flex items-center gap-space-xs" type="button" onclick="applyAdminTheme('dark', true)" id="themeCardDark" aria-pressed="false">
+                      <span class="material-symbols-outlined text-[20px] text-on-surface-variant" data-theme-icon>dark_mode</span>
                       <div>
-                        <div class="font-label-md text-label-md font-semibold text-on-surface">Chế độ Tối</div>
+                        <div class="font-label-md text-label-md font-semibold text-on-surface" data-theme-label>Chế độ Tối</div>
                         <div class="text-[11px] text-on-surface-variant">Bảo vệ mắt</div>
                       </div>
-                    </div>
+                      <span class="theme-selected-dot" aria-hidden="true"></span>
+                    </button>
                   </div>
                 </div>
 
@@ -320,9 +412,9 @@
                 </div>
                 <!-- Bộ lọc: Tuần / Tháng / Năm -->
                 <div class="flex items-center bg-surface-container-low rounded p-1 border border-outline-variant/20" id="timeStatsFilter">
-                  <button class="px-3 py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-semibold transition-all cursor-pointer" id="tabWeek" onclick="switchStats('week')">Tuần</button>
-                  <button class="px-3 py-1 rounded bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold shadow-sm transition-all cursor-pointer" id="tabMonth" onclick="switchStats('month')">Tháng</button>
-                  <button class="px-3 py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-semibold transition-all cursor-pointer" id="tabYear" onclick="switchStats('year')">Năm</button>
+                  <button class="px-3 py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-semibold transition-all cursor-pointer" id="tabWeek" aria-pressed="false" onclick="switchStats('week')">Tuần</button>
+                  <button class="px-3 py-1 rounded bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold shadow-sm transition-all cursor-pointer" id="tabMonth" aria-pressed="true" onclick="switchStats('month')">Tháng</button>
+                  <button class="px-3 py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-semibold transition-all cursor-pointer" id="tabYear" aria-pressed="false" onclick="switchStats('year')">Năm</button>
                 </div>
               </div>
 
@@ -348,7 +440,7 @@
                     <span class="text-primary font-bold">68.5%</span>
                   </div>
                   <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-                    <div class="bg-primary h-full w-[68.5%] rounded-full"></div>
+                    <div class="settings-chart-bar bg-primary h-full w-[68.5%] rounded-full"></div>
                   </div>
 
                   <div class="flex justify-between text-xs font-semibold">
@@ -356,7 +448,7 @@
                     <span class="text-secondary font-bold">21.2%</span>
                   </div>
                   <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-                    <div class="bg-secondary h-full w-[21.2%] rounded-full"></div>
+                    <div class="settings-chart-bar bg-secondary h-full w-[21.2%] rounded-full"></div>
                   </div>
 
                   <div class="flex justify-between text-xs font-semibold">
@@ -364,7 +456,7 @@
                     <span class="text-tertiary font-bold">10.3%</span>
                   </div>
                   <div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
-                    <div class="bg-tertiary h-full w-[10.3%] rounded-full"></div>
+                    <div class="settings-chart-bar bg-tertiary h-full w-[10.3%] rounded-full"></div>
                   </div>
                 </div>
               </div>
@@ -400,10 +492,19 @@
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[char]));
 
+    function animateSettingsSelection(element) {
+      if (!element || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      element.classList.remove('settings-choice-just-selected');
+      void element.offsetWidth;
+      element.classList.add('settings-choice-just-selected');
+      window.setTimeout(() => element.classList.remove('settings-choice-just-selected'), 450);
+    }
+
     function switchStats(period) {
       ['week', 'month', 'year'].forEach((item) => {
         const btn = document.getElementById(`tab${item[0].toUpperCase()}${item.slice(1)}`);
         if (btn) {
+          btn.setAttribute('aria-pressed', String(item === period));
           btn.classList.remove('bg-surface-container-lowest', 'text-primary', 'font-bold', 'shadow-sm');
           btn.classList.add('text-on-surface-variant');
         }
@@ -412,6 +513,7 @@
       if (activeBtn) {
         activeBtn.classList.add('bg-surface-container-lowest', 'text-primary', 'font-bold', 'shadow-sm');
         activeBtn.classList.remove('text-on-surface-variant');
+        animateSettingsSelection(activeBtn);
       }
 
       const labels = { week: 'Lượt truy cập 7 ngày qua', month: 'Lượt truy cập 30 ngày qua', year: 'Lượt truy cập 365 ngày qua' };
@@ -475,18 +577,37 @@
     }
 
     function setLang(lang, notify = true) {
+      if (lang !== 'en') lang = 'vi';
       localStorage.setItem('adminLanguage', lang);
       document.documentElement.lang = lang === 'en' ? 'en' : 'vi';
       const btnVI = document.getElementById('btnLangVI');
       const btnEN = document.getElementById('btnLangEN');
+      const topBtnVI = document.getElementById('topLangVI');
+      const topBtnEN = document.getElementById('topLangEN');
       if (btnVI && btnEN) {
-        btnVI.className = lang === 'vi' 
-          ? 'p-space-sm rounded-lg border-2 border-primary bg-primary/5 flex items-center justify-between font-label-md text-label-md font-bold text-primary transition-all cursor-pointer'
-          : 'p-space-sm rounded-lg border border-outline-variant/30 hover:border-outline bg-surface-container-low flex items-center justify-between font-label-md text-label-md text-on-surface transition-all cursor-pointer';
-        btnEN.className = lang === 'en'
-          ? 'p-space-sm rounded-lg border-2 border-primary bg-primary/5 flex items-center justify-between font-label-md text-label-md font-bold text-primary transition-all cursor-pointer'
-          : 'p-space-sm rounded-lg border border-outline-variant/30 hover:border-outline bg-surface-container-low flex items-center justify-between font-label-md text-label-md text-on-surface transition-all cursor-pointer';
+        [[btnVI, lang === 'vi'], [btnEN, lang === 'en']].forEach(([button, selected]) => {
+          button.setAttribute('aria-pressed', String(selected));
+          button.className = `settings-language-choice p-space-sm rounded-lg border${selected ? '-2 border-primary bg-primary/5 font-bold text-primary' : ' border-outline-variant/30 hover:border-outline bg-surface-container-low text-on-surface'} flex items-center justify-between font-label-md text-label-md transition-all cursor-pointer`;
+          const icon = button.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.textContent = selected ? 'check_circle' : 'circle';
+            icon.classList.toggle('text-primary', selected);
+            icon.classList.toggle('text-outline', !selected);
+          }
+          if (notify && selected) animateSettingsSelection(button);
+        });
       }
+      [[topBtnVI, lang === 'vi'], [topBtnEN, lang === 'en']].forEach(([button, selected]) => {
+        if (!button) return;
+        button.setAttribute('aria-pressed', String(selected));
+        button.classList.toggle('bg-surface-container-lowest', selected);
+        button.classList.toggle('text-primary', selected);
+        button.classList.toggle('font-bold', selected);
+        button.classList.toggle('shadow-sm', selected);
+        button.classList.toggle('text-on-surface-variant', !selected);
+        button.classList.toggle('hover:text-on-surface', !selected);
+        button.classList.toggle('font-medium', !selected);
+      });
       const labels = lang === 'en'
         ? { overview: 'Overview', books: 'Book management', posts: 'Posts', guides: 'Help guides', members: 'Member management', settings: 'Settings' }
         : { overview: 'Tổng quan', books: 'Quản lý sách', posts: 'Bài viết', guides: 'Sách hướng dẫn', members: 'Quản lý thành viên', settings: 'Cài đặt' };
@@ -498,21 +619,36 @@
     }
 
     function applyAdminTheme(theme, notify = false) {
+      if (theme !== 'dark') theme = 'light';
+      const currentTheme = localStorage.getItem('adminTheme') || 'light';
+      if (notify && currentTheme !== theme) document.body.classList.add('settings-theme-transition');
       localStorage.setItem('adminTheme', theme);
       let style = document.getElementById('adminThemeStyle');
       if (!style) { style = document.createElement('style'); style.id = 'adminThemeStyle'; document.head.appendChild(style); }
       style.textContent = theme === 'dark' ? `body { background:#171412 !important; color:#f5f3ef !important; } body > div, main, header, footer, section, table, td, th, .bg-surface-container-lowest { background-color:#241f1c !important; color:#f5f3ef !important; } .bg-surface-container-low, .bg-surface-container { background-color:#302925 !important; color:#f5f3ef !important; } input, select, textarea { background-color:#302925 !important; color:#f5f3ef !important; }` : '';
-      
       const cardL = document.getElementById('themeCardLight');
       const cardD = document.getElementById('themeCardDark');
       if (cardL && cardD) {
-        if (theme === 'dark') {
-          cardD.className = 'cursor-pointer p-space-sm rounded-lg border-2 border-primary bg-primary/10 flex items-center gap-space-xs';
-          cardL.className = 'cursor-pointer p-space-sm rounded-lg border border-outline-variant/30 hover:border-outline bg-surface-container-low flex items-center gap-space-xs';
-        } else {
-          cardL.className = 'cursor-pointer p-space-sm rounded-lg border-2 border-primary bg-primary/5 flex items-center gap-space-xs';
-          cardD.className = 'cursor-pointer p-space-sm rounded-lg border border-outline-variant/30 hover:border-outline bg-surface-container-low flex items-center gap-space-xs';
-        }
+        [[cardL, theme === 'light'], [cardD, theme === 'dark']].forEach(([card, selected]) => {
+          card.setAttribute('aria-pressed', String(selected));
+          card.classList.toggle('is-selected', selected);
+          const icon = card.querySelector('[data-theme-icon]');
+          const label = card.querySelector('[data-theme-label]');
+          if (icon) {
+            icon.classList.toggle('text-primary', selected);
+            icon.classList.toggle('text-on-surface-variant', !selected);
+          }
+          if (label) {
+            label.classList.toggle('font-bold', selected);
+            label.classList.toggle('font-semibold', !selected);
+            label.classList.toggle('text-primary', selected);
+            label.classList.toggle('text-on-surface', !selected);
+          }
+          if (notify && selected) animateSettingsSelection(card);
+        });
+      }
+      if (notify && currentTheme !== theme) {
+        window.setTimeout(() => document.body.classList.remove('settings-theme-transition'), 400);
       }
       if (notify) window.showAppToast?.(theme === 'dark' ? 'Đã bật giao diện tối.' : 'Đã bật giao diện sáng.');
     }
